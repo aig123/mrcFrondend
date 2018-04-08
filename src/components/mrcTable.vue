@@ -147,6 +147,10 @@
     height: -webkit-calc(100% - 210px);
     height: -moz-calc(100% - 210px);
     height: calc(100% - 210px);
+    /*height: -webkit-calc(100% - 58px);*/
+    /*height: -moz-calc(100% - 58px);*/
+    /*height: calc(100% - 58px);*/
+    padding-bottom:108px !important;/*将分页包含到*/
   }
   .el-dialog__body{
     height: -webkit-calc(100% - 41px);
