@@ -73,4 +73,5 @@
     methods:{},
     mounted(){}
   }
+
 </script>

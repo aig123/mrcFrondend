@@ -32,12 +32,12 @@
             buttons:[{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"}],
             operate:[{name:language.delect,click:"delData",type:'danger',field:"del"},{name:language.edit,click:"editData",type:'default',field:"edit"}],
             title: [
-              {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:true},
+              {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:false},
               {name: "姓名", field: "name",width:"",show:true,fixed:false,sortable:false},
               {name: "性别", field: "sex",width:"",show:false,fixed:false,sortable:false},
-              {name: "日期", field: "date",width:"150",show:true,fixed:false,sortable:true},
+              {name: "日期", field: "date",width:"150",show:true,fixed:false,sortable:false},
               {name: "城市", field: "city",width:"",show:true,fixed:false,sortable:false},
-              {name: "备注", field: "comment",width:"",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
+              {name: "备注", field: "comment",width:"150",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
             ],
             data: []
           },

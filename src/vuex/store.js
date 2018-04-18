@@ -9,6 +9,7 @@ const state = {
   "mentState": false,
   "currRouter": {},
   "languageValue": "cn",
+  "phone": false,
 
 }
 
@@ -22,6 +23,9 @@ const mutations = {
   },
   languageValue(state, languageValue) {
     state = Object.assign(state, {"languageValue": languageValue});
+  },
+  phone(state, phone) {
+    state = Object.assign(state, {"phone": phone});
   }
 }
 

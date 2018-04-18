@@ -3,13 +3,13 @@
     <div class="sys_route">
       <div class="sys_header">
         <h4><span class="sys_logo"><img src="./assets/cap.png"></span>{{title}}<br /><span id="English">COLLABORATION APPLICATION PLATFORM</span></h4><!--修改图片src-20180326-->
-        <h5 class="sys_df" style="margin-top: 20px;">
+        <h5 class="sys_df" style="margin-top: 20px;" v-if="!$store.getters.phone">
           <el-radio-group v-model="languageValue" @change="languageChange">
             <el-radio  label="cn">中文</el-radio>
             <el-radio  label="en">英文</el-radio>
           </el-radio-group>
         </h5><!--搜索按钮图片-->
-        <div class="sys_head el-dropdown-link">
+        <div class="sys_head el-dropdown-link" v-if="!$store.getters.phone">
           <el-dropdown @command="" class="personBox" trigger="click">
             <div>
               {{user}}<i class="el-icon-arrow-down el-icon--right"></i><br />
