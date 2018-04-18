@@ -7,9 +7,6 @@
     </div>
   </div>
 </template>
-<!--页面样式-->
-<!--<style lang="scss" src="./components/scss/app-while.scss"></style>-->
-<!--<style lang="scss" src="./components/scss/app.scss"></style>-->
 <style>
   body, html {
     height: 100%;
@@ -40,6 +37,30 @@
     height: 100%;
     /*min-width: 1200px;*/
     /*overflow: scroll;*/
+  }
+
+  .show-set {
+    margin-top: 9px;
+    float: right;
+    cursor: pointer;
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+
+  .show-set span {
+    font-size: 20px;
+    display: none;
+  }
+
+  .show-set:hover span {
+    font-size: 20px;
+    display: block;
+  }
+  .el-dialog__body{
+    height: -webkit-calc(100% - 40px);
+    height: -moz-calc(100% - 40px);
+    height: calc(100% - 40px);
   }
 </style>
 

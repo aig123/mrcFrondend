@@ -77,7 +77,7 @@ export default {
   }
 };
 var tableDatas = [];
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 30; i++) {
   tableDatas.push(Mock.mock({
     "id": Mock.Random.integer(0, 1000),
     "name": Mock.Random.cname(),

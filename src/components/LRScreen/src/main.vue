@@ -8,7 +8,7 @@
           </div>
           <div class="ck">
             <el-checkbox-group v-model="thisDataSelect" @change="handleCheckedCitiesChange">
-              <el-checkbox v-for="item in thisData" :title="item[cName]" :label="item[cKey]">{{item[cName]}}</el-checkbox>
+              <el-checkbox v-for="item in thisData" :title="item[cName]" :label="item[cKey]" :key="item[cKey]">{{item[cName]}}</el-checkbox>
             </el-checkbox-group>
           </div>
         </div>
@@ -36,7 +36,7 @@
           </div>
           <div class="ck">
             <el-checkbox-group v-model="thisDataSelectRight" @change="righthandleCheckedCitiesChange">
-              <el-checkbox v-for="item in thisDataRight" :title="item[cName]" :label="item[cKey]">{{item[cName]}}</el-checkbox>
+              <el-checkbox v-for="item in thisDataRight" :title="item[cName]" :label="item[cKey]" :key="item[cKey]" >{{item[cName]}}</el-checkbox>
             </el-checkbox-group>
           </div>
         </div>

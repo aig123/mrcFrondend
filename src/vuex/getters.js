@@ -4,6 +4,6 @@ export const mentState = state => {
 export const currRouter = state => {
   return state.currRouter;
 }
-export const title = state => {
-  return state.title;
+export const languageValue = state => {
+  return state.languageValue;
 }

@@ -1,8 +1,8 @@
 <template>
   <div class="sys_home">
     <div class="sys_home_parent">
-      <hh-index-app></hh-index-app>
-      <hh-index-tab defPartUrl = "school"  @currRouterEvent = "getCurrRouterHandle" ref="mainContent"></hh-index-tab>
+      <hh-index-app :menuListData="menu"></hh-index-app>
+      <hh-index-tab  ref="mainContent"></hh-index-tab>
     </div>
   </div>
 </template>
@@ -17,20 +17,126 @@
     },
     data () {
       return {
-        currRoute: null,
-      }
-    },
-    beforeRouteEnter (to, from, next) {
-      //通过这个访问组件
-      next(vm => {
-        vm.$refs.mainContent.hashChangeFire(to, from, next);
-      })
-    },
+        menu:[
 
-    methods: {
-      getCurrRouterHandle(currRoute){
-        this.$store.commit("CURRROUTER", currRoute);
+          {
+            title: "table列表",
+            icon:"el-icon-menu",
+            path: "/home/table",
+            children:[
+              {
+                path: '/home/tableMrc',
+                title: "组件列表",
+                icon:"el-icon-edit-outline",
+              },
+              {
+                path: '/home/table',
+                title: "普通列表",
+                icon:"el-icon-edit-outline",
+              },
+            ]
+          },
+          {
+            title: "form列表",
+            icon:"el-icon-menu",
+            path: "/home/form",
+            children:[
+              {
+                path: "/home/formMrc",
+                title: "组件表单",
+                icon:"el-icon-news",
+              },
+              {
+
+                path: "/home/form",
+                title: "普通表单",
+                icon:"el-icon-message",
+              },
+            ]
+          },
+          {
+            title: "tab列表",
+            icon:"el-icon-menu",
+            path: "/home/tab",
+            children:[
+              {
+                path: "/home/tab",
+                title: "普通tab",
+                icon:"el-icon-news",
+              },
+              {
+                path: "/home/tabMrc",
+                title: "普通tabMrc",
+                icon:"el-icon-news",
+              }
+            ]
+          },
+          {
+
+            path: "/home/fullScreen",
+            title: "全屏组件",
+            icon:"el-icon-news",
+
+          },
+          {
+
+            path: "/home/editor",
+            title: "编辑器组件",
+            icon:"el-icon-news",
+
+          },
+          {
+            title: "iframe列表",
+            icon:"el-icon-menu",
+            path: "/home/iframe",
+            children:[
+              {
+                path: '/home/sogou',
+                title: "搜狗",
+                icon:"el-icon-edit-outline",
+              },
+              {
+                path: '/home/baidu',
+                title: "百度",
+                icon:"el-icon-edit-outline",
+              },
+            ]
+          },
+          {
+            path: "/home/tree",
+            title: "tree组件",
+            icon:"el-icon-news",
+          },
+          {
+            path: "/home/selectPeople",
+            title: "人员搜索组件",
+            icon:"el-icon-news",
+          },
+          {
+            path: "/home/fullCalendar",
+            title: "日历组件",
+            icon:"el-icon-news",
+          },
+          {
+            path: "/home/elSteps",
+            title: "时间轴",
+            icon:"el-icon-news",
+          },
+          {
+            path: "/home/echart",
+            title: "echart组件",
+            icon:"el-icon-news",
+          }
+          ,
+          {
+            path: "/home/drag",
+            title: "拖拽组件",
+            icon:"el-icon-news",
+          }
+        ]
       }
+    },
+    methods: {
     },
     mounted(){
     }

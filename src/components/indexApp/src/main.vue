@@ -3,41 +3,35 @@
     <div class="listP">
       <div class="menu_head">
         <menuState ref="menuState" :isOpen="isOpen" @click="menuStateHandle"></menuState>
-        <!--<a @click="menuStateHandle" ref="menuState" href="javascript:void(0)" :class="{on:isOpen}"><img src="./assets/menu_click.png"/></a>-->
       </div>
-      <div class="list">
-        <div class="list_bgcolor"></div>
-        <div class="list_con">
-          <ul>
-            <li class="listCon" v-for = "(item, index) in menuListData" @click.stop = "listClickHandle(item)">
-              <div class="cAccordion" :class="{titleBold:item.isCurr}">
-                <a>
-                  <!--图标-->
-                  <span class="ca_img">
-                    <span class="yellow" :class="{on:item.isCurr}"></span>
-                    <span class="img">
-                      <img :src="require('./assets/'+item.name+'.png')">
-                      <!--<img src="./assets/demo.png">-->
-                    </span>
-                  </span>
-                  <!--标题-->
-                  <div class="ca_title">
-                    <i :class="{on:item.isOpen}" v-show="item.childrens && item.childrens.length"></i>
-                    <span class="title sopt">{{item.title}}</span>
-                  </div>
-                </a>
-              </div>
-              <div class="childrenList" v-if="item.childrens && item.childrens.length" :style="item.openStyle">
-                <div class="btn_mask"></div>
-                <div class="menu_children_li">
-                  <span v-for="_item in item.childrens" :class="{titleColor: _item.isCurr}"  @click.stop = "listClickHandle(_item, $event)">
-                      <span class="sTitle sopt">{{_item.title}}</span>
-                  </span>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
+      <div class="list "style="margin-top: 15px" >
+        <el-menu
+          router
+          :default-active="defaultActive"
+          :unique-opened="true"
+          class="el-menu-vertical-demo "
+          @open="handleOpen"
+          @close="handleClose"
+          :collapse="isCollapse"
+          :collapse-transition="true"
+          active-text-color="rgb(3, 131, 247)"
+        >
+          <span v-for="item in menuListData" :key="item.title" class="lable-menu">
+             <el-submenu v-if="item.children&&item.children.length>0" :index="item.path">
+               <template slot="title">
+                 <i :class="item.icon"></i>
+                 <span slot="title">{{item.title}}</span>
+               </template>
+                 <el-menu-item :index="menuItem.path" :key="index" v-for="(menuItem,index) in item.children">
+                   {{menuItem.title}}
+                 </el-menu-item>
+             </el-submenu>
+             <el-menu-item :index="item.path" v-if="!item.children||item.children.length==0">
+               <i :class="item.icon"></i>
+               <span slot="title">{{item.title}}</span>
+             </el-menu-item>
+           </span>
+        </el-menu>
       </div>
     </div>
   </div>
@@ -48,85 +42,27 @@
     data(){
       return {
         theTitle: "我的应用",
+        isCollapse: false,
+        isOpen: false,//菜单是否打开
+        childrenListHeight:40,
+        screenWidth: document.body.clientWidth,
+        defaultActive:"",
         css:{
-          //编辑
           isHidden: true
         },
         mouseenterArr:[],
-        isOpen: false,//菜单是否打开
-        childrenListHeight:40,
-        menuListData:[]
       }
     },
-    props:["title", "parentName"],
-    computed:{
-    },
+    props:["menuListData"],
     //方法
     methods:{
-      changeOpen(element, bool){
-        var _height = (this.childrenListHeight * element.childrens.length) +"px";
-        if(!bool){
-          _height = 0;
-        }
-        return {height: _height};
-      },
-      //点击close关闭
-      closeListHandle(index){
-        this.menuListData.splice(index, 1);
-      },
-      //点击每个ELE
-      listClickHandle(currRouteMap){
-        //有子的展开菜单
-        if((currRouteMap.lev == 1 && currRouteMap.childrens && currRouteMap.childrens.length > 0) && currRouteMap.lev != 2){
-          if(currRouteMap.isOpen){
-            this.closeAllAccord();
-            this.menuListData = Object.assign([], this.menuListData);
-          }else {
-            this.openAccordionMenu(currRouteMap);
-          }
-          //没子的跳转
-        }else {
-          var _parentName = "";
-          //解决有子子路由跳回父路由找不到页面问题
-          if(this.parentName)
-            _parentName = "/"+this.parentName+"/";
-          this.$router.push({path:_parentName + currRouteMap.path});
-        }
-      },
-      //折叠初始化
-      closeAllAccord(){
-        var that = this;
-        var _arr =  this.menuListData;
-        _arr.forEach(function(element){
-          //that.$set(element, "currRouterMap", null);
-          if(element.childrens && element.childrens.length > 0){
-            element.isOpen = false;
-            element.openStyle = that.changeOpen(element, element.isOpen);
-          }
-        });
-      },
-      //展开当前
-      openAccordionMenu(currRouteMap){
-        this.closeAllAccord();
-        currRouteMap.isOpen = true;
-        currRouteMap.openStyle = this.changeOpen(currRouteMap, currRouteMap.isOpen);
-        this.menuListData = Object.assign([], this.menuListData);
-      },
-      //初始化当前项
-      initChildrenStyle(){
-        this.menuListData.forEach(function(element){
-          if(element.childrens && element.childrens.length > 0){
-            element.isCurr = false;
-            element.childrens.forEach(function(_element){
-              _element.isCurr = false;
-            });
-          }else {
-            element.isCurr = false;
-          }
-        });
-      },
       menuStateHandle(){
         var _this = this;
+        if(_this.isCollapse){
+          _this.isCollapse=false
+        }else {
+          _this.isCollapse=true
+        }
         this.$refs["menuState"].$off("MENUSTATE", this.menuStateHandle);
         this.isOpen = this.isOpen ? false : true;
         this.$store.commit("MENUSTATE", this.isOpen);
@@ -135,28 +71,14 @@
         }, 500)
 
       },
-      //改变样式
-      changeState(currRouter){
-        this.closeAllAccord();
-        var _element = currRouter;
-        if(_element){
-          this.initChildrenStyle();
-          if(_element.parent){
-            var _currParent = null;
-            var _currElement = null;
-            if(_element.type == "children"){
-              _currParent = _element.parent;
-              _currElement = _element;
-              _currParent.isOpen = true;
-              _currParent.openStyle = this.changeOpen(_currParent, _currParent.isOpen);
-            }
-            _currElement.isCurr = true;
-            _currParent.isCurr = true;
-          }else{
-            _element.isCurr = true;
-          }
-        }
-        this.menuListData = Object.assign([], this.menuListData);
+      handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleClose(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleSelect(key, keyPath) {
+        this.defaultActive = keyPath;
       },
       //清除所有滑过事件
       clearMouseenter(doms){
@@ -165,18 +87,6 @@
           element.removeEventListener("mouseenter", _this.mouseenterArr[index])
         });
       },
-      clearCollLays(){
-        document.querySelectorAll(".listCon").forEach(function(element, index) {
-          if (element.querySelector(".childrenList")) {
-            element.querySelector(".childrenList").classList.remove("on");
-          }
-        });
-      },
-      mouseenterHandle(){
-        return function(){
-
-        }
-      }
     },
     components:{
       "menuState": {
@@ -193,11 +103,6 @@
             this.$emit("MENUSTATE", evt);
           }
         }
-      }
-    },
-    computed:{
-      currRouteData(){
-        return this.$store.getters.currRouter;
       }
     },
     watch:{
@@ -242,37 +147,68 @@
           this.clearMouseenter(document.querySelectorAll(".listCon"));
         }
       },
-      currRouteData(val){
-        //选项卡状态监控
-        //改变当前菜单状态
-        this.changeState(val);
+      screenWidth (val) {
+        if (!this.timer) {
+          this.screenWidth = val
+          this.timer = true
+          let that = this
+          setTimeout(function () {
+            that.timer = false
+          }, 400)
+        }
       },
-      menuListData(val){
-        //console.log("menuListData................");
+      $route(data) {
+        this.handleSelect(data.name,data.path)
       }
     },
     mounted(){
       //this.$store.commit("LOADHOME", true);
+      this.handleSelect(this.$route.name,this.$route.path)
       var that = this;
       var _listArr = [];
-      var _arr = this.$router.options.routes[0].children;
-      _arr.forEach(function(element, _index){
-        if(!element.hasOwnProperty("parent")){
-          if(element.hasOwnProperty("childrens")){
-            //是否展开
-            element.isOpen = false;
-            element.openStyle = that.changeOpen(element, element.isOpen);
-          }else {
-            element.openStyle = "";
-          }
-          _listArr.push(element);
-        };
-      });
-      this.$set(this.$data, "menuListData", _listArr);
       this.$refs["menuState"].$on("MENUSTATE", this.menuStateHandle);
-    }
+      // 首先在Virtual DOM渲染数据时，设置下背景图的高度．
+      window.onresize = () => {
+        return (() => {
+          window.screenWidth = document.body.clientWidth
+          that.screenWidth = window.screenWidth;
+          console.log(that.screenWidth);
+          if(that.screenWidth<700){
+            that.isOpen=true;
+            this.isCollapse=true
+          }else {
+            that.isOpen=false;
+            this.isCollapse=false
+          }
+          that.$store.commit("MENUSTATE", that.isOpen);
+          setTimeout(function(){
+            that.$refs["menuState"].$on("MENUSTATE", that.menuStateHandle);
+          }, 500)
+        })()
+      }
+    },
+
   }
 </script>
+<style>
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 220px;
+    min-height: 400px;
+  }
+  .el-menu{
+    border-right: solid 0px #e6e6e6!important;
+  }
+  .el-menu--collapse > .el-menu-item span, .el-menu--collapse > .lable-menu > .el-submenu >  .el-submenu__title span {
+    height: 0;
+    width: 10px;
+    overflow: hidden;
+    visibility: hidden;
+    display: inline-block;
+  }
+  .el-menu--collapse > .el-menu-item .el-submenu__icon-arrow, .el-menu--collapse > .lable-menu >.el-submenu > .el-submenu__title .el-submenu__icon-arrow {
+    display: none;
+  }
+</style>
 <style lang="scss">
   /*menu max width out scroll*/
   /*$menu_width : 215px;*/
@@ -305,7 +241,7 @@
     width:220px;
     height:100%;
     &.closeMenu{
-      width: 55px;
+      width: 64px;
 
       .cAccordion{
         .ca_img{
@@ -346,6 +282,7 @@
     .listP{
       height: 100%;
       padding-top: 15px;
+      box-shadow: 2px 0px 30px #c8c8c8;
       /*menu header*/
       .menu_head{
         position: absolute;
@@ -581,13 +518,13 @@
   #menu_click{/*修改菜单按钮位置样式，重新赋予id-20180328*/
     position: absolute;
     top:40px;
-    left:0;
+    left:7px;
   }
   #logo{/*修改大众logo位置样式，重新赋予id-20180328*/
     margin-left: -20px;
     position: absolute;
     left:-130px;
-    top:20px;
+    top:9px;
   }
   #logoClick{/*将原来的模板内的a标签样式单独提出来，重新赋予id-20180328*/
     position:absolute;top:0;left:170px;transition: all .5s
@@ -604,5 +541,65 @@
   .sys_con .sys_route{
     left:5px;
   }/*将去除滚动条产生的边距-20180329*/
+
+
+
+
+
+  .list{top: 70px;
+    position: absolute;
+    height: 100%;}
+  ul.el-menu{ height: calc(100% - 85px);
+    /* border: solid 1px red; */
+    overflow-y: auto;
+  overflow-x: hidden;}
+
+
+  /*滚动条样式开始*/
+
+
+
+  ::-webkit-scrollbar-thumb{
+    background-color:#00529c;
+    height:50px;
+    outline-offset:-2px;
+    outline:2px solid #fff;
+    -webkit-border-radius:4px;
+    border: 2px solid #fff;
+  }
+  /*---鼠标点击滚动条显示样式--*/
+  ::-webkit-scrollbar-thumb:hover{
+    background-color:#00529c;
+    height:50px;
+    -webkit-border-radius:4px;
+  }
+  /*---滚动条大小--*/
+  ::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+  }
+  /*---滚动框背景样式--*/
+  ::-webkit-scrollbar-track-piece{
+    background-color:#fff;
+    -webkit-border-radius:0;
+  }
+
+
+
+
+
+  html,body {
+    scrollbar-face-color:#00529c; /*滚动条3D表面（ThreedFace）的颜色*/
+    scrollbar-highlight-color:#fff; /*滚动条3D界面的亮边（ThreedHighlight）颜色*/
+    scrollbar-shadow-color:#eeeeee; /*滚动条3D界面的暗边（ThreedShadow）颜色*/
+    scrollbar-3dlight-color:#eeeeee; /*滚动条亮边框颜色*/
+    scrollbar-arrow-color:#000; /*滚动条方向箭头的颜色 */
+    scrollbar-track-color:#fff; /*滚动条的拖动区域(TrackBar)颜色*/
+    scrollbar-darkshadow-color:#fff; /*滚动条暗边框（ThreedDarkShadow）颜色*/ }
+
+
+
+
+
 </style>
 <style lang="scss" src="../../scss/app-while.scss"></style>

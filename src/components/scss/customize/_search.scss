@@ -25,12 +25,11 @@
         vertical-align: top;
     }
     .searchForm--item__label {
-        color: #fff;
+
         line-height: 32px;
         &:after {content: '：';}
     }
     .el-input__inner {
-        border-radius: 30px;
         border-color: rgba(255,255,255, 0.5);
         background-color: rgba(255,255,255, 0.2);
         color: #fff;

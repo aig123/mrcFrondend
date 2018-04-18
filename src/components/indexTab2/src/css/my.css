@@ -1,0 +1,12 @@
+.menu_right{top:0}
+.sys_home .sys_header{height:85px;background:#5b8cff;}/*头部背景颜色*/
+.sys_home .sys_header h4{font-size: 20px;letter-spacing: 2px;color:white;margin-top:0;line-height: 82px;padding-left:32px;}
+.searchForm .searchForm--item:first-child{margin-left:10px;}
+.sys_head{position: absolute;right:80px;top:18px;}
+.imgBox{float: left;width: 50px;height: 50px;border-radius: 50%;overflow: hidden;background: #000;margin-right: 6px;}
+.personBox{margin-top: 5px;color:white;cursor:pointer;position: relative;z-index: 1}/*兼容IE点击事件*/
+.content{overflow-x: hidden}/*隐藏横向滚动条*/
+
+
+
+
