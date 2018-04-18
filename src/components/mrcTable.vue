@@ -21,7 +21,7 @@
       :empty-text="tableData.emptyText"
       border
       @selection-change="handleSelectionChange"
-      height="80%" style="width: 99%;margin: 0 auto;">
+      height="80%" style="width:99%;margin: 0 auto;">
       <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
       <!--check多选框-->
       <el-table-column
@@ -34,10 +34,8 @@
         :label="tableData.indexName"
         type="index"
         width="60"
-        v-if="tableData.index"
-      >
+        v-if="tableData.index">
       </el-table-column>
-
       <el-table-column v-for="(data,index) in tableData.title"
                        :key="index"
                        :prop="data.field"
@@ -48,8 +46,7 @@
                        :sortable="data.sortable"
                        :show-overflow-tooltip="data.showOverflowTooltip"
                        :align="data.align"
-                       :headerAlign="data.headerAlign"
-      >
+                       :headerAlign="data.headerAlign">
       </el-table-column>
       <!--操作栏-->
       <el-table-column
