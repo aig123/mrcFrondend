@@ -3,17 +3,12 @@
     <div class="sys_route">
       <div class="sys_header">
         <h4><span class="sys_logo"><img src="./assets/cap.png"></span>{{title}}<br /><span id="English">COLLABORATION APPLICATION PLATFORM</span></h4><!--修改图片src-20180326-->
-        <!--<h5 class="sys_df"><span class="sys_header_icon"><img src="./assets/index.png"></span>主页</h5>-->
         <h5 class="sys_df" style="margin-top: 20px;">
           <el-radio-group v-model="languageValue" @change="languageChange">
             <el-radio  label="cn">中文</el-radio>
             <el-radio  label="en">英文</el-radio>
           </el-radio-group>
         </h5><!--搜索按钮图片-->
-
-
-
-
         <div class="sys_head el-dropdown-link">
           <el-dropdown @command="" class="personBox" trigger="click">
             <div>
@@ -29,16 +24,8 @@
             <img src="./assets/1.png" alt="" width="50" height="50" style="">
           </div>
         </div>
-
-
-
-
-        <!--<h5 class="sys_ab"><span class="sys_header_icon"><img src="./assets/menu.png"></span></h5>&lt;!&ndash;菜单按钮图片&ndash;&gt;-->
-
-        <!--<h5 class="sys_user"><span class="sys_userPhoto"><img src="./assets/1.png"></span><span id="logname">{{user}}</span>&nbsp;<img src="./assets/down.png"><br /><span id="department">{{department}}</span></h5>-->
         <hr />
       </div>
-
       <div class="sys_route_out">
         <transition name="router-fade" mode="out-in">
           <!--<keep-alive>-->
@@ -108,7 +95,6 @@
   }
 </script>
 <style lang="scss">
-
   .sys_con{
     background-color: #fff;
     box-sizing:border-box;
@@ -140,5 +126,11 @@
   }
   .sys_route_out > div{
     height: 100%;}
+  .sys_head{
+    position: absolute;
+    top:18px;
+    right:80px;}
+.imgBox{float: left;width: 50px;height: 50px;border-radius: 50%;overflow: hidden;background: #000;margin-right: 6px;}
+  .personBox{margin-top: 5px;cursor:pointer;position: relative;z-index: 1}/*兼容IE点击事件*/
 </style>
 <style src="./css/my.css" scoped></style>
