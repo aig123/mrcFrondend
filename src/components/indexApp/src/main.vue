@@ -576,7 +576,7 @@
 
 
   ::-webkit-scrollbar-thumb{
-    background-color:#00529c;
+    background-color:#c1c1c1;
     height:50px;
     outline-offset:-2px;
     outline:2px solid #fff;
@@ -585,7 +585,7 @@
   }
   /*---鼠标点击滚动条显示样式--*/
   ::-webkit-scrollbar-thumb:hover{
-    background-color:#00529c;
+    background-color:#c1c1c1;
     height:50px;
     -webkit-border-radius:4px;
   }
@@ -599,11 +599,6 @@
     background-color:#fff;
     -webkit-border-radius:0;
   }
-
-
-
-
-
   html,body {
     scrollbar-face-color:#00529c; /*滚动条3D表面（ThreedFace）的颜色*/
     scrollbar-highlight-color:#fff; /*滚动条3D界面的亮边（ThreedHighlight）颜色*/
