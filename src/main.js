@@ -25,6 +25,8 @@ if (localStorage.getItem('ELEMENT_LANGUAGE') == "cn") {
   Vue.use(elementUi);
 } else if (localStorage.getItem('ELEMENT_LANGUAGE') == "en") {
   Vue.use(elementUi,{ locale });
+}else {
+  Vue.use(elementUi);
 }
 Vue.use(VueRouter);
 Vue.use(Vuex);

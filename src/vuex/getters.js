@@ -7,3 +7,6 @@ export const currRouter = state => {
 export const languageValue = state => {
   return state.languageValue;
 }
+export const phone = state => {
+  return state.phone;
+}
