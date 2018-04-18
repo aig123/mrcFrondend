@@ -34,7 +34,6 @@
             <!--</keep-alive>-->
             <mrc-iframe-tab  v-if="routerType=='iframe'"> </mrc-iframe-tab>
           </div>
-
         </transition>
       </div>
     </div>

@@ -4,13 +4,10 @@
       <mrc-table v-model="tableData"></mrc-table>
       <mrc-dialog v-model="dialogData">
         <mrc-form v-model="formData" ref="mrcForm">
-
         </mrc-form>
       </mrc-dialog>
     </div>
 </template>
-
-
 <script>
   import * as Api from "../api/api";
   import language  from "../language/language";

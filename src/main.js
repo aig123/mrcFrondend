@@ -5,7 +5,7 @@ import store from './vuex/store'
 import App from './App'
 import VueRouter from 'vue-router'
 import elementUi from 'element-ui'
-import mrcTable from './components/mrcTable.vue';
+import mrcTable from './components/mrcTable';
 import mrcForm from './components/mrcForm';
 import mrcSearchForm from './components/mrcSearchForm';
 import mrcDialog from './components/mrcDialog';
