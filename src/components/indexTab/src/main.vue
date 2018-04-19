@@ -55,6 +55,9 @@
         languageValue:"cn",
         // iframe tab 设置
         routerType:"normal",
+        editableTabsValue: '1',
+        editableTabs: [],
+        tabIndex: 1
       }
     },
     methods:{
@@ -62,6 +65,31 @@
         localStorage.setItem('ELEMENT_LANGUAGE',val)
         window.location.reload();
       },
+      addTab(targetName,src) {
+        let newTabName = ++this.tabIndex + '';
+        this.editableTabs.push({
+          title: targetName,
+          name: newTabName,
+          src:src
+        });
+        this.editableTabsValue = newTabName;
+      },
+      removeTab(targetName) {
+        let tabs = this.editableTabs;
+        let activeName = this.editableTabs;
+        if (activeName === targetName) {
+          tabs.forEach((tab, index) => {
+            if (tab.name === targetName) {
+              let nextTab = tabs[index + 1] || tabs[index - 1];
+              if (nextTab) {
+                activeName = nextTab.name;
+              }
+            }
+          });
+        }
+        this.editableTabsValue = activeName;
+        this.editableTabs = tabs.filter(tab => tab.name !== targetName);
+      }
     },
     computed:{
       closeMenuState(){

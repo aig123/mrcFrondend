@@ -47,7 +47,6 @@
           name: newTabName,
           src:src
         });
-
         this.editableTabsValue = newTabName;
       },
       addTab(targetName,src) {

@@ -7,8 +7,8 @@
   </div>
 </template>
 <script>
-  import hhIndexApp from "../components/indexApp"
-  import hhIndexTab from "../components/indexTab"
+  import hhIndexApp from "../components/indexApp3"
+  import hhIndexTab from "../components/indexTab3"
   export default {
     name: 'home',
     components: {

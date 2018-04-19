@@ -30,20 +30,8 @@
         <transition name="router-fade" mode="out-in">
           <!--<keep-alive>-->
           <router-view v-if="routerType=='normal'"></router-view>
+          <mrc-iframe-tab  v-if="routerType=='iframe'"> </mrc-iframe-tab>
           <!--</keep-alive>-->
-          <div v-if="routerType=='iframe'">
-            <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
-              <el-tab-pane
-                v-for="(item, index) in editableTabs"
-                :key="item.name"
-                :label="item.title"
-                :name="item.name"
-              >
-                <iframe   style="width:100%; height:500px" :src="item.src" v-if="item.src"></iframe>
-                {{item.content}}
-              </el-tab-pane>
-            </el-tabs>
-          </div>
         </transition>
       </div>
     </div>
@@ -118,13 +106,17 @@
         $route(data) {
           if (data.meta[0] &&data.meta[0].type && data.meta[0].type == 'iframe') {
             this.routerType = "iframe";
-            this.addTab(data.meta[0].name, data.meta[0].url);
           }else {
             this.routerType = "normal";
           }
         }
       },
       mounted() {
+        if (this.$route.meta[0] &&this.$route.meta[0].type && this.$route.meta[0].type == 'iframe') {
+          this.routerType = "iframe";
+        }else {
+          this.routerType = "normal";
+        }
         this.languageValue = localStorage.getItem('ELEMENT_LANGUAGE')
       }
     }
