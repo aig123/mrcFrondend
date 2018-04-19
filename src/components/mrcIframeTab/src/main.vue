@@ -1,12 +1,12 @@
 <template>
   <div style="position: relative">
-    <el-dropdown  style="position: absolute;top: 13px;right: 20px;z-index: 1000;cursor: pointer" @command="handleCommand">
+    <el-dropdown  style="position: absolute;top: 13px;right: 20px;z-index: 1000;cursor: pointer">
                   <span class="el-dropdown-link">
                       <i class="el-icon-setting"></i>
                    </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="removeTab">关闭当前标签页</el-dropdown-item>
-        <el-dropdown-item command="b">关闭其他标签页</el-dropdown-item>
+        <el-dropdown-item @click.native="removeTab(editableTabsValue)">关闭当前标签页</el-dropdown-item>
+        <el-dropdown-item @click.native="removeOthers()">关闭其他标签页</el-dropdown-item>
         <el-dropdown-item command="c">关闭左侧标签页</el-dropdown-item>
         <el-dropdown-item command="d">关闭右侧标签页</el-dropdown-item>
       </el-dropdown-menu>
@@ -22,8 +22,6 @@
         {{item.content}}
       </el-tab-pane>
     </el-tabs>
-    <el-button @click="removeTab(editableTabsValue)">关闭当前</el-button>
-    <el-button @click="removeTab()">关闭其他</el-button>
   </div>
 </template>
 
@@ -40,6 +38,18 @@
       }
     },
     methods:{
+      removeOthers(targetName,src){
+        console.log(newTabName)
+        let newTabName = this.tabIndex ;
+        this.editableTabs=[];
+        this.editableTabs.push({
+          title: targetName,
+          name: newTabName,
+          src:src
+        });
+
+        this.editableTabsValue = newTabName;
+      },
       addTab(targetName,src) {
         let newTabName = ++this.tabIndex + '';
         this.editableTabs.push({
@@ -49,17 +59,8 @@
         });
         this.editableTabsValue = newTabName;
       },
-
-      //
-      handleCommand(command) {//点击下拉的回调函数
-        if (command === 'removeTab') {
-         // removeTab(editableTabsValue)
-
-        }
-      },
       //
       removeTab(targetName) {
-        console.log(targetName)
         let tabs = this.editableTabs;
         let activeName = this.editableTabsValue;
         if (activeName === targetName) {

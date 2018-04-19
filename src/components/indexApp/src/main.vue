@@ -599,15 +599,23 @@
     background-color:#fff;
     -webkit-border-radius:0;
   }
-  html,body {
-    scrollbar-face-color:#00529c; /*滚动条3D表面（ThreedFace）的颜色*/
-    scrollbar-highlight-color:#fff; /*滚动条3D界面的亮边（ThreedHighlight）颜色*/
-    scrollbar-shadow-color:#eeeeee; /*滚动条3D界面的暗边（ThreedShadow）颜色*/
-    scrollbar-3dlight-color:#eeeeee; /*滚动条亮边框颜色*/
-    scrollbar-arrow-color:#000; /*滚动条方向箭头的颜色 */
-    scrollbar-track-color:#fff; /*滚动条的拖动区域(TrackBar)颜色*/
-    scrollbar-darkshadow-color:#fff; /*滚动条暗边框（ThreedDarkShadow）颜色*/ }
 
+
+
+
+
+
+
+  body{
+    scrollbar-arrow-color: #fff; /*三角箭头的颜色*/
+    scrollbar-face-color: #c1c1c1; /*立体滚动条的颜色（包括箭头部分的背景色）*/
+    scrollbar-3dlight-color: #fff; /*立体滚动条亮边的颜色*/
+    scrollbar-highlight-color: #fff; /*滚动条的高亮颜色（左阴影？）*/
+    scrollbar-shadow-color: #fff; /*立体滚动条阴影的颜色*/
+    scrollbar-darkshadow-color: #fff; /*立体滚动条外阴影的颜色*/
+    scrollbar-track-color: #fff; /*立体滚动条背景颜色*/
+    scrollbar-base-color:#000; /*滚动条的基色*/
+  }
 
 
 

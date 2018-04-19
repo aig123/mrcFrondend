@@ -142,6 +142,4 @@
     width: 180px;
     margin-bottom: 5px;
   }
-
-
 </style>

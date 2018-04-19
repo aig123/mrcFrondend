@@ -183,6 +183,7 @@
 
 </style>
 <script>
+
   export default {
     name: 'mrc-table',
     template:'<div><input type="text" type="text" v-model="tableData"/></div>',
