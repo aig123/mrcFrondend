@@ -12,14 +12,12 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="search(item.clickFn)" v-for="item in formData.button" :key="item.name">{{item.name}}</el-button>
+        <el-button type="primary" @click="search(item.clickFn)" v-for="item in formData.button" :key="item.name">111</el-button>
       </el-form-item>
     </el-form>
   </section>
 </template>
-
 <script>
-
   export default {
     name: 'mrc-table',
     template:'<div><input type="text" type="text" v-model="formData"/></div>',

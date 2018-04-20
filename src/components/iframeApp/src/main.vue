@@ -29,7 +29,6 @@
     <div class="sys_con" :class="{sys_close:close}">
       <div class="sys_route">
         <div class="sys_header">
-
           <hr />
         </div>
 
@@ -37,16 +36,16 @@
           <transition name="router-fade" mode="out-in">
             <!--<keep-alive>-->
             <router-view v-if="routerType=='normal'"></router-view>
-            <div v-if="routerType=='iframe'">
+            <div v-if="routerType=='iframe'" style="height: 100%">
 
-              <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
-                <el-tab-pane
+              <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab"  style="height: 100%">
+                <el-tab-pane style="height: 100%"
                   v-for="(item, index) in editableTabs"
                   :key="item.name"
                   :label="item.title"
                   :name="item.name"
                 >
-                  <iframe   style="width:100%; height:400px" :src="item.src" v-if="item.src"></iframe>
+                  <iframe style="width:100%; height:100%" :src="item.src" v-if="item.src" frameborder="0" scrolling="no" style="border:0px;"></iframe>
                   {{item.content}}
                 </el-tab-pane>
               </el-tabs>
@@ -259,7 +258,6 @@
       // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
       // 可以访问组件实例 `this`
     },
-
   }
 </script>
 <style>
@@ -645,5 +643,5 @@
       overflow-y: auto;
     }
   }
-</style>
+  </style>
 

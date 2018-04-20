@@ -150,12 +150,6 @@
     height: -webkit-calc(100% - 90px);
     height: -moz-calc(100% - 90px);
     height: calc(100% - 90px);
-
-
-    /*height: -webkit-calc(100% - 58px);*/
-    /*height: -moz-calc(100% - 58px);*/
-    /*height: calc(100% - 58px);*/
-    /*padding-bottom:108px !important;*/
   }
   .el-dialog__body{
     height: -webkit-calc(100% - 41px);
@@ -174,7 +168,7 @@
     float: right;margin-right: 18px;
   }
   #user{
-    float: left;font-size: 22px;margin-bottom:16px;color:#a4aeb2
+    float: left;font-size: 22px;margin-bottom:16px;color:#a4aeb2;margin-left: 8px;
   }
   .el-input__inner{line-height: 28px !important;}/*分页垂直居中兼容IE-20180413*/
   .el-pagination{margin-top:10px;text-align: right}/*分页居右对齐-20180413*/

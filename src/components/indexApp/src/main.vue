@@ -4,7 +4,7 @@
       <div class="menu_head">
         <menuState ref="menuState" :isOpen="isOpen" @click="menuStateHandle"></menuState>
       </div>
-      <div class="list "style="margin-top: 15px" >
+      <div class="list "style="margin-top: 20px" >
         <el-menu
           router
           :default-active="defaultActive"
@@ -231,7 +231,7 @@
   @mixin menu_width {
     width: -webkit-calc(100% - 5px);
     width: -moz-calc(100% - 5px);
-    width: calc(100% - 5px);
+    width: 100%;
   }
   /*list height*/
   $menu_listheight: 50px;
@@ -298,14 +298,15 @@
     .listP{
       height: 100%;
       padding-top: 15px;
-      box-shadow: 2px 0px 30px #c8c8c8;
+      box-shadow: 2px 0px 30px #ddd;
       /*menu header*/
       .menu_head{
         position: absolute;
         /*width: $menu_width;*/
         @include menu_width;
-        height: 50px;
+        height: 90px;
         top:0px;
+        box-shadow: 0 1px 8px #e4e4e4;
         /*background-color: #24254f;*//*去掉背景颜色-20180326*/
         z-index: 1;
         &>a{
@@ -533,7 +534,7 @@
   }
   #menu_click{/*修改菜单按钮位置样式，重新赋予id-20180328*/
     position: absolute;
-    top:40px;
+    top:32px;
     left:7px;
   }
   #logo{/*修改大众logo位置样式，重新赋予id-20180328*/
