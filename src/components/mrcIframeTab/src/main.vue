@@ -1,17 +1,17 @@
 <template>
-  <div style="position: relative">
-    <el-dropdown  style="position: absolute;top: 13px;right: 20px;z-index: 1000;cursor: pointer">
+  <div style="position: relative;height: 100%">
+    <el-dropdown  style="position: absolute;top: 13px;right: 20px;z-index: 1000;cursor: pointer" @command="handleCommand">
                   <span class="el-dropdown-link">
                       <i class="el-icon-setting"></i>
                    </span>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item @click.native="removeTab(editableTabsValue)">关闭当前标签页</el-dropdown-item>
-        <el-dropdown-item @click.native="removeOthers()">关闭其他标签页</el-dropdown-item>
+      <el-dropdown-menu slot="dropdown" >
+        <el-dropdown-item command="a">关闭当前标签页</el-dropdown-item>
+        <el-dropdown-item command="b">关闭其他标签页</el-dropdown-item>
         <el-dropdown-item command="c">关闭左侧标签页</el-dropdown-item>
         <el-dropdown-item command="d">关闭右侧标签页</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
-    <el-tabs v-model="editableTabsValue" type="border-card" closable @tab-remove="removeTab">
+    <el-tabs v-model="editableTabsValue" type="border-card" closable @tab-remove="removeTab" style="height: 90%">
       <el-tab-pane
         v-for="(item, index) in editableTabs"
         :key="item.name"
@@ -38,28 +38,7 @@
       }
     },
     methods:{
-      removeOthers(targetName,src){
-        console.log(newTabName)
-        let newTabName = this.tabIndex ;
-        this.editableTabs=[];
-        this.editableTabs.push({
-          title: targetName,
-          name: newTabName,
-          src:src
-        });
-        this.editableTabsValue = newTabName;
-      },
-      addTab(targetName,src) {
-        let newTabName = ++this.tabIndex + '';
-        this.editableTabs.push({
-          title: targetName,
-          name: newTabName,
-          src:src
-        });
-        this.editableTabsValue = newTabName;
-      },
-      //
-      removeTab(targetName) {
+      removeOthers(targetName){
         let tabs = this.editableTabs;
         let activeName = this.editableTabsValue;
         if (activeName === targetName) {
@@ -74,7 +53,64 @@
         }
         this.editableTabsValue = activeName;
         this.editableTabs = tabs.filter(tab => tab.name !== targetName);
-      }
+      },
+      addTab(targetName,src) {
+        let newTabName = ++this.tabIndex + '';
+        this.editableTabs.push({
+          title: targetName,
+          name: newTabName,
+          src:src
+        });
+        this.editableTabsValue = newTabName;
+      },
+      //
+      removeTab(targetName) {
+        console.log(targetName);
+        let tabs = this.editableTabs;
+        let activeName = this.editableTabsValue;
+        if (activeName === targetName) {
+          tabs.forEach((tab, index) => {
+            if (tab.name === targetName) {
+              let nextTab = tabs[index + 1] || tabs[index - 1];
+              if (nextTab) {
+                activeName = nextTab.name;
+              }
+            }
+          });
+        }
+        this.editableTabsValue = activeName;
+        this.editableTabs = tabs.filter(tab => tab.name !== targetName);
+      },
+      handleCommand(command) {
+        let curentIndex=0;
+        for (let index in this.editableTabs) {
+          if (this.editableTabs[index].name == this.editableTabsValue) {
+            curentIndex=index;
+          }
+        }
+        if (command == 'a') {
+          this.removeTab(this.editableTabsValue);
+        } else if (command == 'b') {
+          let tabs = this.editableTabs;
+          this.editableTabs = tabs.filter(tab => tab.name == this.editableTabsValue);
+        } else if (command == 'd') {
+          let tabs = this.editableTabs;
+          this.editableTabs=[];
+          for (let index in tabs) {
+            if (index<=curentIndex) {
+              this.editableTabs.push(tabs[index]);
+            }
+          }
+        } else if (command == 'c') {
+          let tabs = this.editableTabs;
+          this.editableTabs=[];
+          for (let index in tabs) {
+            if (index>=curentIndex) {
+              this.editableTabs.push(tabs[index]);
+            }
+          }
+        }
+      },
     },
     watch:{
       $route(data) {
