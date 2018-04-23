@@ -159,18 +159,5 @@
     right:80px;}
 .imgBox{float: left;width: 50px;height: 50px;border-radius: 50%;overflow: hidden;background: #000;margin-right: 6px;}
   .personBox{margin-top: 5px;cursor:pointer;position: relative;z-index: 1}/*兼容IE点击事件*/
-
-
-
-  /*.el-tabs,.el-tab-pane{*/
-    /*height: 100% !important;}*/
-/*.el-tabs__content{height: 90% !important}*/
-/*.el-tabs--border-card,#pane-2{height: 100% !important}*/
-  /*.el-tabs__content{*/
-    /*height: 90% !important;}*/
-  /*.sys_route_out > div{*/
-    /*height: 100%;}*/
-  /*iframe{height: 100% !important}*/
-  /*.sys_route_out > div > div{height: 100% !important}*/
 </style>
 <style src="./css/my.css" scoped></style>
