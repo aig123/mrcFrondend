@@ -2,7 +2,7 @@
 .menu_right{top:0}
 #logoClick{position:absolute;top:0;left:170px;transition: all .5s}/*在标签内重新定义ID*/
 #menu_click{position: absolute;top:30px;left:7px;}/*在标签内重新定义ID*/
-#logo{    margin-left: -20px;
+#logo{margin-left: -20px;
   position: absolute;
   left: -130px;
   top: 8px;
@@ -28,4 +28,4 @@
 .menu_right .listP .list{overflow-y: hidden;}
 .searchForm .searchForm--item:first-child{margin-left:10px;}
 #English{font-size: 8px;letter-spacing: -1px}
-hr{margin-top:10px;}
+hr{margin-top:16px;border:solid 0.5px #e7ecf1}

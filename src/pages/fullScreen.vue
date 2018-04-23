@@ -28,5 +28,5 @@
     width: 480px;
   }
   .el-card__body{position:relative}
-  .el-button--text{position:absolute;top:10px;right: 24px;}
+  .box-card .el-button--text{position:absolute;top:10px;right: 24px;}
 </style>

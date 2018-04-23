@@ -2,13 +2,13 @@
   <div class="sys_con" :class="{sys_close:close}">
     <div class="sys_header">
       <h4><span class="sys_logo"><img src="../../indexApp3/src/assets/logo.png" id="logo1"></span>{{title}}<br /><span id="English">COLLABORATION APPLICATION PLATFORM</span></h4>
-      <h5 class="sys_df" style="margin-top: 20px;position: absolute;z-index: 2">
+      <h5 class="sys_df" style="margin-top: 20px;position: absolute;z-index: 2" v-if="!$store.getters.phone">
         <el-radio-group v-model="languageValue" @change="languageChange">
           <el-radio  label="cn">中文</el-radio>
           <el-radio  label="en">英文</el-radio>
         </el-radio-group>
       </h5>
-      <div class="sys_head">
+      <div class="sys_head" v-if="!$store.getters.phone">
         <el-dropdown @command="" class="personBox" trigger="click">
             <span class="el-dropdown-link">
               {{user}}<i class="el-icon-arrow-down el-icon--right"></i><br />

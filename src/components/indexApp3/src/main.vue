@@ -46,17 +46,17 @@
         isOpen: false,//菜单是否打开
         childrenListHeight:40,
         screenWidth: document.body.clientWidth,
-        defaultActive:this.menuListData[0].path,
+        defaultActive:"",
         css:{
           isHidden: true
         },
         mouseenterArr:[],
+        phone:false
       }
     },
     props:["menuListData"],
     //方法
     methods:{
-
       menuStateHandle(){
         var _this = this;
         if(_this.isCollapse){
@@ -79,15 +79,39 @@
         console.log(key, keyPath);
       },
       handleSelect(key, keyPath) {
-        this.defaultActive = key;
+        this.defaultActive = keyPath;
       },
       //清除所有滑过事件
       clearMouseenter(doms){
         var _this = this;
-        doms.forEach(function(element, index){
-          element.removeEventListener("mouseenter", _this.mouseenterArr[index])
-        });
+        // doms.forEach(function(element, index){
+        //   element.removeEventListener("mouseenter", _this.mouseenterArr[index])
+        // });
+        for(let index of doms){
+          debugger
+          doms[index].removeEventListener("mouseenter", _this.mouseenterArr[index])
+        }
       },
+      changePhone(){
+        let that=this;
+        window.screenWidth = document.body.clientWidth
+        that.screenWidth = window.screenWidth;
+        console.log(that.screenWidth);
+        if(that.screenWidth<700){
+          that.isOpen=true;
+          that.phone=true
+          this.isCollapse=true
+        }else {
+          that.isOpen=false;
+          that.phone=false
+          this.isCollapse=false
+        }
+        that.$store.commit("MENUSTATE", that.isOpen);
+        that.$store.commit("phone", that.phone);
+        // setTimeout(function(){
+        //   that.$refs["menuState"].$on("MENUSTATE", that.menuStateHandle);
+        // }, 500)
+      }
     },
     components:{
       "menuState": {
@@ -113,8 +137,8 @@
         var _this = this;
         if(val){
           this.mouseenterArr = [];
-          document.querySelectorAll(".listCon").forEach(function(element, index){
-            var _fun = (function(_index, _this){
+          for(let element of document.querySelectorAll(".listCon")){
+            var _fun = (function(_this){
               return function (evt) {
                 var _target = evt.target;
                 var _childrenList = evt.target.querySelector(".childrenList");
@@ -134,7 +158,7 @@
                   }
                 }
               }
-            })(index, _this)
+            })(_this);
             _this.mouseenterArr.push(_fun);
             element.addEventListener("mouseenter", _fun);
             element.addEventListener("mouseleave", (function(_this){
@@ -142,8 +166,10 @@
                 _this.clearCollLays();
               }
             })(_this));
-          });
-        }else{
+          }
+
+        }
+        else{
           this.clearMouseenter(document.querySelectorAll(".listCon"));
         }
       },
@@ -163,30 +189,18 @@
     },
     mounted(){
       //this.$store.commit("LOADHOME", true);
+      this.handleSelect(this.$route.name,this.$route.path)
       var that = this;
       var _listArr = [];
       this.$refs["menuState"].$on("MENUSTATE", this.menuStateHandle);
+      this.changePhone();
       // 首先在Virtual DOM渲染数据时，设置下背景图的高度．
       window.onresize = () => {
         return (() => {
-          window.screenWidth = document.body.clientWidth
-          that.screenWidth = window.screenWidth;
-          console.log(that.screenWidth);
-          if(that.screenWidth<700){
-            that.isOpen=true;
-            this.isCollapse=true
-          }else {
-            that.isOpen=false;
-            this.isCollapse=false
-          }
-          that.$store.commit("MENUSTATE", that.isOpen);
-          setTimeout(function(){
-            that.$refs["menuState"].$on("MENUSTATE", that.menuStateHandle);
-          }, 500)
+          this.changePhone();
         })()
       }
     },
-
   }
 </script>
 <style>
@@ -246,6 +260,9 @@
         }
       }
       .list{
+        height: calc(100% - 72px);
+        overflow-y: auto;
+        overflow-x: hidden;
         .list_con{
           .sopt{
             overflow: hidden;
@@ -286,5 +303,45 @@
   .sys_home .sys_header h4{
     margin-left:168px;/*调整文字距离左边的距离*/
   }
+
+
+
+  ::-webkit-scrollbar-thumb{
+    background-color:#c1c1c1;
+    height:50px;
+    outline-offset:-2px;
+    outline:2px solid #fff;
+    -webkit-border-radius:4px;
+    border: 2px solid #fff;
+  }
+  /*---鼠标点击滚动条显示样式--*/
+  ::-webkit-scrollbar-thumb:hover{
+    background-color:#c1c1c1;
+    height:50px;
+    -webkit-border-radius:4px;
+  }
+  /*---滚动条大小--*/
+  ::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+  }
+  /*---滚动框背景样式--*/
+  ::-webkit-scrollbar-track-piece{
+    background-color:#fff;
+    -webkit-border-radius:0;
+  }
+  body{
+    scrollbar-arrow-color: #fff; /*三角箭头的颜色*/
+    scrollbar-face-color: #c1c1c1; /*立体滚动条的颜色（包括箭头部分的背景色）*/
+    scrollbar-3dlight-color: #fff; /*立体滚动条亮边的颜色*/
+    scrollbar-highlight-color: #fff; /*滚动条的高亮颜色（左阴影？）*/
+    scrollbar-shadow-color: #fff; /*立体滚动条阴影的颜色*/
+    scrollbar-darkshadow-color: #fff; /*立体滚动条外阴影的颜色*/
+    scrollbar-track-color: #fff; /*立体滚动条背景颜色*/
+    scrollbar-base-color:#000; /*滚动条的基色*/
+  }
+
+
+
 </style>
 <style lang="scss" src="../../scss/app-while.scss"></style>

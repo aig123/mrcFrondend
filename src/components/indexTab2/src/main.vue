@@ -2,13 +2,13 @@
   <div class="sys_con" :class="{sys_close:close}">
     <div class="sys_route">
       <div class="sys_header"><!--sys_header开始-->
-        <h5 class="sys_df" style="margin-top: 20px;position: absolute;z-index: 2">
+        <h5 class="sys_df" style="margin-top: 20px;position: absolute;z-index: 2" v-if="!$store.getters.phone">
           <el-radio-group v-model="languageValue" @change="languageChange">
             <el-radio  label="cn">中文</el-radio>
             <el-radio  label="en">英文</el-radio>
           </el-radio-group>
         </h5><!--搜索按钮图片-->
-        <div class="sys_head el-dropdown-link">
+        <div class="sys_head el-dropdown-link" v-if="!$store.getters.phone">
           <el-dropdown @command="" class="personBox" trigger="click">
             <div>
               {{user}}<i class="el-icon-arrow-down el-icon--right"></i><br />
@@ -149,12 +149,10 @@
       height: calc(100% - 90px);
       overflow-y: auto;
       top:100px;
+
     }
   }
-
-
-
-
+  .sys_route_out > div{height: 100%}/*整个表格垂直方向铺满*/
   .searchForm{background: transparent;border:none;margin-left: 8px;overflow-x: hidden;}/*去除searchForm背景颜色和边框*/
   .el-input__inner {border-color: #9f9eb1 !important;background-color:white !important;color: #fff;}
   input{color:#9f9eb1 !important;}
