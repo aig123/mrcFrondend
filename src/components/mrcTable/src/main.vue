@@ -3,18 +3,18 @@
     <!--表格功能按钮-->
     <div id="user">用户</div>
     <div id="floatR">
-      <el-button
-        type="text"
-        icon="el-icon-rank" @click="dialogTableVisible=true">全屏</el-button>
+      <!--<el-button-->
+        <!--type="text"-->
+        <!--icon="el-icon-rank" @click="dialogTableVisible=true">全屏</el-button>-->
       <el-button
         type="text"
         :icon="data.icon" v-for="data in tableData.buttons" :key="data.name" @click="operateClick(data.click)">{{data.name}}</el-button>
-      <el-button
-        type="text"
-        icon="el-icon-upload">导入</el-button>
-      <el-button
-        type="text"
-        icon="el-icon-download">导出</el-button>
+      <!--<el-button-->
+        <!--type="text"-->
+        <!--icon="el-icon-upload">导入</el-button>-->
+      <!--<el-button-->
+        <!--type="text"-->
+        <!--icon="el-icon-download">导出</el-button>-->
     </div>
     <el-table
       :data="tableData.data"

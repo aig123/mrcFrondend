@@ -29,7 +29,7 @@
             Checkbox:false,
             selectionChangeFn:"",
             class:"",//添加自定义class
-            buttons:[{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"}],
+            buttons:[{name:language.fullScreen,click:"fullScreen",icon:"el-icon-rank"},{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"},{name:language.import,click:"",icon:"el-icon-upload"},{name:language.export,click:"",icon:"el-icon-download"}],
             operate:[{name:language.delect,click:"delData",type:'danger',field:"del"},{name:language.edit,click:"editData",type:'default',field:"edit"}],
             title: [
               {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:false},
@@ -175,6 +175,11 @@
             return false;
           }
         });
+      },
+      fullScreen(){//点击全屏函数
+
+        dialogTableVisible=true;
+
       }
     },
     mounted: function () {
