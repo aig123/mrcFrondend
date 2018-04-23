@@ -1,7 +1,6 @@
 <template>
-  <section style="padding: 20px;max-width: 700px">
+  <section >
     <el-form :model="formData.data" label-width="120px" :rules="formData.rules" :ref="formData.name">
-      <!--<div style="width: 100%;height: 20px"></div>-->
       <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" style="width: 100%;" :prop="config.field">
         <el-input v-model="formData.data[config.field]" v-if="config.type=='input'" :placeholder="config.placeholder"  style="width: 100%"></el-input>
         <el-select v-model="formData.data[config.field]" v-if="config.type=='select'" :placeholder="config.placeholder" style="width: 100%">
@@ -9,11 +8,15 @@
         </el-select>
         <el-date-picker v-model="formData.data[config.field]" @change="dateChange"  v-if="config.type=='date'" :placeholder="config.placeholder" style="width: 100%"></el-date-picker>
         <el-date-picker v-model="formData.data[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%"></el-date-picker>
-
-
-        <el-upload v-model="formData.data[config.field]" v-if="config.type=='uploadFile'" :action="config.action"
+        <el-upload v-model="formData.data[config.field]" v-if="config.type=='uploadFile'"
+                   :action="config.action"
                    :limit="config.limit"
-                   :on-preview="config.onPreviewFn"
+                   :on-preview="uploadFn(config.onPreviewFn)"
+                   :on-remove="uploadFn(config.onRemoveFn)"
+                   :before-remove="uploadFn(config.onRemoveFn)"
+                   :multiple="config.multiple"
+                   :accept="config.accept"
+                   :file-list="config.fileList.data"
                     >
           <el-button size="small" type="primary">点击上传</el-button>
           <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -27,10 +30,8 @@
         </el-radio-group>
         <el-input  v-model="formData.data[config.field]" v-if="config.type=='textarea'" :type="config.type"></el-input>
       </el-form-item>
-
       <el-form-item :model="formData.buttons" label-width="120px" :ref="formData.name" >
-        <el-button type="primary" @click="" v-for="config in formData.buttons">{{config.name}}</el-button>
-
+        <el-button type="primary" @click="uploadFn(config.click)"   v-for="(config,index) in formData.buttons" :key="index">{{config.name}}</el-button>
       </el-form-item>
     </el-form>
   </section>
@@ -46,7 +47,7 @@
     },
     props: ['columns','value'],
     methods:{
-      search(data){
+      uploadFn(data){
         this.$parent[data]();
       },
       dateChange(value){
