@@ -1,20 +1,36 @@
 <template>
-  <section>
-    <el-form :model="formData.data" label-width="80px" :rules="formData.rules" :ref="formData.name">
-      <div style="width: 100%;height: 20px"></div>
-      <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" style="width: 95%;" :prop="config.field">
+  <section style="padding: 20px;max-width: 700px">
+    <el-form :model="formData.data" label-width="120px" :rules="formData.rules" :ref="formData.name">
+      <!--<div style="width: 100%;height: 20px"></div>-->
+      <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" style="width: 100%;" :prop="config.field">
         <el-input v-model="formData.data[config.field]" v-if="config.type=='input'" :placeholder="config.placeholder"  style="width: 100%"></el-input>
-        <el-select v-model="formData.data[config.field]" v-if="config.type=='select'" placeholder="config.placeholder" style="width: 100%">
+        <el-select v-model="formData.data[config.field]" v-if="config.type=='select'" :placeholder="config.placeholder" style="width: 100%">
           <el-option :label="item.name" :value="item.id" :key="item.id" v-for="item in config.data"></el-option>
         </el-select>
-        <el-date-picker v-model="formData.data[config.field]" @change="dateChange"  v-if="config.type=='date'" style="width: 100%"></el-date-picker>
-        <!--后添加的开始-->
+        <el-date-picker v-model="formData.data[config.field]" @change="dateChange"  v-if="config.type=='date'" :placeholder="config.placeholder" style="width: 100%"></el-date-picker>
+        <el-date-picker v-model="formData.data[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%"></el-date-picker>
+
+
+        <el-upload v-model="formData.data[config.field]" v-if="config.type=='uploadFile'" :action="config.action"
+                   :limit="config.limit"
+                   :on-preview="config.onPreviewFn"
+                    >
+          <el-button size="small" type="primary">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
         <el-switch v-model="formData.data[config.field]" v-if="config.type=='switch'"></el-switch>
-        <el-date-picker v-model="formData.data[config.field]" v-if="config.type=='switch'" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" style="width: 100%"></el-date-picker>
+        <el-checkbox-group v-model="formData.data[config.field]" v-if="config.type=='checkbox'">
+          <el-checkbox :label="item.name" :value="item.id" :key="item.id" v-for="item in config.data"></el-checkbox>
+        </el-checkbox-group>
+        <el-radio-group v-model="formData.data[config.field]" v-if="config.type=='radio'">
+          <el-radio :label="item.name" :value="item.id" :key="item.id" v-for="item in config.data"></el-radio>
+        </el-radio-group>
+        <el-input  v-model="formData.data[config.field]" v-if="config.type=='textarea'" :type="config.type"></el-input>
       </el-form-item>
 
-      <el-form-item>
-        <el-button type="primary" @click="search(item.clickFn)" v-for="item in formData.button" :key="item.name">111</el-button>
+      <el-form-item :model="formData.buttons" label-width="120px" :ref="formData.name" >
+        <el-button type="primary" @click="" v-for="config in formData.buttons">{{config.name}}</el-button>
+
       </el-form-item>
     </el-form>
   </section>

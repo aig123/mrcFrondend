@@ -304,9 +304,9 @@
         position: absolute;
         /*width: $menu_width;*/
         @include menu_width;
-        height: 90px;
+        height: 91px;
         top:0px;
-        box-shadow: 0 1px 8px #e4e4e4;
+        box-shadow: 0 1px 8px #f2f2f2;
         /*background-color: #24254f;*//*去掉背景颜色-20180326*/
         z-index: 1;
         &>a{
