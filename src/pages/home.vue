@@ -132,7 +132,12 @@
             path: "/home/drag",
             title: "拖拽组件",
             icon:"el-icon-news",
-          }
+          },
+          {
+            path: "/home/ceshi",
+            title: "测试组件",
+            icon:"el-icon-news",
+          },
         ]
       }
     },

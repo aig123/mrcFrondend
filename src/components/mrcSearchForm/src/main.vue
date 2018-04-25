@@ -13,6 +13,7 @@
           </el-select>
           <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data[data.field]"
                           v-if="data.type=='date'" size="small"></el-date-picker>
+          <el-date-picker size="small" v-model="data[data.field]" v-if="data.type=='daterange'" :type="data.type" :range-separator="data.rangeseparator" :start-placeholder="data.startPlaceholder" :end-placeholder="data.endPlaceholder" style="width: 100%"></el-date-picker>
         </div>
       </div>
       <div class="searchForm--item" v-if="more" v-for="(data,index) in formData.moreData" :key="index">
@@ -27,6 +28,8 @@
           </el-select>
           <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data.value"
                           v-if="data.type=='date'" size="small"></el-date-picker>
+          <el-date-picker size="small" v-model="data[data.field]" v-if="data.type=='daterange'" :type="data.type" :range-separator="data.rangeseparator" :start-placeholder="data.startPlaceholder" :end-placeholder="data.endPlaceholder" style="width: 100%"></el-date-picker>
+
         </div>
       </div>
       <div class="searchForm--button" v-if="formData.buttons&&formData.buttons.dataRight">
@@ -46,11 +49,10 @@
         <span class="el-icon-setting" @click="searDialogShow"></span>
       </div>
     </div>
-
     <el-dialog
-       title="更多设置"
+      title="更多设置"
       :visible.sync="searDialogVisible"
-       width="30%">
+      width="30%">
       <span>
         <el-checkbox-group v-model="fields" style="margin-top: 10px">
             <el-checkbox  v-dragging="{ item: data, list: formData.moreData, group: 'data'}" v-for="(data,index) in formData.moreData" :label="data.field" :key="data.field">{{data.title}}</el-checkbox>
@@ -61,7 +63,6 @@
            <el-button type="primary" @click="save">确 定</el-button>
       </span>
     </el-dialog>
-
   </section>
 </template>
 <script>
@@ -142,4 +143,6 @@
     width: 180px;
     margin-bottom: 5px;
   }
+  label{width:130px;text-align: right}
+  .el-dialog__body label{width: 130px;text-align: left}
 </style>

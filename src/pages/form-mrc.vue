@@ -1,9 +1,6 @@
 <template>
-  <div style="padding: 20px;max-width: 700px">
     <mrc-form v-model="formData"></mrc-form>
-  </div>
 </template>
-
 <script>
   import language  from "../language/language";
   export default {
@@ -51,7 +48,7 @@
         fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
         formData:{
           name:"form",
-          buttons:[{name:language.save,click:"save"},{name:language.save,click:"save2"}],
+          buttons:[{name:"立即创建",click:"submitForm",type:"primary"},{name:"取消",click:"resetForm",type:""}],
           title:[
             {type: 'input', title: "活动名称", value: "", field: "name", placeholder: "请填写活动名称"},
             {type: 'date', title: "开始时间", value: "", field: "date", placeholder: "请输入开始时间"},
@@ -82,9 +79,9 @@
               onPreviewFn: "handlePreview",
               onRemoveFn: "handleRemove",
               beforeRemoveFn: "beforeRemove",
-              multiple: false,
+              multiple: "",
               limit: 3,
-              onExceedFn: "handleExceed",
+              onExceed: "handleExceed",
               accept:""
             },
             {
@@ -96,13 +93,11 @@
               key: {label: "name", value: "id"},
               data: [{id: 1, name: "区域一"}, {id: 2, name: "区域二"}]
             },
-
             {type: 'switch', title: "即时配送", value: "", field: "delivery"},
             //后添加的开始
             {type: 'checkbox', title: "活动性质", value: "", field: "type",key: {label: "name", value: "id"},data: [{id: 1, name: "美食/餐厅线上活动"}, {id: 2, name: "地推活动"},{id: 3, name: "线下主题活动"}]},
             {type: 'radio', title: "特殊资源", value: "", field: "resource",placeholder: "请选择活动区域",key: {label: "name", value: "id"},data: [{id: 1, name: "线上品牌商赞助"}, {id: 2, name: "线下场地免费"}]},
             {type: 'textarea', title: "活动形式", value: "", field: "desc"},
-            {type: 'btn', title: "活动形式", value: "", field: "desc2"},
           ],
           data:{
             name: '',
@@ -165,6 +160,7 @@
         console.log(file);
       },
       handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
       },
       beforeRemove(file, fileList) {
         return this.$confirm(`确定移除 ${ file.name }？`);

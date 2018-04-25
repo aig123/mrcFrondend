@@ -17,6 +17,7 @@ const fullCalendar = r => require.ensure([], () => r(require('@/pages/fullCalend
 const elSteps = r => require.ensure([], () => r(require('@/pages/elSteps')), 'elSteps');
 const echart = r => require.ensure([], () => r(require('@/pages/echart')), 'echart');
 const drag = r => require.ensure([], () => r(require('@/pages/drag')), 'drag');
+const ceshi = r => require.ensure([], () => r(require('@/pages/ceshi')), 'ceshi');
 const routes = [
   // {
   //   path: '/',
@@ -118,6 +119,12 @@ const routes = [
         path: 'drag',
         name: "drag",
         component: drag,
+        meta: [],
+      },
+      {
+        path: 'ceshi',
+        name: "ceshi",
+        component: ceshi,
         meta: [],
       }
       ,
