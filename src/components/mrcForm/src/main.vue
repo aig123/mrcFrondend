@@ -29,8 +29,7 @@
       </el-form-item>
 
       <el-form-item :model="formData.buttons" label-width="120px" :ref="formData.name" >
-        <el-button type="primary" @click="" v-for="config in formData.buttons">{{config.name}}</el-button>
-
+        <el-button type="primary" @click="" v-for="config in formData.buttons" :key="item">{{config.name}}</el-button>
       </el-form-item>
     </el-form>
   </section>

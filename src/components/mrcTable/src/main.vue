@@ -1,20 +1,20 @@
 ﻿<template>
   <section  id="outer">
     <!--表格功能按钮-->
-    <div id="user">用户</div>
+    <div id="user">{{tableData.description}}</div>
     <div id="floatR">
       <!--<el-button-->
-        <!--type="text"-->
-        <!--icon="el-icon-rank" @click="dialogTableVisible=true">全屏</el-button>-->
+      <!--type="text"-->
+      <!--icon="el-icon-rank" @click="dialogTableVisible=true">全屏</el-button>-->
       <el-button
         type="text"
         :icon="data.icon" v-for="data in tableData.buttons" :key="data.name" @click="operateClick(data.click)">{{data.name}}</el-button>
       <!--<el-button-->
-        <!--type="text"-->
-        <!--icon="el-icon-upload">导入</el-button>-->
+      <!--type="text"-->
+      <!--icon="el-icon-upload">导入</el-button>-->
       <!--<el-button-->
-        <!--type="text"-->
-        <!--icon="el-icon-download">导出</el-button>-->
+      <!--type="text"-->
+      <!--icon="el-icon-download">导出</el-button>-->
     </div>
     <el-table
       :data="tableData.data"
@@ -57,8 +57,8 @@
         v-if="tableData.buttons&&tableData.operate.length>0"
         width="150">
         <template slot-scope="scope">
-          <el-button @click="operateClick(data.click,scope.row)" :disabled="!scope.row[data.field]" size="mini" type="primary"  v-for="data in tableData.operate" :key="data.name" v-if="data.type=='default'"> {{data.name}}</el-button>
-          <el-button @click="operateClick(data.click,scope.row)"  :disabled="!scope.row[data.field]" type="danger" size="mini"   v-for="data in tableData.operate" :key="data.name" v-if="data.type=='danger'">{{data.name}}</el-button>
+          <el-button @click="operateClick(data.click,scope.row)" :disabled="!scope.row[data.field]" size="mini" type="text"  v-for="data in tableData.operate" :key="data.name" v-if="data.type=='default'"> {{data.name}}</el-button>
+          <el-button @click="operateClick(data.click,scope.row)"  :disabled="!scope.row[data.field]" type="text" size="mini"   v-for="data in tableData.operate" :key="data.name" v-if="data.type=='danger'">{{data.name}}</el-button>
         </template>
       </el-table-column>
     </el-table>
