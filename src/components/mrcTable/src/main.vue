@@ -1,5 +1,5 @@
 ﻿<template>
-  <section  id="outer">
+  <section  id="outer" :style="'height:'+ '-webkit-calc(100% - '+sHeight+'px)'">
     <!--表格功能按钮-->
     <div id="user">{{tableData.description}}</div>
     <div id="floatR">
@@ -152,9 +152,7 @@
     border:solid 1px #dce0e1;
     border-radius:4px;
     padding:12px 20px;
-    height: -webkit-calc(100% - 72px);
-    height: -moz-calc(100% - 72px);
-    height: calc(100% - 72px);
+
   }
   #floatR{
     float: right;margin-right: 18px;
@@ -174,7 +172,7 @@
     template:'<div><input type="text" type="text" v-model="tableData"/></div>',
     data() {
       return {
-        dialogTableVisible:false
+        dialogTableVisible:false,
       };
     },
     props: ['value'],
@@ -230,6 +228,9 @@
         set: function (val) {
           this.$emit('input', val);
         }
+      },
+      sHeight() {
+        return this.$store.getters.sHeight;
       }
     },
 

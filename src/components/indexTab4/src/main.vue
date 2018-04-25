@@ -132,6 +132,7 @@
   }
 </script>
 <style lang="scss">
+
   .sys_con{
     background-color: #fff;
     box-sizing:border-box;
@@ -161,8 +162,12 @@
       height: -webkit-calc(100% - 90px);
       height: -moz-calc(100% - 90px);
       height: calc(100% - 90px);
+      /*overflow-y: auto;*/
+    }
+    .sys_route_out> div{
       overflow-y: auto;
     }
+
   }
   .sys_route_out > div{
     height: 100%;}

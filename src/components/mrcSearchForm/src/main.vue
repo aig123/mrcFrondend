@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="searchForm" style="margin-bottom: 10px">
+    <div class="searchForm" style="margin-bottom: 10px" ref="searchForm">
       <div class="searchForm--item" v-if="!more" v-for="(data,index) in formData.data" :key="index">
         <label class="searchForm--item__label">{{data.title}}</label>
         <div class="searchForm--item__content">
@@ -109,6 +109,13 @@
           this.more = false;
           this.moreName = language.moreConditions;
         }
+
+        let _this=this
+        setTimeout(function () {
+          _this.$store.commit("sHeight", _this.$refs.searchForm.offsetHeight+13);
+          console.log(_this.$refs.searchForm.offsetHeight);
+        },2)
+
       },
       change(data) {
         this.$parent[data]();
@@ -143,6 +150,6 @@
     width: 180px;
     margin-bottom: 5px;
   }
-  label{width:130px;text-align: right}
+  label{width:60px;text-align: right}
   .el-dialog__body label{width: 130px;text-align: left}
 </style>

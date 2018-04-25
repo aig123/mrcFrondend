@@ -10,6 +10,7 @@ const state = {
   "currRouter": {},
   "languageValue": "cn",
   "phone": false,
+  "sHeight":72       //搜索栏的高度默认72px
 
 }
 
@@ -26,6 +27,9 @@ const mutations = {
   },
   phone(state, phone) {
     state = Object.assign(state, {"phone": phone});
+  },
+  sHeight(state, sHeight) {
+    state = Object.assign(state, {"sHeight": sHeight});
   }
 }
 

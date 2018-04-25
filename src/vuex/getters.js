@@ -10,3 +10,6 @@ export const languageValue = state => {
 export const phone = state => {
   return state.phone;
 }
+export const sHeight = state => {
+  return state.sHeight;
+}
