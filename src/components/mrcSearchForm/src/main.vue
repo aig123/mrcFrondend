@@ -2,35 +2,37 @@
   <section>
     <div class="searchForm" style="margin-bottom: 10px">
       <div class="searchForm--item" v-if="!more" v-for="(data,index) in formData.data" :key="index">
-        <label class="searchForm--item__label">{{data.title}}</label>
-        <div class="searchForm--item__content">
-          <el-input class="search-input" v-model="data[data.field]" v-if="data.type=='input'" :placeholder="data.placeholder"
-                    size="small"></el-input>
-          <el-select class="search-input" v-model="data[data.field]" v-if="data.type=='select'"
-                     :placeholder="data.placeholder" @change="change(data.change)" size="small">
-            <el-option :label="item[data.key.label]" :value="item[data.key.value]" :key="item[data.key.value]"
-                       v-for="item in data.data"></el-option>
-          </el-select>
-          <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data[data.field]"
-                          v-if="data.type=='date'" size="small"></el-date-picker>
-          <el-date-picker size="small" v-model="data[data.field]" v-if="data.type=='daterange'" :type="data.type" :range-separator="data.rangeseparator" :start-placeholder="data.startPlaceholder" :end-placeholder="data.endPlaceholder" style="width: 100%"></el-date-picker>
-        </div>
+        <el-form ref="form" :label-width="data.labelWidth"  size="mini">
+          <el-form-item :label="data.title">
+            <el-input class="search-input" v-model="data[data.field]" v-if="data.type=='input'" :placeholder="data.placeholder"
+                      size="small"></el-input>
+            <el-select class="search-input" v-model="data[data.field]" v-if="data.type=='select'"
+                       :placeholder="data.placeholder" @change="change(data.change)" size="small">
+              <el-option :label="item[data.key.label]" :value="item[data.key.value]" :key="item[data.key.value]"
+                         v-for="item in data.data"></el-option>
+            </el-select>
+            <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data[data.field]"
+                            v-if="data.type=='date'" size="small"></el-date-picker>
+            <el-date-picker size="small" v-model="data[data.field]" v-if="data.type=='daterange'" :type="data.type" :range-separator="data.rangeseparator" :start-placeholder="data.startPlaceholder" :end-placeholder="data.endPlaceholder" style="width: 100%"></el-date-picker>
+
+          </el-form-item>
+        </el-form>
       </div>
       <div class="searchForm--item" v-if="more" v-for="(data,index) in formData.moreData" :key="index">
-        <label class="searchForm--item__label">{{data.title}}</label>
-        <div class="searchForm--item__content">
-          <el-input class="search-input" v-model="data.value" v-if="data.type=='input'" :placeholder="data.placeholder"
-                    size="small"></el-input>
-          <el-select class="search-input" v-model="data.value" v-if="data.type=='select'"
-                     :placeholder="data.placeholder" @change="change(data.change)" size="small">
-            <el-option :label="item[data.key.label]" :value="item[data.key.value]" :key="item[data.key.value]"
-                       v-for="item in data.data"></el-option>
-          </el-select>
-          <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data.value"
-                          v-if="data.type=='date'" size="small"></el-date-picker>
-          <el-date-picker size="small" v-model="data[data.field]" v-if="data.type=='daterange'" :type="data.type" :range-separator="data.rangeseparator" :start-placeholder="data.startPlaceholder" :end-placeholder="data.endPlaceholder" style="width: 100%"></el-date-picker>
-
-        </div>
+          <el-form ref="form" label-width="80px" size="mini">
+            <el-form-item :label="data.title">
+              <el-input class="search-input" v-model="data.value" v-if="data.type=='input'" :placeholder="data.placeholder"
+                        size="small"></el-input>
+              <el-select class="search-input" v-model="data.value" v-if="data.type=='select'"
+                         :placeholder="data.placeholder" @change="change(data.change)" size="small">
+                <el-option :label="item[data.key.label]" :value="item[data.key.value]" :key="item[data.key.value]"
+                           v-for="item in data.data"></el-option>
+              </el-select>
+              <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data.value"
+              v-if="data.type=='date'" size="small"></el-date-picker>
+              <el-date-picker size="small" v-model="data[data.field]" v-if="data.type=='daterange'" :type="data.type" :range-separator="data.rangeseparator" :start-placeholder="data.startPlaceholder" :end-placeholder="data.endPlaceholder" style="width: 100%"></el-date-picker>
+            </el-form-item>
+          </el-form>
       </div>
       <div class="searchForm--button" v-if="formData.buttons&&formData.buttons.dataRight">
         <el-button type="primary" @click="search(button.click)" size="small"
@@ -143,6 +145,5 @@
     width: 180px;
     margin-bottom: 5px;
   }
-  label{width:130px;text-align: right}
-  .el-dialog__body label{width: 130px;text-align: left}
+  .searchForm--item{height: 40px;}
 </style>

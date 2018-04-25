@@ -52,16 +52,7 @@
           title:[
             {type: 'input', title: "活动名称", value: "", field: "name", placeholder: "请填写活动名称"},
             {type: 'date', title: "开始时间", value: "", field: "date", placeholder: "请输入开始时间"},
-            {
-              type: 'daterange',
-              title: "活动时间范围",
-              startPlaceholder: "开始日期",
-              endPlaceholder: "结束日期",
-              rangeseparator:"至",
-              value: "",
-              field: "value6",
-              placeholder: "请输入活动时间范围"
-            },
+            {type: 'daterange',title: "活动时间范围",startPlaceholder: "开始日期",endPlaceholder: "结束日期",rangeseparator:"至",value: "",field: "value6",placeholder: "请输入活动时间范围"},
             {
               type: 'uploadFile',
               title: "上传附件",
