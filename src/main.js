@@ -13,6 +13,7 @@ import mrcFullScreen from './components/mrcFullScreen';
 import mrcIframeTab from './components/mrcIframeTab';
 import { VueEditor, Quill } from 'vue2-editor';
 import VueDND from 'awe-dnd'   //拖拽
+import { Drag, Drop } from 'vue-drag-drop';
 // import fullCalendar from 'vue-fullcalendar'  //日历
 import FullCalendar from 'vue-full-calendar'
 import 'fullcalendar/dist/fullcalendar.css'
@@ -31,6 +32,9 @@ if (localStorage.getItem('ELEMENT_LANGUAGE') == "cn") {
 Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(VueDND)
+Vue.component('drag', Drag);
+Vue.component('drop', Drop);
+
 Vue.component('mrc-table', mrcTable)
 Vue.component('mrc-form', mrcForm)
 Vue.component('mrc-search-form', mrcSearchForm)

@@ -102,7 +102,7 @@
             {type: 'checkbox', title: "活动性质", value: "", field: "type",key: {label: "name", value: "id"},data: [{id: 1, name: "美食/餐厅线上活动"}, {id: 2, name: "地推活动"},{id: 3, name: "线下主题活动"}]},
             {type: 'radio', title: "特殊资源", value: "", field: "resource",placeholder: "请选择活动区域",key: {label: "name", value: "id"},data: [{id: 1, name: "线上品牌商赞助"}, {id: 2, name: "线下场地免费"}]},
             {type: 'textarea', title: "活动形式", value: "", field: "desc"},
-            {type: 'btn', title: "活动形式", value: "", field: "desc"},
+            {type: 'btn', title: "活动形式", value: "", field: "desc2"},
           ],
           data:{
             name: '',

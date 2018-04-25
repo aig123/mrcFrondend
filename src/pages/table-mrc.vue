@@ -19,7 +19,7 @@
               switch: true,
               type: "default",
               CurrentChangeFn: "getTableData",
-              pageSize: 10,
+              pageSize: 15,
               pageIndex: 1,
               layout: "prev, pager, next, jumper, total",
               pageSizes: [10, 20, 40],
@@ -117,6 +117,14 @@
           this.tableData.pagination.total = res.data.data.totalPages;
         })
       },
+      getInfo() {
+        let param = {
+          'ProcessID':'10A9A032-792A-4A8C-BAEE-237F7FAECA7F'
+        };
+        Api.getInfo(param).then((res) => {
+          console.log(res,'-------------------测试接口');
+        })
+      },
       search(){
         this.formData.data[0].value="搜索改变了这里的值";
       },
@@ -183,7 +191,7 @@
       }
     },
     mounted: function () {
-
+     this.getInfo();
      this.getTableData();
     },
 }
