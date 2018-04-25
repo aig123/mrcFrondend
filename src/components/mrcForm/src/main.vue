@@ -9,8 +9,6 @@
         </el-select>
         <el-date-picker v-model="formData.data[config.field]" @change="dateChange"  v-if="config.type=='date'" :placeholder="config.placeholder" style="width: 100%"></el-date-picker>
         <el-date-picker v-model="formData.data[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%"></el-date-picker>
-
-
         <el-upload v-model="formData.data[config.field]" v-if="config.type=='uploadFile'" :action="config.action"
                    :limit="config.limit"
                    :on-preview="config.onPreviewFn"
@@ -27,16 +25,15 @@
         </el-radio-group>
         <el-input  v-model="formData.data[config.field]" v-if="config.type=='textarea'" :type="config.type"></el-input>
       </el-form-item>
-
       <el-form-item :model="formData.buttons" label-width="120px" :ref="formData.name" >
-        <el-button type="primary" @click="" v-for="config in formData.buttons" :key="item">{{config.name}}</el-button>
+        <el-button :type="config.type" @click="operateClick(config.click)" v-for="config in formData.buttons" :key="item">{{config.name}}</el-button>
       </el-form-item>
     </el-form>
   </section>
 </template>
 <script>
   export default {
-    name: 'mrc-table',
+    name: 'mrc-form',
     template:'<div><input type="text" type="text" v-model="formData"/></div>',
     data() {
       return {
@@ -50,6 +47,9 @@
       },
       dateChange(value){
 
+      },
+      operateClick(fn){
+        this[fn]
       }
     },
     mounted: function () {

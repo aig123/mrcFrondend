@@ -30,7 +30,7 @@
           Checkbox:false,
           selectionChangeFn:"",
           class:"",//添加自定义class
-          buttons:[{name:language.fullScreen,click:"fullScreen",icon:"el-icon-rank"},{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"},{name:language.import,click:"",icon:"el-icon-upload"},{name:language.export,click:"",icon:"el-icon-download"}],
+          buttons:[{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"},{name:language.import,click:"",icon:"el-icon-upload"},{name:language.export,click:"",icon:"el-icon-download"}],
           operate:[{name:language.delect,click:"delData",type:'danger',field:"del"},{name:language.edit,click:"editData",type:'default',field:"edit"}],
           title: [
             {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:false},
@@ -62,7 +62,7 @@
         },
         formData:{
           name:"form",
-          buttons:{dataLeft:[{name:language.search,click:"search"}],dataRight:[{name:language.add,click:"getDatas"}]},
+         // buttons:{dataLeft:[{name:language.search,click:"search"}],dataRight:[{name:language.add,click:"getDatas"}]},
           title:[
             {type:'input',title:"编号",value:"",field: "id",placeholder:"请填写编号"},
             {type:'input',title:"姓名",value:"",field: "name",placeholder:"请输入姓名"},
@@ -178,11 +178,6 @@
           }
         });
       },
-      fullScreen(){//点击全屏函数
-        //this.dialogTableVisible=true;
-        //alert(123)
-        dialogTableVisible=true;
-      }
     },
     mounted: function () {
 
