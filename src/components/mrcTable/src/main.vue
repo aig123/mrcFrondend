@@ -3,7 +3,7 @@
     <!--表格功能按钮-->
     <div id="user">{{tableData.description}}</div>
     <div id="floatR">
-      <el-button type="text" icon="el-icon-rank" @click="dialogTableVisible=true" v-if="tableData.FullScreen">{{fullScreenName}}</el-button>
+      <el-button type="text" icon="el-icon-rank" @click="dialogTableVisible=true" v-if="tableData.FullScreen.showFullScreen">{{tableData.FullScreen.FullScreenText}}</el-button>
       <el-button
         type="text"
         :icon="data.icon" v-for="data in tableData.buttons" :key="data.name" @click="operateClick(data.click)">{{data.name}}</el-button>
