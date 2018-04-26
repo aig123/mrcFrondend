@@ -44,7 +44,6 @@
         },
         formSearchData:{
           buttons:{dataLeft:[{name:language.search,click:"search"}],dataRight:[]},//操作按钮
-          //labelWidth:{width:"80px"},
           data:[
             {type:'input',title:language.age,age:"",field:"age",placeholder:language.age,labelWidth:"80px"},
             {type:'select',title:language.grade,change:"gradeChange",placeholder:language.grade,key:{label:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],grade:"",field:"grade",labelWidth:"80px"},

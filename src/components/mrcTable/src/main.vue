@@ -152,7 +152,6 @@
     border:solid 1px #dce0e1;
     border-radius:4px;
     padding:12px 20px;
-    height: calc(100% - 73px);
 
   }
   #floatR{
@@ -173,7 +172,7 @@
     template:'<div><input type="text" type="text" v-model="tableData"/></div>',
     data() {
       return {
-        dialogTableVisible:false,
+        dialogTableVisible:false
       };
     },
     props: ['value'],
