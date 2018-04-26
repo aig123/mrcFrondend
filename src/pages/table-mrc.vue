@@ -20,7 +20,7 @@
             switch: true,
             type: "default",
             CurrentChangeFn: "getTableData",
-            pageSize: 10,
+            pageSize: 15,
             pageIndex: 1,
             layout: "prev, pager, next, jumper, total",
             pageSizes: [10, 20, 40],
