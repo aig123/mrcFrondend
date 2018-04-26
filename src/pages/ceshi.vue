@@ -16,6 +16,7 @@
       return {
         tableData:{
           description:"操作日志",
+          FullScreen:{showFullScreen:false,FullScreenText:language.fullScreen},
           pagination: {
             switch: true,
             type: "default",

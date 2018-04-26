@@ -16,6 +16,7 @@
       return {
         tableData:{
           description:"用户",//表单左上角显示的文字
+          FullScreen:{showFullScreen:true,FullScreenText:language.fullScreen},
           pagination: {
             switch: true,
             type: "default",
@@ -106,7 +107,7 @@
         }
       };
     },
-    methods: {
+    methods: {//开始
       getTableData() {
         let param = {
           pageIndex: this.tableData.pagination.pageIndex,
@@ -179,7 +180,7 @@
           }
         });
       },
-    },
+    },//开始
     mounted: function () {
 
       this.getTableData();
