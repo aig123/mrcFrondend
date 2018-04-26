@@ -27,6 +27,7 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'nb': path.resolve(__dirname, 'http://vmccsyswfdeweb.faw-vw.in:9000/JsNameSpace.jsx')
     }
   },
   module: {
