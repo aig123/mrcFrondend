@@ -16,7 +16,7 @@
       return {
         tableData:{
           description:"用户",//表单左上角显示的文字
-          FullScreen:{showFullScreen:true,FullScreenText:language.fullScreen},
+          FullScreen:true,
           pagination: {
             switch: true,
             type: "default",
