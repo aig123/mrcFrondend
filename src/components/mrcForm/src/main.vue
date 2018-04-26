@@ -1,5 +1,5 @@
 <template>
-  <section >
+  <section>
     <div style="padding: 20px;max-width: 700px">
     <el-form :model="formData.data" label-width="120px" :rules="formData.rules" :ref="formData.name">
       <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" style="width: 100%;" :prop="config.field">
