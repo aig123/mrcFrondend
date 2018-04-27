@@ -159,13 +159,12 @@
     float: right;margin-right: 18px;
   }
   #user{
-    float: left;font-size: 22px;margin-bottom:16px;color:#a4aeb2;margin-left: 8px;
+    float: left;font-size: 18px;margin-bottom:16px;color:#a4aeb2;margin-left: 8px;
   }
   .el-input__inner{line-height: 28px !important;}/*分页垂直居中兼容IE-20180413*/
   .el-pagination{margin-top:10px;text-align: right}/*分页居右对齐-20180413*/
   .el-table{height: calc(100% - 86px) !important;}/*调整底部分页与表格关系-20180413*/
   .el-dialog__body .el-table{height: calc(100% - 52px) !important;}/*定义dialog内表格与分页位置关系-20180413*/
-
 </style>
 <script>
   import language  from "../../language/language";
