@@ -1,11 +1,50 @@
 <template>
   <div class="content">
     <div style="height: 50px;line-height: 50px;">
-      <el-input v-model="code.name" placeholder="表单名称（英文）" style="width: 150px"></el-input>
+      <el-button type="primary" @click="addFormBase">表单基础配置</el-button>
+      <el-button type="primary" @click="addData">增加表单内容</el-button>
       <el-button type="primary">增加校验规则</el-button>
-      <el-button type="primary">增加button</el-button>
+      <el-button type="primary" style="float: right"  @click="getCode">显示配置代码</el-button>
     </div>
-    <mrc-table v-model="tableData"></mrc-table>
+    <div style="border: 1px solid #e4e7ed;width: 100%;height: 90%;padding: 20px">
+      <center v-if="code.title.length==0" style="color: #606266;font-size: 30px;margin-top: 20%;">
+        配置展示区
+      </center>
+      <mrc-form v-model="code" ref="mrcForm" v-if="code.title.length!=0"> </mrc-form>
+    </div>
+    <mrc-dialog v-model="dialogForm">
+      <el-form :model="code" label-width="140px"  ref="formd" style="width: 90%">
+        <el-form-item label="表单名称">
+          <el-input v-model="code.name" placeholder="英文（用于获取对象）"></el-input>
+        </el-form-item>
+        <el-form-item label="表单模板">
+          <el-select v-model="code.ptl" placeholder="请选择表单模板" style="width: 100%">
+            <el-option label="模板1" value="1"></el-option>
+            <el-option label="模板2" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="lable宽度">
+          <el-input v-model="code.labelWidth" placeholder="默认100px"></el-input>
+        </el-form-item>
+      </el-form>
+      <el-form :model="button" label-width="140px"  ref="formb" style="width: 90%">
+        <el-form-item label="">
+          <el-button :type="button.type" size="small" v-for="button in code.buttons" :key="button.name">{{button.name}}</el-button>
+        </el-form-item>
+        <el-form-item label="按钮名称">
+          <el-input v-model="button.name" placeholder="名称"></el-input>
+        </el-form-item>
+        <el-form-item label="触发方法">
+          <el-input v-model="button.click" placeholder="触发方法名称"></el-input>
+        </el-form-item>
+        <el-form-item label="按钮类型">
+          <el-input v-model="button.type" placeholder="按钮类型"></el-input>
+        </el-form-item>
+        <el-form-item label="">
+          <el-button type="primary" size="small" @click="addButton">增加button</el-button>
+        </el-form-item>
+      </el-form>
+    </mrc-dialog>
     <mrc-dialog v-model="dialogData">
       <el-form :model="formData" label-width="140px"  ref="formd" style="width: 90%">
         <el-form-item label="表单类型">
@@ -17,7 +56,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="表单字段名称">
-          <el-input v-model="formData.name" placeholder="字段名称"></el-input>
+          <el-input v-model="formData.title" placeholder="字段名称"></el-input>
         </el-form-item>
         <el-form-item label="表单字段field">
           <el-input v-model="formData.field" placeholder="字段名称field"></el-input>
@@ -28,7 +67,6 @@
         <el-form-item label="是否开启校验">
           <el-input v-model="formData.rule" placeholder="开启校验"></el-input>
         </el-form-item>
-        {{this.formData}}
       </el-form>
     </mrc-dialog>
     <mrc-dialog v-model="dialogCode">
@@ -47,39 +85,10 @@
   export default {
     data(){
       return {
-        tableData:{
-          description:"自动化表单",//表单左上角显示的文字
-          FullScreen:{showFullScreen:true,FullScreenText:language.fullScreen},
-          pagination: {
-            switch: false,
-            type: "default",
-            CurrentChangeFn: "getTableData",
-            pageSize: 15,
-            pageIndex: 1,
-            layout: "prev, pager, next, jumper, total",
-            pageSizes: [10, 20, 40],
-          },//是否开启分页
-          index:true,//显示索引序号
-          indexName:language.index,
-          Checkbox:false,
-          selectionChangeFn:"",
-          class:"",//添加自定义class
-          buttons:[{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"},{name:"源码",click:"getCode",icon:"el-icon-tickets"}],
-          operate:[],
-          title: [
-            {name: "类型", field: "type",width:"",show:true,fixed:false,sortable:false},
-            {name: "名称", field: "name",width:"",show:true,fixed:false,sortable:false},
-            {name: "字段", field: "field",width:"",show:false,fixed:false,sortable:false},
-            {name: "提示信息", field: "placeholder",width:"",show:true,fixed:false,sortable:false},
-            {name: "校验", field: "rule",width:"150",show:true},
-          ],
-          data: [],
-
-        },
         formData:{
           type:"",
           field:"",
-          name:"",
+          title:"",
           placeholder:"",
           rule:""
         },
@@ -95,38 +104,63 @@
         },
         dialogCode:{
           show:false,//手否显示
-          title:"数据配置",//名称
+          title:"显示配置",//名称
           width:"60%",//宽度设置
           closeOnClickModal:true,//是否可以通过点击 modal 关闭 Dialog
           saveFn:"onSubmit",//确定触发的方法
           confirmButtonText:language.save, //确定名称
           cancelButtonText:language.cancel   //取消名称
         },
+        dialogForm:{
+          show:false,//手否显示
+          title:"form基础配置",//名称
+          width:"40%",//宽度设置
+          closeOnClickModal:true,//是否可以通过点击 modal 关闭 Dialog
+          saveFn:"formSubmit",//确定触发的方法
+          confirmButtonText:language.save, //确定名称
+          cancelButtonText:language.cancel   //取消名称
+        },
         code:{
-          name:"",
-          buttons:[],
+          name:"form",
+          ptl:"1",
+          labelWidth:"100",
+          buttons:[{name:"保存",click:"save",type:"primary"}],
           title:[],
           data:{},
           rules: {},
         },
-        codeStr:""
+        codeStr:"",
+        button:{
+          name:"",
+          click:"",
+          type:"primary",
+        }
       };
     },
     methods: {//开始
+      addButton(){
+        this.code.buttons.push(this.button);
+        this.button={};
+      },
       addData(){
         this.dialogData.show=true;
+      },
+      addFormBase(){
+        this.dialogForm.show=true;
       },
       getCode(){
         this.codeStr=JSON.stringify(this.code, null, 4);
         this.dialogCode.show=true;
       },
       onSubmit(){
-        this.tableData.data.push(this.formData);
+        this.code.title.push(this.formData);
         this.dialogData.show=false;
         this.formData={};
-        this.code.title=this.tableData.data;
+      },
+      formSubmit(){
+        this.dialogForm.show=false;
       }
-    },//开始
+    },
     mounted: function () {
     },
   }

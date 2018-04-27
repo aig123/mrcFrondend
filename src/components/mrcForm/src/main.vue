@@ -1,7 +1,6 @@
 <template>
   <section>
-    <div style="padding: 20px;max-width: 700px">
-    <el-form :model="formData.data" label-width="120px" :rules="formData.rules" :ref="formData.name">
+    <el-form :model="formData.data" :label-width="labelWidth" :rules="formData.rules" :ref="formData.name">
       <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" style="width: 100%;" :prop="config.field">
         <el-input v-model="formData.data[config.field]" v-if="config.type=='input'" :placeholder="config.placeholder"  style="width: 100%"></el-input>
         <el-select v-model="formData.data[config.field]" v-if="config.type=='select'" :placeholder="config.placeholder" style="width: 100%">
@@ -35,7 +34,6 @@
         <el-button type="primary" @click="uploadFn(config.click)"   v-for="(config,index) in formData.buttons" :key="index">{{config.name}}</el-button>
       </el-form-item>
     </el-form>
-    </div>
   </section>
 </template>
 <script>
@@ -44,7 +42,7 @@
     template:'<div><input type="text" type="text" v-model="formData"/></div>',
     data() {
       return {
-        rules: {}
+        rules: {},
       };
     },
     props: ['columns','value'],
@@ -68,6 +66,9 @@
         set: function (val) {
           this.$emit('input', val);
         }
+      },
+      labelWidth(){
+        return  this.formData.labelWidth?this.formData.labelWidth+'px':'100px'
       }
     },
 

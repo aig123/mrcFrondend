@@ -1,5 +1,5 @@
 ﻿<template>
-  <section  id="outer">
+  <section  id="outer" :style="'height:'+ '-webkit-calc(100% - '+sHeight+'px)'+';'+'height:'+ 'calc(100% - '+sHeight+'px)' ">
     <!--表格功能按钮-->
     <div id="user">{{tableData.description}}</div>
     <div id="floatR">
