@@ -37,7 +37,7 @@
       <div class="menu_head" >
         <menuState ref="menuState" :isOpen="isOpen" @click="menuStateHandle"></menuState>
       </div>
-      <div class="list "style="margin-top: 20px" >
+      <div class="list">
         <el-menu
           router
           :default-active="defaultActive"
@@ -268,9 +268,6 @@
   }
   .el-menu-vertical-demo2:not(.el-menu--collapse) {
     width: 100%;
-  }
-  .el-menu{
-    border-right: solid 0px #e6e6e6!important;
   }
   .el-menu--collapse > .el-menu-item span, .el-menu--collapse > .lable-menu > .el-submenu >  .el-submenu__title span {
     height: 0;

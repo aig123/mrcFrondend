@@ -1,7 +1,7 @@
 <template>
   <div class="sys_con" :class="{sys_close:close}">
     <div class="sys_header">
-      <h4><span class="sys_logo"><img src="../../indexApp3/src/assets/logo.png" id="logo1"></span>{{title}}<br /><span id="English">COLLABORATION APPLICATION PLATFORM</span></h4>
+      <h4 style="margin-left: 180px;"><span class="sys_logo"><img src="../../indexApp3/src/assets/logo.png" id="logo1"></span>{{title}}<br /><span id="English">COLLABORATION APPLICATION PLATFORM</span></h4>
       <h5 class="sys_df" style="margin-top: 20px;position: absolute;z-index: 2" v-if="!$store.getters.phone">
         <el-radio-group v-model="languageValue" @change="languageChange">
           <el-radio  label="cn">中文</el-radio>
@@ -135,21 +135,37 @@
     &.sys_close{
       padding-left: 64px;
     }
-    .sys_route{
-      position: relative;
-      box-sizing:border-box;
-      padding: 0px 10px 10px 5px;
-      height: 100%;
-      width:100%;
-    }
-    .sys_route_out{
-      position: relative;
-      width: 100%;
-      height: -webkit-calc(100% - 90px);
-      height: -moz-calc(100% - 90px);
-      height: calc(100% - 90px);
-      overflow-y: auto;
-    }
   }
+  .sys_route_out > div{
+    height: 100%;}
+  .sys_head{
+    position: absolute;
+    top:18px;
+    right:80px;}
+  .imgBox{float: left;width: 50px;height: 50px;border-radius: 50%;overflow: hidden;background: #000;margin-right: 6px;}
+  .personBox{margin-top: 5px;cursor:pointer;position: relative;z-index: 1}/*兼容IE点击事件*/
+
+
+
+
+
+
+  .searchForm .el-input__inner{border-radius:3px;}/*添加圆角*/
+  .menu_right{top:0}
+  .sys_con .sys_route{left:5px;position: relative;box-sizing:border-box;padding: 0px 10px 10px 5px;height: 100%;width:100%;}
+  .sys_con .sys_route_out{top:100px;position: relative;width: 100%;height: -webkit-calc(100% - 90px);height: -moz-calc(100% - 90px);height: calc(100% - 90px);overflow-y: auto;}
+  .sys_home .sys_header{height:100px; }
+  .searchForm{margin-left:0;margin-right:0px;border-radius:2px;}
+  #logname{font-size: 14px}
+  #department{position: absolute;top:26px;white-space: nowrap;}
+  .sys_home .sys_header h4{line-height: 18px;margin-top:25px;font-size: 20px;font-weight: 500;letter-spacing: 2px;}
+  .sys_home .sys_header h4 .sys_logo{top:22px;}
+  .sys_home .sys_header h5.sys_user .sys_userPhoto{top:15px}
+  .sys_home .sys_header h5.sys_user{padding-top:8px}
+  .sys_home .sys_header h5{top:6px !important;}
+  .searchForm .searchForm--item:first-child{margin-left:10px;}
+  #English{font-size: 8px;letter-spacing: -1px}
+  hr{margin-top:16px;border:solid 0.5px #e7ecf1}
+
 </style>
-<style src="./css/my.css" scoped></style>
+<!--<style src="./css/my.css" scoped></style>-->

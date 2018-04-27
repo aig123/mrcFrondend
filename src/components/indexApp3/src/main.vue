@@ -1,10 +1,10 @@
 <template>
   <div class="menu_right" :class="{closeMenu:isOpen}">
-    <div class="listP">
+    <div class="listP" style="box-shadow: none">
       <div class="menu_head">
         <menuState ref="menuState" :isOpen="isOpen" @click="menuStateHandle"></menuState>
       </div>
-      <div class="list "style="margin-top: 70px" >
+      <div class="list">
         <el-menu
           router
           :default-active="defaultActive"
@@ -208,6 +208,9 @@
     width: 220px;
     min-height: 400px;
   }
+  .el-menu-vertical-demo2:not(.el-menu--collapse) {
+    width: 100%;
+  }
   .el-menu--collapse > .el-menu-item span, .el-menu--collapse > .lable-menu > .el-submenu >  .el-submenu__title span {
     height: 0;
     width: 10px;
@@ -215,7 +218,9 @@
     visibility: hidden;
     display: inline-block;
   }
-  .el-menu{border-right:none !important}/*去除左侧导航右侧边框*/
+  .el-menu--collapse > .el-menu-item .el-submenu__icon-arrow, .el-menu--collapse > .lable-menu >.el-submenu > .el-submenu__title .el-submenu__icon-arrow {
+    display: none;
+  }
 </style>
 <style lang="scss">
   /*menu max width out scroll*/
@@ -223,9 +228,8 @@
   @mixin menu_width {
     width: -webkit-calc(100% - 5px);
     width: -moz-calc(100% - 5px);
-    width: calc(100% - 5px);
+    width: 100%;
   }
-  /*border color*/
   .menu_right{
     -webkit-user-select:none;
     -moz-user-select:none;
@@ -236,46 +240,80 @@
     -ms-transition: all .5s;
     transition: all .5s;
     position:absolute;
+    z-index: 100;
     width:220px;
     height:100%;
-
     &.closeMenu{
       width: 64px;
+      .childrenList{
+        overflow: visible !important;
+        display: none;
+        height: auto !important;
+        position:fixed;
+        width: 220px;
+        left: 50px;
+        &.on{
+          display: block;
+        }
+      }
+    }
+    &.closeMenuPhone{
+      width: 0px;
+    }
+    *{
+      box-sizing: border-box;
     }
     .listP{
       height: 100%;
-      padding-top: 15px;
-      /*box-shadow: 2px 0px 30px #c8c8c8;*/
+      box-shadow: 2px 0px 30px #ddd;
       /*menu header*/
       .menu_head{
-        position: absolute;
+        position: relative;
+        /*width: $menu_width;*/
         @include menu_width;
-        height: 50px;
+        height: 91px;
         top:0px;
+        box-shadow: 0 1px 8px #f2f2f2;
+        /*background-color: #24254f;*//*去掉背景颜色-20180326*/
         z-index: 1;
         &>a{
+          -webkit-transition: transform .5s;
+          -moz-transition: transform .5s;
+          -ms-transition: transform .5s;
+          transition: transform .5s;
+          position: absolute;
+          display: block;
+          top: 14px;
+          cursor: pointer;
+          left: 10px;
           &.on{
-           // left:12px !important;/*点击按钮之后，logoClick位置是否改变*/
+            //left:12px !important;/*新添加的-20180327*/
           }
         }
       }
+      /*menu content*/
       .list{
-        height: calc(100% - 72px);
-        overflow-y: auto;
+        width:100%;/*重新调整宽度-20180329*/
+        height:calc(100% - 91px);
+        overflow-y:auto;
         overflow-x: hidden;
-        .list_con{
-          .sopt{
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
+        /*background*/
+        .list_bgcolor{
+          position: absolute;
+          @include menu_width;
+          height: 100%;
+          top:0px;
+          left: 0px;
+          width:100%;
+          box-shadow: 2px 0px 30px #c8c8c8;/*添加右侧阴影-20180326*/
         }
+        /*list li*/
       }
     }
   }
   #menu_click{/*修改菜单按钮位置样式，重新赋予id-20180328*/
     position: absolute;
-    top:30px;
+    top:32px;
     left:7px;
   }
   #logo{/*修改大众logo位置样式，重新赋予id-20180328*/
@@ -283,7 +321,6 @@
     position: absolute;
     left:-130px;
     top:9px;
-    width: 80px;
   }
   #logoClick{/*将原来的模板内的a标签样式单独提出来，重新赋予id-20180328*/
     position:absolute;top:0;left:170px;transition: all .5s
@@ -299,10 +336,9 @@
   }
   .sys_con .sys_route{
     left:5px;
-  }/*将去除滚动条产生的边距-20180329*/
-  .sys_home .sys_header h4{
-    margin-left:168px;/*调整文字距离左边的距离*/
   }
+
+  /*滚动条样式开始*/
 
 
 
@@ -340,8 +376,6 @@
     scrollbar-track-color: #fff; /*立体滚动条背景颜色*/
     scrollbar-base-color:#000; /*滚动条的基色*/
   }
-
-
 
 </style>
 <style lang="scss" src="../../scss/app-while.scss"></style>
