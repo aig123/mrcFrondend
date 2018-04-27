@@ -18,6 +18,7 @@ const elSteps = r => require.ensure([], () => r(require('@/pages/elSteps')), 'el
 const echart = r => require.ensure([], () => r(require('@/pages/echart')), 'echart');
 const drag = r => require.ensure([], () => r(require('@/pages/drag')), 'drag');
 const ceshi = r => require.ensure([], () => r(require('@/pages/ceshi')), 'ceshi');
+const autoForm = r => require.ensure([], () => r(require('@/pages/autoForm')), 'autoForm');
 const routes = [
   // {
   //   path: '/',
@@ -29,6 +30,12 @@ const routes = [
     component: home,
     name: '',
     children: [
+      {
+        path: 'autoForm',
+        name: "autoForm",
+        component: autoForm,
+        meta: [],
+      },
       {
         path: 'formMrc',
         name: "formMrc",

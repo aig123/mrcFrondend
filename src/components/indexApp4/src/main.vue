@@ -37,7 +37,7 @@
       <div class="menu_head" >
         <menuState ref="menuState" :isOpen="isOpen" @click="menuStateHandle"></menuState>
       </div>
-      <div class="list">
+      <div class="list "style="margin-top: 20px" >
         <el-menu
           router
           :default-active="defaultActive"
@@ -55,9 +55,15 @@
                  <i :class="item.icon"></i>
                  <span slot="title">{{item.title}}</span>
                </template>
-                 <el-menu-item :index="menuItem.path" :key="index" v-for="(menuItem,index) in item.children">
+               <span :key="index" v-for="(menuItem,index) in item.children">
+                  <el-menu-item :index="menuItem.path" v-if="!menuItem.children">
                    {{menuItem.title}}
                  </el-menu-item>
+                 <el-submenu :index="menuItem.path" v-if="menuItem.children&&menuItem.children.length>0">
+                     <template slot="title"> {{menuItem.title}}</template>
+                      <el-menu-item :index="menuItemC.path"  :key="inde" v-for="(menuItemC,inde) in menuItem.children" >{{menuItemC.title}}</el-menu-item>
+                   </el-submenu>
+               </span>
              </el-submenu>
              <el-menu-item :index="item.path" v-if="!item.children||item.children.length==0">
                <i :class="item.icon"></i>
@@ -258,7 +264,7 @@
 <style>
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 220px;
-    height: calc(100% - 91px);
+    min-height: 400px;
   }
   .el-menu-vertical-demo2:not(.el-menu--collapse) {
     width: 100%;

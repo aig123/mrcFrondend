@@ -31,7 +31,11 @@
     props: ['columns','value'],
     methods:{
       beforeClose(){
-        this.$parent[this.dialogData.beforeCloseFn]();
+        if(this.dialogData.beforeCloseFn){
+          this.$parent[this.dialogData.beforeCloseFn]();
+        }else {
+          this.dialogData.show=false
+        }
       },
       save(){
         this.$parent[this.dialogData.saveFn]();

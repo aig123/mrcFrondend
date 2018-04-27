@@ -18,7 +18,13 @@
     data () {
       return {
         menu:[
+          {
 
+            path: "/home/autoForm",
+            title: "自动化组件",
+            icon:"el-icon-news",
+
+          },
           {
             title: "table列表",
             icon:"el-icon-menu",
