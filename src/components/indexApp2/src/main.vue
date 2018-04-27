@@ -1,10 +1,10 @@
 <template>
   <div class="menu_right" :class="{closeMenu:isOpen}">
     <div class="listP">
-      <div class="menu_head">
+      <div class="menu_head" style="background: #5b8cff">
         <menuState ref="menuState" :isOpen="isOpen" @click="menuStateHandle"></menuState>
       </div>
-      <div class="list "style="margin-top: 71px;" >
+      <div class="list">
         <el-menu
           router
           :default-active="defaultActive"
@@ -209,8 +209,8 @@
     width: 220px;
     min-height: 400px;
   }
-  .el-menu{
-    border-right: solid 0px #e6e6e6!important;
+  .el-menu-vertical-demo2:not(.el-menu--collapse) {
+    width: 100%;
   }
   .el-menu--collapse > .el-menu-item span, .el-menu--collapse > .lable-menu > .el-submenu >  .el-submenu__title span {
     height: 0;
@@ -222,11 +222,124 @@
   .el-menu--collapse > .el-menu-item .el-submenu__icon-arrow, .el-menu--collapse > .lable-menu >.el-submenu > .el-submenu__title .el-submenu__icon-arrow {
     display: none;
   }
-  ul.el-menu{ height: calc(100% - 85px);
-    /* border: solid 1px red; */
-    overflow-y: auto;
-    overflow-x: hidden;}
+</style>
+<style lang="scss">
+  /*menu max width out scroll*/
+  /*$menu_width : 215px;*/
+  @mixin menu_width {
+    width: -webkit-calc(100% - 5px);
+    width: -moz-calc(100% - 5px);
+    width: 100%;
+  }
+  .menu_right{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    transition: all .5s;
+    position:absolute;
+    z-index: 100;
+    width:220px;
+    height:100%;
+    &.closeMenu{
+      width: 64px;
+      .childrenList{
+        overflow: visible !important;
+        display: none;
+        height: auto !important;
+        position:fixed;
+        width: 220px;
+        left: 50px;
+        &.on{
+          display: block;
+        }
+      }
+    }
+    &.closeMenuPhone{
+      width: 0px;
+    }
+    *{
+      box-sizing: border-box;
+    }
+    .listP{
+      height: 100%;
+      box-shadow: 2px 0px 30px #ddd;
+      /*menu header*/
+      .menu_head{
+        position: relative;
+        /*width: $menu_width;*/
+        @include menu_width;
+        height: 91px;
+        top:0px;
+        box-shadow: 0 1px 8px #f2f2f2;
+        /*background-color: #24254f;*//*去掉背景颜色-20180326*/
+        z-index: 1;
+        &>a{
+          -webkit-transition: transform .5s;
+          -moz-transition: transform .5s;
+          -ms-transition: transform .5s;
+          transition: transform .5s;
+          position: absolute;
+          display: block;
+          top: 14px;
+          cursor: pointer;
+          left: 10px;
+          &.on{
+            left:12px !important;/*新添加的-20180327*/
+          }
+        }
+      }
+      /*menu content*/
+      .list{
+        width:100%;/*重新调整宽度-20180329*/
+        height:calc(100% - 91px);
+        overflow-y:auto;
+        overflow-x: hidden;
+        /*background*/
+        .list_bgcolor{
+          position: absolute;
+          @include menu_width;
+          height: 100%;
+          top:0px;
+          left: 0px;
+          width:100%;
+          box-shadow: 2px 0px 30px #c8c8c8;/*添加右侧阴影-20180326*/
+        }
+        /*list li*/
+      }
+    }
+  }
+  #menu_click{/*修改菜单按钮位置样式，重新赋予id-20180328*/
+    position: absolute;
+    top:32px;
+    left:7px;
+  }
+  #logo{/*修改大众logo位置样式，重新赋予id-20180328*/
+    margin-left: -20px;
+    position: absolute;
+    left:-130px;
+    top:9px;
+  }
+  #logoClick{/*将原来的模板内的a标签样式单独提出来，重新赋予id-20180328*/
+    position:absolute;top:0;left:170px;transition: all .5s
+  }
+  .on #menu_click{/*新定义样式-20180328*/
+    transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    webkit-transform:rotate(90deg)
+  }
+  #menu_click{/*为该id添加渐变CSS-20180328*/
+    transition: all .5s
+  }
+  .sys_con .sys_route{
+    left:5px;
+  }
 
+  /*滚动条样式开始*/
 
 
 
@@ -265,85 +378,5 @@
     scrollbar-base-color:#000; /*滚动条的基色*/
   }
 
-
-
-</style>
-<style lang="scss">
-  @mixin menu_width {
-    width: -webkit-calc(100% - 5px);
-    width: -moz-calc(100% - 5px);
-    width: calc(100% - 5px);
-  }
-  .menu_right{
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;
-    user-select:none;
-    -webkit-transition: all .5s;
-    -moz-transition: all .5s;
-    -ms-transition: all .5s;
-    transition: all .5s;
-    position:absolute;
-    width:220px;
-    height: 100%;
-    &.closeMenu{
-      width: 64px;
-    }
-    .listP{
-      height: 100%;
-      padding-top: 15px;
-      /*menu header*/
-      .menu_head{
-        position: absolute;
-        @include menu_width;
-        height: 50px;
-        top:0px;
-        background: #4777e9;//头部背景颜色
-        height: 85px;
-        width: 100%;
-        z-index: 1;
-        &>a{
-          &.on{
-            left:12px !important;/*新添加的-20180327*/
-          }
-        }
-      }
-      .list{
-        height: 100%;
-        overflow-y: auto;
-        overflow-x: hidden;
-        .list_con{
-          .sopt{
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
-        }
-      }
-    }
-
-  }
-  #menu_click{/*修改菜单按钮位置样式，重新赋予id-20180328*/
-    position: absolute;
-    top:30px;
-    left:7px;
-    transition: all .5s
-  }
-  #logo{/*修改大众logo位置样式，重新赋予id-20180328*/
-    margin-left: -20px;
-    position: absolute;
-    left:-130px;
-    top:9px;
-    width:80px;
-  }
-  #logoClick{
-    position:absolute;top:0;left:170px;transition: all .5s
-  }
-  .on #menu_click{/*新定义样式-20180328*/
-    transform:rotate(90deg);
-    -ms-transform:rotate(90deg);
-    -moz-transform:rotate(90deg);
-    webkit-transform:rotate(90deg)
-  }
 </style>
 <style lang="scss" src="../../scss/app.scss"></style>

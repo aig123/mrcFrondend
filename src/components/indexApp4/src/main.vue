@@ -269,9 +269,6 @@
   .el-menu-vertical-demo2:not(.el-menu--collapse) {
     width: 100%;
   }
-  .el-menu{
-    border-right: solid 0px #e6e6e6!important;
-  }
   .el-menu--collapse > .el-menu-item span, .el-menu--collapse > .lable-menu > .el-submenu >  .el-submenu__title span {
     height: 0;
     width: 10px;
