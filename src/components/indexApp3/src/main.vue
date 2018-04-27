@@ -1,7 +1,7 @@
 <template>
   <div class="menu_right" :class="{closeMenu:isOpen}">
     <div class="listP" style="box-shadow: none">
-      <div class="menu_head" style="box-shadow: none">
+      <div class="menu_head">
         <menuState ref="menuState" :isOpen="isOpen" @click="menuStateHandle"></menuState>
       </div>
       <div class="list">
@@ -287,7 +287,7 @@
           cursor: pointer;
           left: 10px;
           &.on{
-            left:12px !important;/*新添加的-20180327*/
+            //left:12px !important;/*新添加的-20180327*/
           }
         }
       }
