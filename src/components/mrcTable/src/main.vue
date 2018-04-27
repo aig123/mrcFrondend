@@ -13,7 +13,8 @@
       :empty-text="tableData.emptyText"
       border
       @selection-change="handleSelectionChange"
-      height="80%" style="width: 99%;margin: 0 auto;">
+      height="80%" style="width: 99%;margin: 0 auto;"
+      class="mrcTable">
       <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
       <!--check多选框-->
       <el-table-column
@@ -57,13 +58,12 @@
     <!--分页栏-->
     <el-pagination
       v-if="tableData.pagination.switch"
-      style=""
       background
       :page-sizes="tableData.pagination.pageSizes"
       :layout="tableData.pagination.layout"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange" :current-page="tableData.pagination.pageIndex" :page-size="tableData.pagination.pageSize" :total="tableData.pagination.total"
-
+      class="tablePaging"
     >
     </el-pagination>
     <el-dialog title="全屏列表" :visible.sync="dialogTableVisible" :fullscreen="true" style="height: 100%">
@@ -72,7 +72,8 @@
         :empty-text="tableData.emptyText"
         border
         @selection-change="handleSelectionChange"
-        style="width: 100%" height="90%">
+        style="width: 100%"
+        class="dialogTable">
         <!--check多选框-->
         <el-table-column
           type="selection"
@@ -121,33 +122,13 @@
         :layout="tableData.pagination.layout"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange" :current-page="tableData.pagination.pageIndex" :page-size="tableData.pagination.pageSize" :total="tableData.pagination.total"
-
+        class="dialogPaging"
       >
       </el-pagination>
     </el-dialog>
   </section>
 </template>
-<style scoped>
-  .el-dialog__body{
-    height: 100%;
-  }
-</style>
 <style>
-  .import_img{
-    margin-top: 40%;
-    margin-left: 17%;
-    cursor: pointer;
-  }
-  .table_Height {
-    height: -webkit-calc(100% - 90px);
-    height: -moz-calc(100% - 90px);
-    height: calc(100% - 90px);
-  }
-  .el-dialog__body{
-    height: -webkit-calc(100% - 41px);
-    height: -moz-calc(100% - 41px);
-    height: calc(100% - 41px);
-  }
   #outer{
     border:solid 1px #dce0e1;
     border-radius:4px;
@@ -161,10 +142,9 @@
   #user{
     float: left;font-size: 18px;margin-bottom:16px;color:#a4aeb2;margin-left: 8px;
   }
-  .el-input__inner{line-height: 28px !important;}/*分页垂直居中兼容IE-20180413*/
-  .el-pagination{margin-top:10px;text-align: right}/*分页居右对齐-20180413*/
-  .el-table{height: calc(100% - 86px) !important;}/*调整底部分页与表格关系-20180413*/
-  .el-dialog__body .el-table{height: calc(100% - 52px) !important;}/*定义dialog内表格与分页位置关系-20180413*/
+  .tablePaging,.dialogPaging{text-align: right;margin-top: 10px}/*分页右对齐和上边界*/
+  .mrcTable{height: calc(100% - 86px) !important;}/*表格高度*/
+  .dialogTable{height: calc(100% - 52px) !important}/*调整dialog内部分页位置*/
 </style>
 <script>
   import language  from "../../language/language";
