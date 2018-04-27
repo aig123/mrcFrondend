@@ -19,7 +19,7 @@
         </el-form>
       </div>
       <div class="searchForm--item" v-if="more" v-for="(data,index) in formData.moreData" :key="index">
-          <el-form ref="form" label-width="80px" size="mini">
+          <el-form ref="form" :label-width="data.labelWidth" size="mini">
             <el-form-item :label="data.title">
               <el-input class="search-input" v-model="data.value" v-if="data.type=='input'" :placeholder="data.placeholder"
                         size="small"></el-input>
@@ -150,9 +150,6 @@
   }
   .search-input {
     width: 180px;
-    margin-bottom: 5px;
-  }
-  label{width:60px;text-align: right}
-  .el-dialog__body label{width: 130px;text-align: left}
-  .searchForm--item{height: 40px;}
+    margin-bottom: 5px;}
+  .searchForm--item{margin-bottom: -22px}
 </style>
