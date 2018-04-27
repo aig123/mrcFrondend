@@ -2,7 +2,7 @@
   <section>
     <div style="padding: 20px;max-width: 700px">
     <el-form :model="formData.data" label-width="120px" :rules="formData.rules" :ref="formData.name">
-      <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" style="width: 100%;" :prop="config.field">
+      <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" style="width: 100%;" :prop="config.field" class="mrcForm">
         <el-input v-model="formData.data[config.field]" v-if="config.type=='input'" :placeholder="config.placeholder"  style="width: 100%"></el-input>
         <el-select v-model="formData.data[config.field]" v-if="config.type=='select'" :placeholder="config.placeholder" style="width: 100%">
           <el-option :label="item.name" :value="item.id" :key="item.id" v-for="item in config.data"></el-option>
@@ -73,3 +73,4 @@
 
   };
 </script>
+

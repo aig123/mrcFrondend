@@ -37,7 +37,7 @@
       <div class="menu_head" >
         <menuState ref="menuState" :isOpen="isOpen" @click="menuStateHandle"></menuState>
       </div>
-      <div class="list "style="margin-top: 20px" >
+      <div class="list">
         <el-menu
           router
           :default-active="defaultActive"
