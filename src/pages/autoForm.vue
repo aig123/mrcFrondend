@@ -3,14 +3,13 @@
     <div style="height: 50px;line-height: 50px;">
       <el-button type="primary" @click="addFormBase">表单基础配置</el-button>
       <el-button type="primary" @click="addData">增加表单内容</el-button>
-      <el-button type="primary">增加校验规则</el-button>
       <el-button type="primary" style="float: right"  @click="getCode">显示配置代码</el-button>
     </div>
     <div style="border: 1px solid #e4e7ed;width: 100%;height: 90%;padding: 20px">
       <center v-if="code.title.length==0" style="color: #606266;font-size: 30px;margin-top: 20%;">
         配置展示区
       </center>
-      <mrc-form v-model="code" ref="mrcForm" v-if="code.title.length!=0" style="max-width: 700px"> </mrc-form>
+      <mrc-form v-model="code" ref="form" v-if="code.title.length!=0" style="max-width: 700px"> </mrc-form>
     </div>
     <mrc-dialog v-model="dialogForm">
       <el-form :model="code" label-width="140px"  ref="formd" style="width: 90%">
@@ -78,8 +77,16 @@
           <el-input v-model="formData.placeholder" placeholder="默认提示信息placeholder"></el-input>
         </el-form-item>
         <el-form-item label="是否开启校验">
-          <el-input v-model="formData.rule" placeholder="开启校验"></el-input>
+          <el-switch  v-model="formData.rule.state"></el-switch>
         </el-form-item>
+        <div v-if="formData.rule.state">
+          <el-form-item label="验证提示消息">
+            <el-input v-model="formData.rule.message" placeholder="验证提示消息"></el-input>
+          </el-form-item>
+          <el-form-item label="自定义验证规则">
+            <el-input v-model="formData.rule.validator" placeholder="自定义验证规则"></el-input>
+          </el-form-item>
+        </div>
       </el-form>
     </mrc-dialog>
     <mrc-dialog v-model="dialogCode">
@@ -103,7 +110,7 @@
           field:"",
           title:"",
           placeholder:"",
-          rule:"",
+          rule:{state:false,required: true,trigger: 'change'},
           key:{},
           data:[]
         },
@@ -169,15 +176,44 @@
       },
       onSubmit(){
         if(this.formData.data){
-          debugger
           this.formData.data=eval(this.formData.data);
         }
+        if(this.formData.rule.state){
+          this.code.rules[this.formData.field]=[this.formData.rule]
+        }
+        this.code.data[this.formData.field]="";
         this.code.title.push(this.formData);
         this.dialogData.show=false;
-        this.formData={};
+        this.formData = {
+          type: "",
+          field: "",
+          title: "",
+          placeholder: "",
+          rule: {state: false, required: true, trigger: 'change'},
+          key: {},
+          data: []
+        };
       },
       formSubmit(){
         this.dialogForm.show=false;
+      },
+      save(){
+        this.$refs['form'].$refs[this.code.name].validate((valid) => {
+          if (valid) {
+            let param = this.formData.data;
+            Api.addTable(param).then((res) => {
+              this.$notify({
+                title: '成功',
+                message: '保存成功',
+                type: 'success'
+              });
+              this.dialogData.show=false;
+              this.getTableData();
+            })
+          } else {
+            return false;
+          }
+        });
       }
     },
     mounted: function () {
