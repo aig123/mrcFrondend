@@ -234,13 +234,13 @@
     width: 100%;
   }
   .menu_right{
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;
+     -webkit-user-select:none;
+     -moz-user-select:none;
+     -ms-user-select:none;
     user-select:none;
-    -webkit-transition: all .5s;
-    -moz-transition: all .5s;
-    -ms-transition: all .5s;
+     -webkit-transition: all .5s;
+     -moz-transition: all .5s;
+     -ms-transition: all .5s;
     transition: all .5s;
     position:absolute;
     z-index: 100;
@@ -280,9 +280,9 @@
         /*background-color: #24254f;*//*去掉背景颜色-20180326*/
         z-index: 1;
         &>a{
-          -webkit-transition: transform .5s;
-          -moz-transition: transform .5s;
-          -ms-transition: transform .5s;
+           -webkit-transition: transform .5s;
+           -moz-transition: transform .5s;
+           -ms-transition: transform .5s;
           transition: transform .5s;
           position: absolute;
           display: block;
@@ -330,8 +330,8 @@
   }
   .on #menu_click{/*新定义样式-20180328*/
     transform:rotate(90deg);
-    -ms-transform:rotate(90deg);
-    -moz-transform:rotate(90deg);
+     -ms-transform:rotate(90deg);
+     -moz-transform:rotate(90deg);
     webkit-transform:rotate(90deg)
   }
   #menu_click{/*为该id添加渐变CSS-20180328*/
@@ -350,14 +350,14 @@
     height:50px;
     outline-offset:-2px;
     outline:2px solid #fff;
-    -webkit-border-radius:4px;
+     -webkit-border-radius:4px;
     border: 2px solid #fff;
   }
   /*---鼠标点击滚动条显示样式--*/
   ::-webkit-scrollbar-thumb:hover{
     background-color:#c1c1c1;
     height:50px;
-    -webkit-border-radius:4px;
+     -webkit-border-radius:4px;
   }
   /*---滚动条大小--*/
   ::-webkit-scrollbar{
@@ -367,7 +367,7 @@
   /*---滚动框背景样式--*/
   ::-webkit-scrollbar-track-piece{
     background-color:#fff;
-    -webkit-border-radius:0;
+     -webkit-border-radius:0;
   }
   body{
     scrollbar-arrow-color: #fff; /*三角箭头的颜色*/

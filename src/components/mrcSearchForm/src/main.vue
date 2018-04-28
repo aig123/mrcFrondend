@@ -1,8 +1,8 @@
 <template>
   <section>
-    <div class="searchForm" style="margin-bottom: 10px">
+    <div class="searchForm" style="margin-bottom: 10px" ref="searchForm">
       <div class="searchForm--item" v-if="!more" v-for="(data,index) in formData.data" :key="index">
-        <label class="searchForm--item__label" style="">{{data.title}}</label><!--修改标签宽度-->
+        <label class="searchForm--item__label"  :style="'width:'+ labelWidth+'px'" style="text-align: right">{{data.title}}</label><!--修改标签宽度-->
         <div class="searchForm--item__content">
           <el-input class="search-input" v-model="data[data.field]" v-if="data.type=='input'" :placeholder="data.placeholder"
                     size="small"></el-input>
@@ -13,10 +13,11 @@
           </el-select>
           <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data[data.field]"
                           v-if="data.type=='date'" size="small"></el-date-picker>
+          <el-date-picker v-model="data[data.field]" v-if="data.type=='daterange'" :type="data.type" :range-separator="data.rangeseparator" :start-placeholder="data.startPlaceholder" :end-placeholder="data.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
         </div>
       </div>
       <div class="searchForm--item" v-if="more" v-for="(data,index) in formData.moreData" :key="index">
-        <label class="searchForm--item__label">{{data.title}}</label>
+        <label class="searchForm--item__label" :style="'width:'+ labelWidth+'px'" style="text-align: right">{{data.title}}</label>
         <div class="searchForm--item__content">
           <el-input class="search-input" v-model="data.value" v-if="data.type=='input'" :placeholder="data.placeholder"
                     size="small"></el-input>
@@ -27,6 +28,7 @@
           </el-select>
           <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data.value"
                           v-if="data.type=='date'" size="small"></el-date-picker>
+          <el-date-picker v-model="data[data.field]" v-if="data.type=='daterange'" :type="data.type" :range-separator="data.rangeseparator" :start-placeholder="data.startPlaceholder" :end-placeholder="data.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
         </div>
       </div>
       <div class="searchForm--button" v-if="formData.buttons&&formData.buttons.dataRight">
@@ -75,7 +77,7 @@
         moreName: language.moreConditions,
         checkList: ['选中且禁用','复选框 A'],
         searDialogVisible:false,
-        fields:[]
+        fields:[],
       };
     },
     props: ['columns', 'value'],
@@ -136,6 +138,9 @@
         set: function (val) {
           this.$emit('input', val);
         }
+      },
+      labelWidth(){
+        return this.formData.labelWidth?this.formData.labelWidth:48
       }
     },
 
@@ -148,5 +153,5 @@
   .search-input {
     width: 180px;
     margin-bottom: 5px;}
-  .searchForm--item{margin-bottom: -22px}
+  .searchForm--item{margin-bottom: -2px}
 </style>

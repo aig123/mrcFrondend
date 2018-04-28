@@ -21,6 +21,7 @@
       </div>
       <div  class="searchForm--item" style="margin-left: 10px">
         <el-button type="primary" @click="search(button.click)" size="small">搜索</el-button>
+        <el-button type="primary" @click="" size="small">更多条件</el-button>
       </div>
     </div>
     <div id="outer">
@@ -86,12 +87,12 @@
           <template slot-scope="scope">
             <el-button
               size="mini"
-              type="primary"
+              type="text"
               @click="editData(scope.row)"
             >编辑</el-button>
             <el-button
               size="mini"
-              type="danger"
+              type="text"
               @click="delData(scope.row)">删除</el-button>
           </template>
         </el-table-column>

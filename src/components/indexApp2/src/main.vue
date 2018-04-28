@@ -4,7 +4,7 @@
       <div class="menu_head" style="background: #5b8cff;box-shadow:none">
         <menuState ref="menuState" :isOpen="isOpen" @click="menuStateHandle"></menuState>
       </div>
-      <div class="list">
+      <div class="list" style="border-right:solid 1px #e6e6e6">
         <el-menu
           router
           :default-active="defaultActive"
