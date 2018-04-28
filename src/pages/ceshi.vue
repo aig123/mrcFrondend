@@ -46,19 +46,20 @@
           data: []
         },
         formSearchData:{
+          labelWidth:100,
           buttons:{dataLeft:[{name:language.search,click:"search"}],dataRight:[]},//操作按钮
           data:[
-            {type:'input',title:"关键字",age:"",field:"keyword",placeholder:"",labelWidth:"62px"},
-            {type: 'daterange',title: "活动时间范围",startPlaceholder: "开始日期",endPlaceholder: "结束日期",rangeseparator:"-",value: "",field: "value6",placeholder: "请输入活动时间范围",labelWidth:"108px"}
+            {type:'input',title:"关键字",age:"",field:"keyword",placeholder:""},
+            {type: 'daterange',title: "活动时间范围",startPlaceholder: "开始日期",endPlaceholder: "结束日期",rangeseparator:"-",value: "",field: "value6",placeholder: "请输入活动时间范围"}
           ],
           moreData:[
 
-            {type:'input',title:"关键字",age:"",field:"keyword",placeholder:"",labelWidth:"62px"},
-            {type:'input',title:"登陆用户名",age:"",field:"logname",placeholder:"",labelWidth:"94px"},
-            {type:'input',title:"请求路径",age:"",field:"path",placeholder:"",labelWidth:"94px"},
-            {type:'input',title:"请求方法",age:"",field:"method",placeholder:"",labelWidth:"94px"},
-            {type:'input',title:"请求数据",age:"",field:"data",placeholder:"",labelWidth:"94px"},
-            {type: 'daterange',title: "活动时间范围",startPlaceholder: "开始日期",endPlaceholder: "结束日期",rangeseparator:"-",value: "",field: "value6",placeholder: "请输入活动时间范围",labelWidth:"108px"}
+            {type:'input',title:"关键字",age:"",field:"keyword",placeholder:""},
+            {type:'input',title:"登陆用户名",age:"",field:"logname",placeholder:""},
+            {type:'input',title:"请求路径",age:"",field:"path",placeholder:""},
+            {type:'input',title:"请求方法",age:"",field:"method",placeholder:""},
+            {type:'input',title:"请求数据",age:"",field:"data",placeholder:""},
+            {type: 'daterange',title: "活动时间范围",startPlaceholder: "开始日期",endPlaceholder: "结束日期",rangeseparator:"-",value: "",field: "value6",placeholder: "请输入活动时间范围"}
           ],
         },
         formData:{
