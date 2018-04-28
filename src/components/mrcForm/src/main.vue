@@ -30,7 +30,7 @@
         </el-radio-group>
         <el-input  v-model="formData.data[config.field]" v-if="config.type=='textarea'" :type="config.type"></el-input>
       </el-form-item>
-      <el-form-item :model="formData.buttons" label-width="120px" :ref="formData.name" >
+      <el-form-item :model="formData.buttons" :ref="formData.name" >
         <el-button type="primary" @click="uploadFn(config.click)"   v-for="(config,index) in formData.buttons" :key="index">{{config.name}}</el-button>
       </el-form-item>
     </el-form>
