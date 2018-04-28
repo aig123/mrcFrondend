@@ -23,6 +23,9 @@
         <el-button type="primary" @click="search(button.click)" size="small">搜索</el-button>
         <el-button type="primary" @click="" size="small">更多条件</el-button>
       </div>
+      <div class="show-set">
+        <span class="el-icon-setting" @click="searDialogShow"></span>
+      </div>
     </div>
     <div id="outer">
       <div id="user">用户</div>
@@ -45,7 +48,8 @@
         :empty-text="tableData.emptyText"
         border
         @selection-change="handleSelectionChange"
-        height="80%" style="width: 99%;margin: 0 auto;">
+        height="80%" style="width: 99%;margin: 0 auto;"
+        class="mrcTable">
         <!--check多选框-->
         <el-table-column
           type="selection"
@@ -104,7 +108,8 @@
         :page-sizes="tableData.pagination.pageSize"
         :layout="tableData.pagination.layout"
         @size-change="handleSizeChange"
-        @current-change="handleCurrentChange" :current-page="tableData.pagination.pageIndex" :page-size="tableData.pagination.pageSize" :total="tableData.pagination.total">
+        @current-change="handleCurrentChange" :current-page="tableData.pagination.pageIndex" :page-size="tableData.pagination.pageSize" :total="tableData.pagination.total"
+        class="tablePaging">
       </el-pagination>
       <!--表格分页结束-->
     </div>
@@ -115,7 +120,8 @@
         :empty-text="tableData.emptyText"
         border
         @selection-change="handleSelectionChange"
-        height="80%" style="width: 99%;margin: 0 auto;">
+        height="80%" style="width: 99%;margin: 0 auto;"
+        class="dialogTable">
         <!--check多选框-->
         <el-table-column
           type="selection"
@@ -177,7 +183,7 @@
         :layout="tableData.pagination.layout"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange" :current-page="tableData.pagination.pageIndex" :page-size="tableData.pagination.pageSize" :total="tableData.pagination.total"
-
+        class="dialogPaging"
       >
       </el-pagination>
       <!--全屏内分页栏结束-->
@@ -213,6 +219,25 @@
   </span>
     </el-dialog>
     <!--点击新增按钮弹窗结束-->
+
+
+<!--修改searchForm顺序和显示哪个-->
+    <el-dialog
+      title="更多设置"
+      :visible.sync="searDialogVisible"
+      width="30%">
+      <span>
+        <el-checkbox-group v-model="fields" style="margin-top: 10px">
+            <el-checkbox  v-dragging="{ item: data, list: formData.moreData, group: 'data'}" v-for="(data,index) in formData.moreData" :label="data.field" :key="data.field">{{data.title}}</el-checkbox>
+        </el-checkbox-group>
+      </span>
+      <span slot="footer" class="dialog-footer">
+           <el-button @click="searDialogVisible = false">取 消</el-button>
+           <el-button type="primary" @click="save">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!--修改searchForm顺序和显示哪个-->
+
   </div>
 </template>
 <script>
@@ -278,8 +303,20 @@
         this.$parent[this.dialogData.beforeCloseFn]();
       },
       save(){
-        this.$parent[this.dialogData.saveFn]();
+        this.searDialogVisible=false;
+        console.log(this.fields);
+        this.formData.data=[];
+        for(let data of this.formData.moreData){
+          for(let field of this.fields){
+            if(field==data.field){
+              this.formData.data.push(data);
+            }
+          }
+        }
 
+      },
+      searDialogShow(){
+        this.searDialogVisible=true;
       },
       //表格中点击"删除"回调函数开始
       delData(row){
@@ -378,4 +415,8 @@
     },
   }
 </script>
-
+<style scoped>
+  .tablePaging,.dialogPaging{text-align: right;margin-top: 10px}/*分页右对齐和上边界*/
+  .mrcTable{height: calc(100% - 86px) !important;}/*表格高度*/
+  .dialogTable{height: calc(100% - 52px) !important}/*调整dialog内部分页位置*/
+</style>
