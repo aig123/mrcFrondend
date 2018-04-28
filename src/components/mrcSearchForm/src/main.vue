@@ -1,8 +1,8 @@
 <template>
   <section>
-    <div class="searchForm" style="margin-bottom: 10px">
+    <div class="searchForm" style="margin-bottom: 10px" ref="searchForm">
       <div class="searchForm--item" v-if="!more" v-for="(data,index) in formData.data" :key="index">
-        <label class="searchForm--item__label" style="">{{data.title}}</label><!--修改标签宽度-->
+        <label class="searchForm--item__label"  :style="'width:'+ labelWidth+'px'">{{data.title}}</label><!--修改标签宽度-->
         <div class="searchForm--item__content">
           <el-input class="search-input" v-model="data[data.field]" v-if="data.type=='input'" :placeholder="data.placeholder"
                     size="small"></el-input>
@@ -75,7 +75,7 @@
         moreName: language.moreConditions,
         checkList: ['选中且禁用','复选框 A'],
         searDialogVisible:false,
-        fields:[]
+        fields:[],
       };
     },
     props: ['columns', 'value'],
@@ -136,6 +136,9 @@
         set: function (val) {
           this.$emit('input', val);
         }
+      },
+      labelWidth(){
+        return this.formData.labelWidth?this.formData.labelWidth:48
       }
     },
 
@@ -148,5 +151,5 @@
   .search-input {
     width: 180px;
     margin-bottom: 5px;}
-  .searchForm--item{margin-bottom: -22px}
+  .searchForm--item{margin-bottom: -2px}
 </style>
