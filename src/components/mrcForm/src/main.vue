@@ -1,6 +1,5 @@
 <template>
   <section>
-    <div style="padding: 20px;max-width: 700px" class="formBox">
     <el-form :model="formData.data" :label-width="labelWidth" :rules="formData.rules" :ref="formData.name">
       <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" style="width: 100%;" :prop="config.field">
         <el-input v-model="formData.data[config.field]" v-if="config.type=='input'" :placeholder="config.placeholder"  style="width: 100%"></el-input>
@@ -20,7 +19,7 @@
                    :file-list="config.fileList.data"
                     >
           <el-button size="small" type="primary">点击上传</el-button>
-          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb1</div>
         </el-upload>
         <el-switch v-model="formData.data[config.field]" v-if="config.type=='switch'"></el-switch>
         <el-checkbox-group v-model="formData.data[config.field]" v-if="config.type=='checkbox'">
@@ -31,11 +30,10 @@
         </el-radio-group>
         <el-input  v-model="formData.data[config.field]" v-if="config.type=='textarea'" :type="config.type"></el-input>
       </el-form-item>
-      <el-form-item :model="formData.buttons" label-width="120px" :ref="formData.name" >
-        <el-button :type="config.type" @click="uploadFn(config.click)"   v-for="config in formData.buttons" :key="index">{{config.name}}</el-button>
+      <el-form-item :model="formData.buttons" :ref="formData.name" >
+        <el-button type="primary" @click="uploadFn(config.click)"   v-for="(config,index) in formData.buttons" :key="index">{{config.name}}</el-button>
       </el-form-item>
     </el-form>
-    </div>
   </section>
 </template>
 <script>

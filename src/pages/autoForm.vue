@@ -10,7 +10,7 @@
       <center v-if="code.title.length==0" style="color: #606266;font-size: 30px;margin-top: 20%;">
         配置展示区
       </center>
-      <mrc-form v-model="code" ref="mrcForm" v-if="code.title.length!=0"> </mrc-form>
+      <mrc-form v-model="code" ref="mrcForm" v-if="code.title.length!=0" style="max-width: 700px"> </mrc-form>
     </div>
     <mrc-dialog v-model="dialogForm">
       <el-form :model="code" label-width="140px"  ref="formd" style="width: 90%">
@@ -52,9 +52,22 @@
             <el-option label="输入框" value="input"></el-option>
             <el-option label="选择框" value="select"></el-option>
             <el-option label="文本域" value="textarea"></el-option>
-            <el-option label="日期选择器" value="datePicker"></el-option>
+            <el-option label="日期选择器" value="date"></el-option>
+            <el-option label="开关" value="switch"></el-option>
+            <el-option label="单选框" value="radio"></el-option>
           </el-select>
         </el-form-item>
+        <div v-if="formData.type=='radio'||formData.type=='select'">
+          <el-form-item label="label">
+            <el-input v-model="formData.key.label" placeholder="字段名称"></el-input>
+          </el-form-item>
+          <el-form-item label="value">
+            <el-input v-model="formData.key.value" placeholder="字段名称field"></el-input>
+          </el-form-item>
+          <el-form-item label="data数据源">
+            <el-input  type="textarea" :rows="2" v-model="formData.data" placeholder="json格式"></el-input>
+          </el-form-item>
+        </div>
         <el-form-item label="表单字段名称">
           <el-input v-model="formData.title" placeholder="字段名称"></el-input>
         </el-form-item>
@@ -90,7 +103,9 @@
           field:"",
           title:"",
           placeholder:"",
-          rule:""
+          rule:"",
+          key:{},
+          data:[]
         },
         rules:[],
         dialogData:{
@@ -153,6 +168,10 @@
         this.dialogCode.show=true;
       },
       onSubmit(){
+        if(this.formData.data){
+          debugger
+          this.formData.data=eval(this.formData.data);
+        }
         this.code.title.push(this.formData);
         this.dialogData.show=false;
         this.formData={};
