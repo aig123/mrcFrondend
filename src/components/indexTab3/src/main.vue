@@ -1,7 +1,7 @@
 <template>
   <div class="sys_con" :class="{sys_close:close}">
     <div class="sys_header">
-      <h4 style="margin-left: 180px;"><span class="sys_logo"><img src="../../indexApp3/src/assets/logo.png" id="logo1"></span>{{title}}<br /><span id="English">COLLABORATION APPLICATION PLATFORM</span></h4>
+      <h4 style="margin-left: 180px;"><span class="sys_logo"><img src="../../indexApp3/src/assets/logo.png" id="logo1" style="margin-top: -14px"></span>{{title}}<br /><span id="English">COLLABORATION APPLICATION PLATFORM</span></h4>
       <h5 class="sys_df" style="margin-top: 20px;position: absolute;z-index: 2" v-if="!$store.getters.phone">
         <el-radio-group v-model="languageValue" @change="languageChange">
           <el-radio  label="cn">中文</el-radio>

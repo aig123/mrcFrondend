@@ -1,7 +1,7 @@
 <template>
   <div class="menu_right" :class="{closeMenu:isOpen}">
     <div class="listP" style="box-shadow: none">
-      <div class="menu_head">
+      <div class="menu_head" style="box-shadow: none;border-bottom:solid 0.5px #e7ecf1;height: 92px">
         <menuState ref="menuState" :isOpen="isOpen" @click="menuStateHandle"></menuState>
       </div>
       <div class="list">
@@ -9,7 +9,7 @@
           router
           :default-active="defaultActive"
           :unique-opened="true"
-          class="el-menu-vertical-demo "
+          class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose"
           :collapse="isCollapse"

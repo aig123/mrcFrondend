@@ -4,12 +4,12 @@
       <div class="sys_header" style="background:rgb(91, 140, 255)"><!--sys_header开始-->
         <h5 class="sys_df" style="margin-top: 20px;position: absolute;z-index: 2" v-if="!$store.getters.phone">
           <el-radio-group v-model="languageValue" @change="languageChange">
-            <el-radio  label="cn">中文</el-radio>
-            <el-radio  label="en">英文</el-radio>
+            <el-radio  label="cn" style="color:white !important">中文</el-radio>
+            <el-radio  label="en" style="color:white !important">英文</el-radio>
           </el-radio-group>
         </h5><!--搜索按钮图片-->
         <div class="sys_head el-dropdown-link" v-if="!$store.getters.phone">
-          <el-dropdown @command="" class="personBox" trigger="click">
+          <el-dropdown @command="" class="personBox" trigger="click" style="color:white">
             <div>
               {{user}}<i class="el-icon-arrow-down el-icon--right"></i><br />
             <span>{{department}}</span>
@@ -161,6 +161,7 @@
   .searchForm .searchForm--item:first-child{margin-left:10px;}
   #English{font-size: 8px;letter-spacing: -1px}
   hr{margin-top:16px;border:solid 0.5px #e7ecf1}
-  input[type='text']{border:solid 1px #d1d1d1 !important;color:#d1d1d1 !important}
+  input[type='text']{border:solid 1px #d1d1d1 !important;color:#000 !important}
+  .searchForm--item__content .el-date-editor{border:solid 1px #d1d1d1 !important;color:#d1d1d1 !important}
+  .sys_df .el-radio__label{color:white !important}
 </style>
-<!--<style src="./css/my.css" scoped></style>-->
