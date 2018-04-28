@@ -53,5 +53,7 @@ if (localStorage.getItem('ELEMENT_LANGUAGE') == "cn") {
   language = cn;
 } else if (localStorage.getItem('ELEMENT_LANGUAGE') == "en") {
   language = en;
+}else{
+  language = cn;
 }
 export default language

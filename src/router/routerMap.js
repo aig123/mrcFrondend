@@ -24,7 +24,7 @@ const routes = [
   //   path: '/',
   //   component: tableMrc
   // },
-  {path: '/', redirect: 'home/formMrc'},
+  {path: '/', redirect: 'home/tableMrc'},
   {
     path: '/home',
     component: home,

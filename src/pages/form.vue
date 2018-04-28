@@ -147,7 +147,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
   .el-icon-warning{/*调整叹号和左侧文本框距离和图标颜色*/
     position: absolute;
     top: 12px;
