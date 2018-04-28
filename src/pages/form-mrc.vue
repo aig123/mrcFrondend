@@ -1,5 +1,5 @@
 <template>
-    <mrc-form v-model="formData"></mrc-form>
+    <mrc-form v-model="formData" ref="form"></mrc-form>
 </template>
 <script>
   import language  from "../language/language";
@@ -48,7 +48,7 @@
         fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
         formData:{
           name:"form",
-          buttons:[{name:"立即创建",click:"submitForm",type:"primary"},{name:"取消",click:"resetForm",type:""}],
+          buttons:[{name:"立即创建",click:"submitForm",type:"primary"},{name:"重置",click:"resetForm",type:""}],
           title:[
             {type: 'input', title: "活动名称", value: "", field: "name", placeholder: "请填写活动名称"},
             {type: 'date', title: "开始时间", value: "", field: "date", placeholder: "请输入开始时间"},
@@ -132,7 +132,7 @@
     },
     methods: {
       submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
+        this.$refs['form'].$refs[this.formData.name].validate((valid) => {
           if (valid) {
             alert('submit!');
           } else {
@@ -142,7 +142,7 @@
         });
       },
       resetForm(formName) {
-        this.$refs[formName].resetFields();
+        this.$refs['form'].$refs[this.formData.name].resetFields();
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);
