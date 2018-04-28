@@ -3,12 +3,12 @@
     <div style="padding: 20px;max-width: 700px" class="formBox">
     <el-form :model="formData.data" :label-width="labelWidth" :rules="formData.rules" :ref="formData.name">
       <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" style="width: 100%;" :prop="config.field">
-        <el-input v-model="formData.data[config.field]" v-if="config.type=='input'" :placeholder="config.placeholder"  style="width: 100%;margin-top:-2px"></el-input>
-        <el-select v-model="formData.data[config.field]" v-if="config.type=='select'" :placeholder="config.placeholder" style="width: 100%;margin-top:-2px">
+        <el-input v-model="formData.data[config.field]" v-if="config.type=='input'" :placeholder="config.placeholder"  style="width: 100%"></el-input>
+        <el-select v-model="formData.data[config.field]" v-if="config.type=='select'" :placeholder="config.placeholder" style="width: 100%">
           <el-option :label="item.name" :value="item.id" :key="item.id" v-for="item in config.data"></el-option>
         </el-select>
-        <el-date-picker v-model="formData.data[config.field]" @change="dateChange"  v-if="config.type=='date'" :placeholder="config.placeholder" style="width: 100%;margin-top:-2px"></el-date-picker>
-        <el-date-picker v-model="formData.data[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%;margin-top:-2px"></el-date-picker>
+        <el-date-picker v-model="formData.data[config.field]" @change="dateChange"  v-if="config.type=='date'" :placeholder="config.placeholder" style="width: 100%"></el-date-picker>
+        <el-date-picker v-model="formData.data[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%"></el-date-picker>
         <el-upload v-model="formData.data[config.field]" v-if="config.type=='uploadFile'"
                    :action="config.action"
                    :limit="config.limit"
