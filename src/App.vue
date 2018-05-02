@@ -58,9 +58,9 @@
     display: block;
   }
   .el-dialog__body{
-    height: -webkit-calc(100% - 40px);
-    height: -moz-calc(100% - 40px);
-    height: calc(100% - 40px);
+    height: -webkit-calc(100% - 41px);
+    height: -moz-calc(100% - 41px);
+    height: calc(100% - 41px);
   }
 </style>
 

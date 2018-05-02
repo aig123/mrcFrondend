@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="searchForm" style="margin-bottom: 10px" ref="searchForm">
+    <div class="searchForm" style="margin-bottom: 8px" ref="searchForm">
       <div class="searchForm--item" v-if="!more" v-for="(data,index) in formData.data" :key="index">
         <label class="searchForm--item__label"  :style="'width:'+ labelWidth+'px'" style="text-align: right">{{data.title}}</label><!--修改标签宽度-->
         <div class="searchForm--item__content">
@@ -141,7 +141,7 @@
         }
       },
       labelWidth(){
-        return this.formData.labelWidth?this.formData.labelWidth:48
+        return this.formData.labelWidth?this.formData.labelWidth:50
       }
     },
 

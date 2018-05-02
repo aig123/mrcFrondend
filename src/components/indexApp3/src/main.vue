@@ -115,7 +115,7 @@
     },
     components:{
       "menuState": {
-        template: '<a href="javascript:void(0)" :class="{on:isOpen}"  id="logoClick"><img :src="imgUrl" id="menu_click" @click = "clickHandle"/></a>',
+        template: '<a href="javascript:void(0)" :class="{on:isOpen}"  id="logoClick"><img :src="imgUrl" id="menu_click" @click = "clickHandle" style="left:210px"/></a>',
         data(){
           return {
             imgUrl: require("./assets/menu_click.png"),

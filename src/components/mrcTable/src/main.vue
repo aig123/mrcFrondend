@@ -72,7 +72,7 @@
         :empty-text="tableData.emptyText"
         border
         @selection-change="handleSelectionChange"
-        style="width: 100%"
+        style="width: 100%;overflow-y: auto"
         class="dialogTable">
         <!--check多选框-->
         <el-table-column
@@ -133,7 +133,8 @@
     border:solid 1px #dce0e1;
     border-radius:4px;
     padding:12px 20px;
-    height:calc(100% - 73px)
+    height:calc(100% - 73px);
+    margin: 0 2px;
 
   }
   #floatR{
@@ -143,8 +144,8 @@
     float: left;font-size: 18px;margin-bottom:16px;color:#a4aeb2;margin-left: 8px;
   }
   .tablePaging,.dialogPaging{text-align: right;margin-top: 10px}/*分页右对齐和上边界*/
-  .mrcTable{height: calc(100% - 86px) !important;}/*表格高度*/
-  .dialogTable{height: calc(100% - 52px) !important}/*调整dialog内部分页位置*/
+  .mrcTable{height: calc(100% - 80px) !important;}/*表格高度*/
+  .dialogTable{height: calc(100% - 43px) !important}/*调整dialog内部分页位置*/
 </style>
 <script>
   import language  from "../../language/language";
