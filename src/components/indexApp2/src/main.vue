@@ -1,7 +1,7 @@
 <template>
   <div class="menu_right" :class="{closeMenu:isOpen}">
     <div class="listP" style="box-shadow: none">
-      <div class="menu_head" style="background: #5b8cff;box-shadow:none">
+      <div class="menu_head" style="background: #4777e9;box-shadow:none">
         <menuState ref="menuState" :isOpen="isOpen" @click="menuStateHandle"></menuState>
       </div>
       <div class="list" style="border-right:solid 1px #e6e6e6">

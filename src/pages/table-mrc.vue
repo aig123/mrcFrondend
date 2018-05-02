@@ -23,7 +23,7 @@
             CurrentChangeFn: "getTableData",
             pageSize: 15,
             pageIndex: 1,
-            layout: "prev, pager, next, jumper, total",
+            layout: "total, sizes, prev, pager, next, jumper",
             pageSizes: [10, 20, 40],
           },//是否开启分页
           index:false,//显示索引序号

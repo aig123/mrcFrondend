@@ -279,6 +279,7 @@
   .el-menu--collapse > .el-menu-item .el-submenu__icon-arrow, .el-menu--collapse > .lable-menu >.el-submenu > .el-submenu__title .el-submenu__icon-arrow {
     display: none;
   }
+  .el-menu-vertical-demo{border:none !important}
 </style>
 <style lang="scss">
   /*menu max width out scroll*/

@@ -152,10 +152,10 @@
 
   .searchForm .el-input__inner{border-radius:3px;}/*添加圆角*/
   .menu_right{top:0}
-  .sys_con .sys_route{left:5px;position: relative;box-sizing:border-box;padding: 0px 10px 10px 5px;height: 100%;width:100%;}
+  .sys_con .sys_route{left:2px;position: relative;box-sizing:border-box;padding: 0px 10px 10px 5px;height: 100%;width:100%;}
   .sys_con .sys_route_out{top:100px;position: relative;width: 100%;height: -webkit-calc(100% - 90px);height: -moz-calc(100% - 90px);height: calc(100% - 90px);overflow-y: auto;}
   .sys_home .sys_header{height:100px; }
-  .searchForm{margin-left:0;margin-right:0px;border-radius:2px;}
+  .searchForm{margin-left:2px;margin-right:2px;border-radius:2px;}
   #logname{font-size: 14px}
   #department{position: absolute;top:26px;white-space: nowrap;}
   .sys_home .sys_header h4{line-height: 18px;margin-top:25px;font-size: 20px;font-weight: 500;letter-spacing: 2px;}

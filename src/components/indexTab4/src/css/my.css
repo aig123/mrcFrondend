@@ -10,7 +10,7 @@
 #logoClick{position:absolute;top:0;left:170px;transition: all .5s}/*在标签内重新定义ID*/
 .on #menu_click{transform:rotate(90deg);-ms-transform:rotate(90deg);-moz-transform:rotate(90deg);-webkit-transform:rotate(90deg)}/*新定义样式-20180328*/
 #menu_click{transition: all .5s}/*在标签内重新定义ID*/
-.sys_con .sys_route{left:5px;}
+.sys_con .sys_route{left:2px;}
 .on{left:12px !important;}
 .menu_right .listP .list .list_con ul{margin-top:0px;}
 .menu_right .listP .list .list_con ul li .cAccordion .ca_img .yellow.on{left:0 !important}
