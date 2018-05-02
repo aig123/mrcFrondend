@@ -30,7 +30,7 @@ const en =
     delect: "delect",
     search: "search",
     moreConditions: "moreConditions",
-    lessConditions: "lessConditions",
+    lessConditions:"lessConditions",
     save: "save",
     cancel: "cancel",
     index: "index",
