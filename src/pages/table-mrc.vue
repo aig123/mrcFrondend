@@ -48,7 +48,7 @@
           buttons:{dataLeft:[{name:language.search,click:"search"}],dataRight:[]},//操作按钮
           data:[
             {type:'input',title:language.age,age:"",field:"age",placeholder:language.age},
-            {type:'select',title:language.grade,change:"gradeChange",placeholder:language.grade,key:{label:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],grade:"",field:"grade"},
+            {type:'select',title:language.grade,change:"gradeChange",placeholder:language.grade,datafield:{key:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],grade:"",field:"grade"},
             //{type: 'daterange',title: "活动时间范围",startPlaceholder: "开始日期",endPlaceholder: "结束日期",rangeseparator:"至",value: "",field: "value6",placeholder: "请输入活动时间范围",labelWidth:"80px"}
     ],
           moreData:[
@@ -58,7 +58,7 @@
             {type:'input',title:"test5",test5:"",field:"test5",placeholder:language.age},
             {type:'input',title:"test6",test6:"",field:"test6",placeholder:language.name},
             {type:'input',title:"test7",test7:"",field:"test7",placeholder:language.age},
-            {type:'select',title:"test8",change:"gradeChange",placeholder:language.grade,key:{label:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],test8:"",field:"test8"},
+            {type:'select',title:"test8",change:"gradeChange",placeholder:language.grade,datafield:{key:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],test8:"",field:"test8"},
             //{type: 'daterange',title: "活动时间范围",startPlaceholder: "开始日期",endPlaceholder: "结束日期",rangeseparator:"至",value: "",field: "value6",placeholder: "请输入活动时间范围",labelWidth:"80px"}
 
           ],

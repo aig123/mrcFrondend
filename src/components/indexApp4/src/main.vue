@@ -4,7 +4,7 @@
     <div style="position: fixed;top: 30px;right: 15px;" v-if="$store.getters.phone">
       <img @click="menuPhoneClick" src="./assets/menu_click.png" style="cursor: pointer"/>
     </div>
-    <div v-show="menuPhone" style="margin-top: 20px;position: fixed;width: 100%;top: 77px;height: 100%">
+    <div v-show="menuPhone" style="margin-top: 20px;position: fixed;width: 100%;top: 77px;height: calc(100% - 100px);overflow-y: auto">
       <el-menu
         router
         mode="horizontal"

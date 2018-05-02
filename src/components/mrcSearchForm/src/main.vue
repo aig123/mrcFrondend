@@ -8,7 +8,7 @@
                     size="small"></el-input>
           <el-select class="search-input" v-model="data[data.field]" v-if="data.type=='select'"
                      :placeholder="data.placeholder" @change="change(data.change)" size="small">
-            <el-option :label="item[data.key.label]" :value="item[data.key.value]" :key="item[data.key.value]"
+            <el-option :label="item[data.datafield.key]" :value="item[data.datafield.value]" :key="item[data.datafield.value]"
                        v-for="item in data.data"></el-option>
           </el-select>
           <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data[data.field]"
@@ -23,7 +23,7 @@
                     size="small"></el-input>
           <el-select class="search-input" v-model="data.value" v-if="data.type=='select'"
                      :placeholder="data.placeholder" @change="change(data.change)" size="small">
-            <el-option :label="item[data.key.label]" :value="item[data.key.value]" :key="item[data.key.value]"
+            <el-option :label="item[data.datafield.label]" :value="item[data.datafield.value]" :key="item[data.datafield.value]"
                        v-for="item in data.data"></el-option>
           </el-select>
           <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data.value"
