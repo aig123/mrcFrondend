@@ -72,6 +72,7 @@
         </span>
         <el-input  v-model="formData.data[config.field]" v-if="config.type=='textarea'" :type="config.type"></el-input>
       </el-form-item>
+      <slot></slot>
       <el-form-item :model="formData.buttons" :ref="formData.name" >
         <el-button :type="config.type" @click="uploadFn(config.click)"   v-for="(config,index) in formData.buttons" :key="index">{{config.name}}</el-button>
       </el-form-item>

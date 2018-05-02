@@ -1,5 +1,9 @@
 <template>
-    <mrc-form v-model="formData" ref="form"></mrc-form>
+    <mrc-form v-model="formData" ref="form">
+      <el-form-item label="自定义内容" >
+        <el-input v-model="formData.data.name" placeholder="这里是外部自定义输入内容"></el-input>
+      </el-form-item>
+    </mrc-form>
 </template>
 <script>
   import language  from "../language/language";
