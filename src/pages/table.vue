@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="searchForm" style="margin-bottom: 10px">
-      <div class="searchForm--item">
+      <div class="searchForm--item" v-if="!more">
         <label class="searchForm--item__label">姓名</label>
         <div class="searchForm--item__content">
           <el-input type="input" placeholder="默认的姓名" size="small"></el-input>
@@ -19,9 +19,39 @@
           <el-date-picker type="date" placeholder="选择日期" v-model="data.value" size="small" v-if="false"></el-date-picker>
         </div>
       </div>
+      <div class="searchForm--item" v-if="more">
+        <label class="searchForm--item__label">姓名</label>
+        <div class="searchForm--item__content">
+          <el-input type="input" placeholder="默认的姓名" size="small"></el-input>
+        </div>
+        <label class="searchForm--item__label">年龄</label>
+        <div class="searchForm--item__content">
+          <el-input type="input" placeholder="请输入年龄" size="small" title="年龄"></el-input>
+        </div>
+        <label class="searchForm--item__label">年级</label>
+        <div class="searchForm--item__content">
+          <el-select v-model="data.value" @change="gradeChange" size="small" placeholder="请选择">
+            <el-option label="一年级" value="1"></el-option>
+            <el-option label="二年级" value="2"></el-option>
+          </el-select>
+          <el-date-picker type="date" placeholder="选择日期" v-model="data.value" size="small" v-if="false"></el-date-picker>
+        </div>
+        <label class="searchForm--item__label">text5</label>
+        <div class="searchForm--item__content">
+          <el-input type="input" placeholder="请输入年龄" size="small" title="年龄"></el-input>
+        </div>
+        <label class="searchForm--item__label">text6</label>
+        <div class="searchForm--item__content">
+          <el-input type="input" placeholder="请输入年龄" size="small" title="年龄"></el-input>
+        </div>
+        <label class="searchForm--item__label">text7</label>
+        <div class="searchForm--item__content">
+          <el-input type="input" placeholder="请输入年龄" size="small" title="年龄"></el-input>
+        </div>
+      </div>
       <div  class="searchForm--item" style="margin-left: 10px">
-        <el-button type="primary" @click="search(button.click)" size="small">搜索</el-button>
-        <el-button type="primary" @click="" size="small">更多条件</el-button>
+        <el-button type="primary" @click="" size="small">搜索</el-button>
+        <el-button type="primary" @click="moreSearch" size="small">{{moreName}}</el-button>
       </div>
       <div class="show-set">
         <span class="el-icon-setting" @click="searDialogShow"></span>
@@ -242,11 +272,16 @@
 </template>
 <script>
   import * as Api from "../api/api";
+  import language  from "../language/language";
   export default {
     data(){
       return {
+        more:false,//更多条件和更少条件切换
+        moreName: language.moreConditions,//默认显示更多条件
         dialogData:false,
         dialogTableVisible:false,//全屏dialing默认返回值
+        searDialogVisible:false,//点击弹窗编辑更多和拖拽顺序
+        fields:[],
         tableData:{
           pagination: {
             switch: true,
@@ -263,8 +298,19 @@
           selectionChangeFn:"",
           class:"",//添加自定义class
           buttons:[{name:"增加",click:"addData",icon:"el-icon-circle-plus-outline"}],
-          operate:[{name:"删除",click:"delData",type:'danger',field:"del"},{name:"编辑",click:"editData",type:'default',field:"edit"}],
+          operate:[{name:"编辑",click:"delData",type:'danger',field:"del"},{name:"编辑",click:"editData",type:'default',field:"edit"}],
           data: []
+        },
+        formData:{
+          moreData:[
+            {type:'input',title:language.name,name:"",field:"name",placeholder:language.name},
+            {type:'input',title:language.age,age:"",field:"age",placeholder:language.age},
+            {type:'input',title:language.grade,grade:"",field:"grade",placeholder:language.grade},
+            {type:'input',title:"test5",test5:"",field:"test5",placeholder:language.age},
+            {type:'input',title:"test6",test6:"",field:"test6",placeholder:language.name},
+            {type:'input',title:"test7",test7:"",field:"test7",placeholder:language.age},
+            {type:'select',title:"test8",change:"gradeChange",placeholder:language.grade,datafield:{key:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],test8:"",field:"test8"},
+          ],
         },
         //下拉列表开始
         data:{
@@ -299,8 +345,21 @@
       };
     },
     methods: {
-      beforeClose(){
-        this.$parent[this.dialogData.beforeCloseFn]();
+      moreSearch() {//点击更多回调函数
+        if (!this.more) {
+          this.more = true;
+          this.moreName = language.lessConditions;
+        } else {
+          this.more = false;
+          this.moreName = language.moreConditions;
+        }
+
+        let _this=this
+        setTimeout(function () {
+          _this.$store.commit("sHeight", _this.$refs.searchForm.offsetHeight+13);
+          console.log(_this.$refs.searchForm.offsetHeight);
+        },2)
+
       },
       save(){
         this.searDialogVisible=false;
@@ -313,31 +372,9 @@
             }
           }
         }
-
       },
       searDialogShow(){
         this.searDialogVisible=true;
-      },
-      //表格中点击"删除"回调函数开始
-      delData(row){
-        this.$confirm('此操作将永久删除该条记录, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          Api.delTable(row).then((res) => {
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            });
-            this.getTableData();
-          })
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
-        });
       },
       dateChange(value){
       },
@@ -375,11 +412,10 @@
           this.$parent[this.tableData.pagination.CurrentChangeFn](val);
         }
       },
-      //下拉列表改变回调函数
-      gradeChange(){
+
+      gradeChange(){//下拉列表改变回调函数
         alert("gradeChange");
       },
-      //下拉列表改变回调函数结束
       selectionChange(data){
         console.log(data);
       },
