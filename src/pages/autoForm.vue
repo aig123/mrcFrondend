@@ -64,7 +64,7 @@
             <el-input v-model="formData.datafield.value" placeholder="字段名称field"></el-input>
           </el-form-item>
           <el-form-item label="data数据源">
-            <el-input  type="textarea" :rows="2" v-model="formData.data" placeholder="json格式"></el-input>
+            <el-input  type="textarea" :rows="2" v-model="formData.datafield.data" placeholder="json格式"></el-input>
           </el-form-item>
         </div>
         <el-form-item label="表单字段名称">
@@ -111,7 +111,7 @@
           title:"",
           placeholder:"",
           rule:{state:false,required: true,trigger: 'change'},
-          keydatafield:{},
+          datafield:{},
           data:[]
         },
         rules:[],
