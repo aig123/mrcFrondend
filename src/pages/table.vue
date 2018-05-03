@@ -1,34 +1,31 @@
 <template>
   <div class="content">
     <div class="searchForm" style="margin-bottom: 10px">
-      <div class="searchForm--item" v-if="!more">
-        <label class="searchForm--item__label">姓名</label>
+      <div class="searchForm--item" v-if="!more" v-for="(data,index) in formSearchData.data" :key="index">
+        <label class="searchForm--item__label" style="text-align: right;width: 50px">{{data.title}}</label><!--修改标签宽度-->
         <div class="searchForm--item__content">
-          <el-input type="input" placeholder="默认的姓名" size="small"></el-input>
-        </div>
-        <label class="searchForm--item__label">年龄</label>
-        <div class="searchForm--item__content">
-          <el-input type="input" placeholder="请输入年龄" size="small" title="年龄"></el-input>
-        </div>
-        <label class="searchForm--item__label">年级</label>
-        <div class="searchForm--item__content">
-          <el-select v-model="data.value" @change="gradeChange" size="small" placeholder="请选择">
-            <el-option label="一年级" value="1"></el-option>
-            <el-option label="二年级" value="2"></el-option>
+          <el-input class="search-input" v-model="data[data.field]" v-if="data.type=='input'" :placeholder="data.placeholder"
+                    size="small"></el-input>
+          <el-select class="search-input" v-model="data[data.field]" v-if="data.type=='select'"
+                     :placeholder="data.placeholder" @change="change(data.change)" size="small">
+            <el-option :label="item[data.datafield.key]" :value="item[data.datafield.value]" :key="item[data.datafield.value]"
+                       v-for="item in data.data"></el-option>
           </el-select>
-          <el-date-picker type="date" placeholder="选择日期" v-model="data.value" size="small" v-if="false"></el-date-picker>
+          <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data[data.field]"
+                          v-if="data.type=='date'" size="small"></el-date-picker>
+          <el-date-picker v-model="data[data.field]" v-if="data.type=='daterange'" :type="data.type" :range-separator="data.rangeseparator" :start-placeholder="data.startPlaceholder" :end-placeholder="data.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
         </div>
       </div>
       <div class="searchForm--item" v-if="more">
-        <label class="searchForm--item__label">姓名</label>
+        <label class="searchForm--item__label" style="width: 50px;text-align: right">姓名</label>
         <div class="searchForm--item__content">
           <el-input type="input" placeholder="默认的姓名" size="small"></el-input>
         </div>
-        <label class="searchForm--item__label">年龄</label>
+        <label class="searchForm--item__label" style="width: 50px;text-align: right">年龄</label>
         <div class="searchForm--item__content">
           <el-input type="input" placeholder="请输入年龄" size="small" title="年龄"></el-input>
         </div>
-        <label class="searchForm--item__label">年级</label>
+        <label class="searchForm--item__label" style="width: 50px;text-align: right">年级</label>
         <div class="searchForm--item__content">
           <el-select v-model="data.value" @change="gradeChange" size="small" placeholder="请选择">
             <el-option label="一年级" value="1"></el-option>
@@ -36,15 +33,15 @@
           </el-select>
           <el-date-picker type="date" placeholder="选择日期" v-model="data.value" size="small" v-if="false"></el-date-picker>
         </div>
-        <label class="searchForm--item__label">text5</label>
+        <label class="searchForm--item__label" style="width: 50px;text-align: right">text5</label>
         <div class="searchForm--item__content">
           <el-input type="input" placeholder="请输入年龄" size="small" title="年龄"></el-input>
         </div>
-        <label class="searchForm--item__label">text6</label>
+        <label class="searchForm--item__label" style="width: 50px;text-align: right">text6</label>
         <div class="searchForm--item__content">
           <el-input type="input" placeholder="请输入年龄" size="small" title="年龄"></el-input>
         </div>
-        <label class="searchForm--item__label">text7</label>
+        <label class="searchForm--item__label" style="width: 50px;text-align: right">text7</label>
         <div class="searchForm--item__content">
           <el-input type="input" placeholder="请输入年龄" size="small" title="年龄"></el-input>
         </div>
@@ -258,7 +255,7 @@
       width="30%">
       <span>
         <el-checkbox-group v-model="fields" style="margin-top: 10px">
-            <el-checkbox  v-dragging="{ item: data, list: formData.moreData, group: 'data'}" v-for="(data,index) in formData.moreData" :label="data.field" :key="data.field">{{data.title}}</el-checkbox>
+            <el-checkbox  v-dragging="{ item: data, list: formSearchData.moreData, group: 'data'}" v-for="(data,index) in formSearchData.moreData" :label="data.field" :key="data.field">{{data.title}}</el-checkbox>
         </el-checkbox-group>
       </span>
       <span slot="footer" class="dialog-footer">
@@ -284,7 +281,7 @@
         fields:[],
         tableData:{
           pagination: {
-            switch: true,
+            switch: false,
             type: "default",
             CurrentChangeFn: "getTableData",
             pageSize: 10,
@@ -301,7 +298,12 @@
           operate:[{name:"编辑",click:"delData",type:'danger',field:"del"},{name:"编辑",click:"editData",type:'default',field:"edit"}],
           data: []
         },
-        formData:{
+        formSearchData:{
+          data:[
+            {type:'input',title:language.age,age:"",field:"age",placeholder:language.age},
+            {type:'select',title:language.grade,change:"gradeChange",placeholder:language.grade,datafield:{key:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],grade:"",field:"grade"},
+            //{type: 'daterange',title: "活动时间范围",startPlaceholder: "开始日期",endPlaceholder: "结束日期",rangeseparator:"至",value: "",field: "value6",placeholder: "请输入活动时间范围",labelWidth:"80px"}
+          ],
           moreData:[
             {type:'input',title:language.name,name:"",field:"name",placeholder:language.name},
             {type:'input',title:language.age,age:"",field:"age",placeholder:language.age},
@@ -455,4 +457,12 @@
   .tablePaging,.dialogPaging{text-align: right;margin-top: 10px}/*分页右对齐和上边界*/
   .mrcTable{height: calc(100% - 86px) !important;}/*表格高度*/
   .dialogTable{height: calc(100% - 52px) !important}/*调整dialog内部分页位置*/
+   .el-checkbox:first-child {
+     margin-left: 30px!important;
+   }
+  .search-input {
+    width: 180px;
+    margin-bottom: 5px;}
+  .searchForm--item{margin-bottom: -2px}
+
 </style>

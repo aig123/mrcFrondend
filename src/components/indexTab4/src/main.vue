@@ -13,13 +13,13 @@
         <div class="sys_head el-dropdown-link" v-if="!$store.getters.phone">
           <el-dropdown @command="" class="personBox" trigger="click">
             <div>
-              {{user}}<i class="el-icon-arrow-down el-icon--right"></i><br />
+              {{user}}<span style="position: absolute;right:0">退出</span><br />
               <span>{{department}}</span>
             </div>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="a">个人中心</el-dropdown-item>
-              <el-dropdown-item command="b">退出</el-dropdown-item>
-            </el-dropdown-menu>
+            <!--<el-dropdown-menu slot="dropdown">-->
+              <!--<el-dropdown-item command="a">个人中心</el-dropdown-item>-->
+              <!--<el-dropdown-item command="b">退出</el-dropdown-item>-->
+            <!--</el-dropdown-menu>-->
           </el-dropdown>
           <div class="imgBox">
             <img src="./assets/1.png" alt="" width="50" height="50" style="">

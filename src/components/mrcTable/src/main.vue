@@ -138,7 +138,7 @@
 
   }
   #floatR{
-    float: right;margin-right: 18px;
+    float: right;margin-right: 18px;margin-top:-5px
   }
   #user{
     float: left;font-size: 18px;margin-bottom:16px;color:#a4aeb2;margin-left: 8px;
