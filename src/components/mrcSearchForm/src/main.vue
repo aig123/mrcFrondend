@@ -71,7 +71,7 @@
 <script>
   import language from "../../language/language";
   export default {
-    name: 'mrc-table',
+    name: 'mrc-search-form',
     template: '<div><input type="text" type="text" v-model="formData"/></div>',
     data() {
       return {
