@@ -51,6 +51,6 @@ let _App = new Vue({
 }).$mount('#app');
 
 import install2 from './index.js'
-import install from '../dist/bundle.js'
+//import install from '../dist/bundle.js'
 console.log(install2);
 console.log(install);
