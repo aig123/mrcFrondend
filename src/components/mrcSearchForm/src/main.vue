@@ -1,34 +1,32 @@
 <template>
   <section>
     <div class="searchForm" style="margin-bottom: 8px" ref="searchForm">
-      <div class="searchForm--item" v-if="!more" v-for="(data,index) in formData.data" :key="index">
-        <label class="searchForm--item__label"  :style="'width:'+ labelWidth+'px'" style="text-align: right">{{data.title}}</label><!--修改标签宽度-->
+      <div class="searchForm--item" v-if="!more" v-for="config in formData.title" :key="config.field"><!--!more¿ªÊ¼-->
+        <label class="searchForm--item__label"  :style="'width:'+ labelWidth+'px'" style="text-align: right">{{config.title}}</label><!--ÐÞ¸Ä±êÇ©¿í¶È-->
         <div class="searchForm--item__content">
-          <el-input class="search-input" v-model="data[data.field]" v-if="data.type=='input'" :placeholder="data.placeholder"
+          <el-input class="search-input" v-model="formData.data[config.field]" v-if="config.type=='input'" :placeholder="config.placeholder"
                     size="small"></el-input>
-          <el-select class="search-input" v-model="data[data.field]" v-if="data.type=='select'"
-                     :placeholder="data.placeholder" @change="change(data.change)" size="small">
-            <el-option :label="item[data.datafield.key]" :value="item[data.datafield.value]" :key="item[data.datafield.value]"
-                       v-for="item in data.data"></el-option>
+          <el-select class="search-input" v-model="formData.data[config.field]" v-if="config.type=='select'"
+                     :placeholder="config.placeholder" @change="change(config.change)" size="small">
+            <el-option :label="item.name" :value="item.name" :key="item.id" v-for="item in config.data"></el-option>
           </el-select>
-          <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data[data.field]"
-                          v-if="data.type=='date'" size="small"></el-date-picker>
-          <el-date-picker v-model="data[data.field]" v-if="data.type=='daterange'" :type="data.type" :range-separator="data.rangeseparator" :start-placeholder="data.startPlaceholder" :end-placeholder="data.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
+          <el-date-picker class="search-input" type="date" placeholder="日期" v-model="formData.data[config.field]"
+                          v-if="config.type=='date'" size="small"></el-date-picker>
+          <el-date-picker v-model="formData.data[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
         </div>
-      </div>
-      <div class="searchForm--item" v-if="more" v-for="(data,index) in formData.moreData" :key="index">
-        <label class="searchForm--item__label" :style="'width:'+ labelWidth+'px'" style="text-align: right">{{data.title}}</label>
+      </div><!--!more½áÊø-->
+      <div class="searchForm--item" v-if="more" v-for="config in formData.moreTitle" :key="config.field">
+        <label class="searchForm--item__label"  :style="'width:'+ labelWidth+'px'" style="text-align: right">{{config.title}}</label><!--ÐÞ¸Ä±êÇ©¿í¶È-->
         <div class="searchForm--item__content">
-          <el-input class="search-input" v-model="data.value" v-if="data.type=='input'" :placeholder="data.placeholder"
+          <el-input class="search-input" v-model="formData.data[config.field]" v-if="config.type=='input'" :placeholder="config.placeholder"
                     size="small"></el-input>
-          <el-select class="search-input" v-model="data.value" v-if="data.type=='select'"
-                     :placeholder="data.placeholder" @change="change(data.change)" size="small">
-            <el-option :label="item[data.datafield.label]" :value="item[data.datafield.value]" :key="item[data.datafield.value]"
-                       v-for="item in data.data"></el-option>
+          <el-select class="search-input" v-model="formData.data[config.field]" v-if="config.type=='select'"
+                     :placeholder="config.placeholder" @change="change(config.change)" size="small">
+            <el-option :label="item.name" :value="item.name" :key="item.id" v-for="item in config.data"></el-option>
           </el-select>
-          <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data.value"
-                          v-if="data.type=='date'" size="small"></el-date-picker>
-          <el-date-picker v-model="data[data.field]" v-if="data.type=='daterange'" :type="data.type" :range-separator="data.rangeseparator" :start-placeholder="data.startPlaceholder" :end-placeholder="data.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
+          <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="formData.data[config.field]"
+                          v-if="config.type=='date'" size="small"></el-date-picker>
+          <el-date-picker v-model="formData.data[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
         </div>
       </div>
       <div class="searchForm--button" v-if="formData.buttons&&formData.buttons.dataRight">
@@ -55,7 +53,7 @@
       width="30%">
       <span>
         <el-checkbox-group v-model="fields" style="margin-top: 10px">
-            <el-checkbox  v-dragging="{ item: data, list: formData.moreData, group: 'data'}" v-for="(data,index) in formData.moreData" :label="data.field" :key="data.field">{{data.title}}</el-checkbox>
+            <el-checkbox  v-dragging="{ item: data, list: formData.moreTitle, group: 'data'}" v-for="(data,index) in formData.moreTitle" :label="data.field" :key="data.field">{{data.title}}</el-checkbox>
         </el-checkbox-group>
       </span>
       <span slot="footer" class="dialog-footer">
@@ -94,11 +92,11 @@
       save(){
         this.searDialogVisible=false;
         console.log(this.fields);
-        this.formData.data=[];
-        for(let data of this.formData.moreData){
+        this.formData.title=[];
+        for(let data of this.formData.moreTitle){
           for(let field of this.fields){
             if(field==data.field){
-              this.formData.data.push(data);
+              this.formData.title.push(data);
             }
           }
         }
@@ -126,13 +124,13 @@
     mounted: function () {
       this.formData = this.value;
       this.fields=[];
-      for(let data of this.formData.data){
+      for(let data of this.formData.title){
         this.fields.push(data.field);
       }
     },
     computed: {
       formData: {
-        // 动态计算currentValue的值
+        // ¶¯Ì¬¼ÆËãcurrentValueµÄÖµ
         get: function () {
           return this.value;
         },

@@ -11,20 +11,15 @@
           </el-radio-group>
         </h5><!--搜索按钮图片-->
         <div class="sys_head el-dropdown-link" v-if="!$store.getters.phone">
-          <el-dropdown @command="" class="personBox" trigger="click">
-            <div>
-              {{user}}<i class="el-icon-arrow-down el-icon--right"></i><br />
-              <span>{{department}}</span>
-            </div>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="a">个人中心</el-dropdown-item>
-              <el-dropdown-item command="b">退出</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
           <div class="imgBox">
-            <img src="./assets/1.png" alt="" width="50" height="50" style="">
+            <img src="./assets/1.png" alt="" width="50" height="50">
+          </div>
+          <div style="float: left;margin-top: 5px">
+            {{user}}<br />
+            <span>{{department}}</span>
           </div>
         </div>
+        <img src="./assets/log-out.png" alt="" style="position: absolute;cursor:pointer;right:30px;top:26px" width="30" height="30">
         <hr />
       </div>
       <div class="sys_route_out">
