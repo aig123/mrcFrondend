@@ -4,33 +4,29 @@
       <div class="searchForm--item" v-if="!more" v-for="config in formData.title" :key="config.field"><!--!more¿ªÊ¼-->
         <label class="searchForm--item__label"  :style="'width:'+ labelWidth+'px'" style="text-align: right">{{config.title}}</label><!--ÐÞ¸Ä±êÇ©¿í¶È-->
         <div class="searchForm--item__content">
-          <el-input class="search-input" v-model="formData.title[config.field]" v-if="config.type=='input'" :placeholder="config.placeholder"
+          <el-input class="search-input" v-model="formData.data[config.field]" v-if="config.type=='input'" :placeholder="config.placeholder"
                     size="small"></el-input>
-          <el-select class="search-input" v-model="formData.title[config.field]" v-if="config.type=='select'"
+          <el-select class="search-input" v-model="formData.data[config.field]" v-if="config.type=='select'"
                      :placeholder="config.placeholder" @change="change(config.change)" size="small">
-            <!--<el-option :label="item[data.datafield.key]" :value="item[data.datafield.value]" :key="item[data.datafield.value]"-->
-            <!--v-for="item in data.data"></el-option>-->
-            <el-option :label="item.name" :value="item.name" :key="item.id" v-for="item in config.title"></el-option>
+            <el-option :label="item.name" :value="item.name" :key="item.id" v-for="item in config.data"></el-option>
           </el-select>
-          <el-date-picker class="search-input" type="date" placeholder="日期" v-model="formData.title[config.field]"
+          <el-date-picker class="search-input" type="date" placeholder="日期" v-model="formData.data[config.field]"
                           v-if="config.type=='date'" size="small"></el-date-picker>
-          <el-date-picker v-model="formData.title[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
+          <el-date-picker v-model="formData.data[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
         </div>
       </div><!--!more½áÊø-->
       <div class="searchForm--item" v-if="more" v-for="config in formData.moreTitle" :key="config.field">
         <label class="searchForm--item__label"  :style="'width:'+ labelWidth+'px'" style="text-align: right">{{config.title}}</label><!--ÐÞ¸Ä±êÇ©¿í¶È-->
         <div class="searchForm--item__content">
-          <el-input class="search-input" v-model="formData.moreTitle[config.field]" v-if="config.type=='input'" :placeholder="config.placeholder"
+          <el-input class="search-input" v-model="formData.data[config.field]" v-if="config.type=='input'" :placeholder="config.placeholder"
                     size="small"></el-input>
-          <el-select class="search-input" v-model="formData.moreTitle[config.field]" v-if="config.type=='select'"
+          <el-select class="search-input" v-model="formData.data[config.field]" v-if="config.type=='select'"
                      :placeholder="config.placeholder" @change="change(config.change)" size="small">
-            <!--<el-option :label="item[data.datafield.key]" :value="item[data.datafield.value]" :key="item[data.datafield.value]"-->
-            <!--v-for="item in data.data"></el-option>-->
-            <el-option :label="item[moreTitle.datafield.key]" :value="item[moreTitle.datafield.value]" :key="item[moreTitle.datafield.value]" v-for="item in config.moreTitle"></el-option>
+            <el-option :label="item.name" :value="item.name" :key="item.id" v-for="item in config.data"></el-option>
           </el-select>
-          <el-date-picker class="search-input" type="date" placeholder="Ñ¡ÔñÈÕÆÚ" v-model="formData.moreTitle[config.field]"
+          <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="formData.data[config.field]"
                           v-if="config.type=='date'" size="small"></el-date-picker>
-          <el-date-picker v-model="formData.moreTitle[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
+          <el-date-picker v-model="formData.data[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
         </div>
       </div>
       <div class="searchForm--button" v-if="formData.buttons&&formData.buttons.dataRight">
@@ -77,7 +73,7 @@
       return {
         more: false,
         moreName: language.moreConditions,
-        checkList: ['Ñ¡ÖÐÇÒ½ûÓÃ','¸´Ñ¡¿ò A'],
+        checkList: ['选中且禁用','复选框 A'],
         searDialogVisible:false,
         fields:[],
       };
@@ -96,11 +92,11 @@
       save(){
         this.searDialogVisible=false;
         console.log(this.fields);
-        this.formData.data=[];
-        for(let data of this.formData.moreData){
+        this.formData.title=[];
+        for(let data of this.formData.moreTitle){
           for(let field of this.fields){
             if(field==data.field){
-              this.formData.data.push(data);
+              this.formData.title.push(data);
             }
           }
         }
@@ -126,11 +122,11 @@
       }
     },
     mounted: function () {
-      // this.formData = this.value;
-      // this.fields=[];
-      // for(let data of this.formData.data){
-      //   this.fields.push(data.field);
-      // }
+      this.formData = this.value;
+      this.fields=[];
+      for(let data of this.formData.title){
+        this.fields.push(data.field);
+      }
     },
     computed: {
       formData: {
