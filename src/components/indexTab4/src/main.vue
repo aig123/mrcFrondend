@@ -19,7 +19,10 @@
             <span>{{department}}</span>
           </div>
         </div>
-        <img src="./assets/log-out.png" alt="" style="position: absolute;cursor:pointer;right:30px;top:26px" width="30" height="30">
+        <div style="position: absolute;cursor:pointer;right:30px;top:22px">
+          <img src="./assets/Logout.png" alt=""  width="14" height="14">
+          <el-button type="text" style="color:#7e7e7e">退出</el-button>
+        </div>
         <hr />
       </div>
       <div class="sys_route_out">
@@ -169,7 +172,7 @@
   .sys_head{
     position: absolute;
     top:18px;
-    right:80px;}
+    right:100px;}
 .imgBox{float: left;width: 50px;height: 50px;border-radius: 50%;overflow: hidden;background: #000;margin-right: 6px;}
   .personBox{margin-top: 5px;cursor:pointer;position: relative;z-index: 1}/*兼容IE点击事件*/
 
