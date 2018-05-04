@@ -18,6 +18,22 @@
       <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
       <!--check多选框-->
       <el-table-column
+        width="80" label="拖拽排序">
+        <template slot-scope="scope">
+          <!--<i class="el-icon-menu" style="cursor: pointer"></i>-->
+          <drop @drop="handleDrop(scope.row, ...arguments)" class="event">
+            <drag :transfer-data="scope.row" class="drag"> <i class="el-icon-menu" style="cursor: move"></i>
+              <div slot="image" class="drag-image">
+                <ul>
+                  <li style="float: left;list-style-type:none;width: 350px" v-for="(data,index) in tableData.title" :key="index">{{scope.row[data.field]}}</li>
+                  <li ></li>
+                </ul>
+              </div>
+            </drag>
+          </drop>
+        </template>
+      </el-table-column>
+      <el-table-column
         type="selection"
         v-if="tableData.Checkbox"
         width="60">
@@ -164,6 +180,22 @@
 //      value:Array,
 //    },
     methods:{
+      handleDrop(toList, data) {
+         debugger
+         let indexTo=this.tableData.data.indexOf(toList);
+         let index=this.tableData.data.indexOf(data);
+         let _toList=Object.assign({}, toList);
+         let _data=Object.assign({}, data);
+        // console.log(indexTo);
+      //  this.tableData.data[1].id=23;
+        for(let title of this.tableData.title){
+          this.tableData.data[indexTo][title.field]=_data[title.field];
+          this.tableData.data[index][title.field]=_toList[title.field];
+        }
+      //  this.tableData.data[0]=Object.assign({}, toList);
+       // this.tableData.data[0]=toList;
+       // this.tableData.data.splice(this.tableData.data.indexOf(data) - 1, 1, ... this.tableData.data.splice(this.tableData.data.indexOf(toList)- 1, 1, this.tableData.data[this.tableData.data.indexOf(data) - 1]))
+      },
       //Select框变化触发方法
       handleSelectionChange(val) {
         // this.multipleSelection = val;
