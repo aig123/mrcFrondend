@@ -1,8 +1,8 @@
 {
   "name": "vue-mrc",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "vue-mrc",
-  "main": "dist/bundle.js",
+  "main": "src/index.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
@@ -10,14 +10,21 @@
     "buildC": "node build/buildC.js"
   },
   "dependencies": {
+    "awe-dnd": "^0.3.1",
     "axios": "^0.17.1",
     "axios-mock-adapter": "^1.14.1",
-    "element-ui": "^2.0.11",
+    "element-ui": "^2.3.4",
     "mockjs": "^1.0.1-beta3",
+    "vddl": "^0.7.1",
     "vue": "^2.5.2",
-    "vue-mrc": "^1.0.7",
+    "vue-drag-drop": "^0.2.4",
+    "vue-echarts": "^3.0.7",
+    "vue-full-calendar": "^2.5.2",
+    "vue-fullcalendar": "^1.0.9",
+    "vue-mrc": "^1.0.10",
     "vue-prismjs": "^1.2.0",
     "vue-router": "^3.0.1",
+    "vue2-editor": "^2.4.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

@@ -49,3 +49,8 @@ let _App = new Vue({
   store: store,
   render: h => h(App)
 }).$mount('#app');
+
+import install2 from './index.js'
+import install from '../dist/bundle.js'
+console.log(install2);
+console.log(install);
