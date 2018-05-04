@@ -19,8 +19,8 @@
             <span>{{department}}</span>
           </div>
         </div>
-        <div style="position: absolute;cursor:pointer;right:30px;top:24px">
-          <img src="./assets/Logout.png" alt=""  width="34" height="34">
+        <div style="position: absolute;cursor:pointer;right:44px;top:30px">
+          <img src="./assets/Logout.png" alt=""  width="26" height="26">
         </div>
         <hr />
       </div>
