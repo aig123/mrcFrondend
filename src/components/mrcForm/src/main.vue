@@ -82,7 +82,7 @@
 </template>
 <script>
   export default {
-    name: 'mrc-table',
+    name: 'mrc-form',
     template:'<div><input type="text" type="text" v-model="formData"/></div>',
     data() {
       return {
