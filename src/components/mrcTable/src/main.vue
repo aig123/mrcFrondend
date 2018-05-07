@@ -24,7 +24,7 @@
     >
       <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
       <!--check多选框-->
-      <el-table-column v-if="true"
+      <el-table-column v-if="tableData.dragSort"
         width="80" label="拖拽排序">
         <template slot-scope="scope">
           <!--<i class="el-icon-menu" style="cursor: pointer"></i>-->
@@ -88,7 +88,6 @@
                               :align="d.align"
                               :headerAlign="d.headerAlign"
              >
-
              </el-table-column>
            </el-table-column>
       </el-table-column>
