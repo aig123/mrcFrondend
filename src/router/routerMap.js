@@ -6,9 +6,9 @@ const home = r => require.ensure([], () => r(require('@/pages/home')), 'home');
 const table = r => require.ensure([], () => r(require('@/pages/table')), 'table');
 const tableMrc = r => require.ensure([], () => r(require('@/pages/table-mrc')), 'tableMrc');
 const tableManyHead = r => require.ensure([], () => r(require('@/pages/table-many-head')), 'tableManyHead');
-const col = r => require.ensure([], () => r(require('@/pages/col')), 'col');
-const row = r => require.ensure([], () => r(require('@/pages/row')), 'row');
-const colfixed = r => require.ensure([], () => r(require('@/pages/colfixed')), 'colfixed');
+const tableCol = r => require.ensure([], () => r(require('@/pages/tableCol')), 'tableCol');
+const tableRow = r => require.ensure([], () => r(require('@/pages/tableRow')), 'tableRow');
+const tableColfixed = r => require.ensure([], () => r(require('@/pages/tableColfixed')), 'tableColfixed');
 const form = r => require.ensure([], () => r(require('@/pages/form.vue')), 'form');
 const formMrc = r => require.ensure([], () => r(require('@/pages/form-mrc')), 'formMrc');
 const tab = r => require.ensure([], () => r(require('@/pages/tab')), 'tab');
@@ -65,21 +65,21 @@ const routes = [
         meta: [],
       },
       {
-        path: 'col',
-        name: "col",
-        component: col,
+        path: 'tableCol',
+        name: "tableCol",
+        component: tableCol,
         meta: [],
       },
       {
-        path: 'row',
-        name: "row",
-        component: row,
+        path: 'tableRow',
+        name: "tableRow",
+        component: tableRow,
         meta: [],
       },
       {
-        path: 'colfixed',
-        name: "colfixed",
-        component: colfixed,
+        path: 'tableColfixed',
+        name: "tableColfixed",
+        component: tableColfixed,
         meta: [],
       },
       {

@@ -45,17 +45,17 @@
                 icon:"el-icon-edit-outline",
               },
               {
-                path: '/home/col',
+                path: '/home/tableCol',
                 title: "合并列",
                 icon:"el-icon-edit-outline",
               },
               {
-                path: '/home/row',
+                path: '/home/tableRow',
                 title: "合并行",
                 icon:"el-icon-edit-outline",
               },
               {
-                path: '/home/colfixed',
+                path: '/home/tableColfixed',
                 title: "固定列",
                 icon:"el-icon-edit-outline",
               },
