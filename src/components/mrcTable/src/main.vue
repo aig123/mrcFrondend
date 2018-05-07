@@ -1,8 +1,8 @@
 ﻿﻿<template>
   <section  id="outer" :style="'height:'+ '-webkit-calc(100% - '+sHeight+'px)'+';'+'height:'+ 'calc(100% - '+sHeight+'px)' ">
     <!--表格功能按钮-->
-    <div id="user">{{tableData.description}}</div>
-    <div id="floatR">
+    <div id="user" v-show="!this.tableData.hideToolbar">{{tableData.description}}</div>
+    <div id="floatR" v-show="!this.tableData.hideToolbar">
       <el-button type="text" icon="el-icon-rank" @click="dialogTableVisible=true" v-if="tableData.FullScreen">{{fullScreenName}}</el-button>
       <el-button
         type="text"
@@ -105,7 +105,7 @@
     </el-table>
     <!--分页栏-->
     <el-pagination
-      v-if="tableData.pagination.switch"
+      v-if="tableData.pagination&&tableData.pagination.switch"
       background
       :page-sizes="tableData.pagination.pageSizes"
       :layout="tableData.pagination.layout"
@@ -309,7 +309,12 @@
         }
       },
       sHeight() {
-        return this.$store.getters.sHeight;
+        if(this.tableData.hideToolbar){
+          return 5
+        }else {
+          return this.$store.getters.sHeight;
+        }
+
       }
     },
 
