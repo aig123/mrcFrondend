@@ -1,143 +1,76 @@
 <template>
-  <div style="padding: 20px;">
-    <el-input
-      placeholder="输入关键字进行过滤"
-      v-model="filterText">
-    </el-input>
-    <el-tree
-      :data="data6"
-      ref="tree2"
-      show-checkbox
-      node-key="id"
-      :filter-node-method="filterNode"
-      default-expand-all
-      @node-drag-start="handleDragStart"
-      @node-drag-enter="handleDragEnter"
-      @node-drag-leave="handleDragLeave"
-      @node-drag-over="handleDragOver"
-      @node-drag-end="handleDragEnd"
-      @node-drop="handleDrop"
-      draggable
-      :allow-drop="allowDrop"
-      :allow-drag="allowDrag">
-    </el-tree>
+  <div class="content">
+    <mrc-table v-model="tableData"></mrc-table>
   </div>
 </template>
 <script>
+  import * as Api from "../api/api";
+  import language  from "../language/language";
   export default {
-    data() {
+    data(){
       return {
-        filterText:"",
-        data6: [
-          {
-          id: 1,
-          label: '一级 1',
-          children: [{
-            id: 4,
-            label: '二级 1-1',
-            children: [{
-              id: 9,
-              label: '三级 1-1-1'
-            }, {
-              id: 10,
-              label: '三级 1-1-2'
-            }]
-          }]
-        },
-          {
-          id: 2,
-          label: '一级 2',
-          children: [{
-            id: 5,
-            label: '二级 2-1'
-          }, {
-            id: 6,
-            label: '二级 2-2'
-          }]
-        },
-          {
-          id: 3,
-          label: '一级 3',
-          children: [{
-            id: 7,
-            label: '二级 3-1'
-          }, {
-            id: 8,
-            label: '二级 3-2',
-            children: [{
-              id: 11,
-              label: '三级 3-2-1'
-            }, {
-              id: 12,
-              label: '三级 3-2-2'
-            }, {
-              id: 13,
-              label: '三级 3-2-3'
-            }]
-          }]
-        },
-          {
-            id: 4,
-            label: '一级 3',
-            children: [{
-              id: 7,
-              label: '二级 3-1'
-            }, {
-              id: 8,
-              label: '二级 3-2',
-              children: [{
-                id: 11,
-                label: '三级 3-2-1'
-              }, {
-                id: 12,
-                label: '三级 3-2-2'
-              }, {
-                id: 13,
-                label: '三级 3-2-3'
-              }]
-            }]
-          },
-        ],
-        defaultProps: {
-          children: 'children',
-          label: 'label'
+        tableData:{
+          title: [
+            {name: "编号", field: "id", width: "", show: true, fixed: false, sortable: true},
+            {name: "姓名", field: "name", width: "", show: true, fixed: false, sortable: true},
+            {name: "合并头", show: true,children: [
+                {name: "性别", field: "sex", width: "150", show: false, fixed: false},
+                {name: "日期", field: "date", width: "150", show: true, fixed: false}
+              ]
+            },
+            {name: "合并头一级", show: true,children: [
+                {name: "合并头二级", show: true,children: [
+                    {name: "城市", field: "city", width: "", show: true, fixed: false, sortable: true},
+                    {
+                      name: "备注",
+                      field: "comment",
+                      width: "150",
+                      show: true,
+                      fixed: false,
+                      sortable: false,
+                      showOverflowTooltip: true,
+                      align: "left",
+                      headerAlign: "center"
+                    },
+                  ]},
+                {name: "性别", field: "sex", width: "150", show: false, fixed: false},
+                {name: "日期", field: "date", width: "150", show: true, fixed: false},
+
+              ]
+            },
+
+          ],
+          data: [],
+          hideToolbar:true,
+          pagination: {
+            switch: true,
+            type: "default",
+            CurrentChangeFn: "getTableData",
+            pageSize: 15,
+            pageIndex: 1,
+            layout: "total, sizes, prev, pager, next, jumper",
+            pageSizes: [10, 20, 40],
+          },//是否开启分页
         }
       };
     },
-    methods: {
-      filterNode(value, data) {
-        if (!value) return true;
-        return data.label.indexOf(value) !== -1;
+    methods: {//开始
+      getTableData() {
+        let param = {
+          pageIndex: 1,
+          searchData:{},
+          sort:"",//排序字段
+          sortasc:"",// asc desc
+          pageSize: 10000
+        };
+        Api.getTableData(param).then((res) => {
+          this.tableData.data = res.data.data.content;
+        })
       },
-      handleDragStart(node, ev) {
-        console.log('drag start', node);
-      },
-      handleDragEnter(draggingNode, dropNode, ev) {
-        console.log('tree drag enter: ', dropNode.label);
-      },
-      handleDragLeave(draggingNode, dropNode, ev) {
-        console.log('tree drag leave: ', dropNode.label);
-      },
-      handleDragOver(draggingNode, dropNode, ev) {
-        console.log('tree drag over: ', dropNode.label);
-      },
-      handleDragEnd(draggingNode, dropNode, dropType, ev) {
-        console.log('tree drag end: ', dropNode && dropNode.label, dropType);
-      },
-      handleDrop(draggingNode, dropNode, dropType, ev) {
-        console.log('tree drop: ', dropNode.label, dropType);
-      },
-      allowDrop(draggingNode, dropNode) {
-        return dropNode.data.label !== '二级 3-1';
-      },
-      allowDrag(draggingNode) {
-        return draggingNode.data.label.indexOf('三级 3-1-1') === -1;
-      }
+    },//开始
+    mounted: function () {
+
+      this.getTableData();
     },
-    watch: {
-      filterText(val) {
-        this.$refs.tree2.filter(val);
-      }
-    },
-  };
+  }
 </script>

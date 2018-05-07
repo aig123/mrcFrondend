@@ -1,4 +1,4 @@
-﻿<template>
+﻿﻿<template>
   <section  id="outer" :style="'height:'+ '-webkit-calc(100% - '+sHeight+'px)'+';'+'height:'+ 'calc(100% - '+sHeight+'px)' ">
     <!--表格功能按钮-->
     <div id="user">{{tableData.description}}</div>
@@ -54,19 +54,46 @@
       >
       </el-table-column>
 
-      <el-table-column v-for="(data,index) in tableData.title"
-                       :key="index"
-                       :prop="data.field"
-                       :label="data.name"
-                       v-if="data.show"
-                       :width="data.width"
-                       :fixed="data.fixed"
-                       :sortable="data.sortable"
-                       :show-overflow-tooltip="data.showOverflowTooltip"
-                       :align="data.align"
-                       :headerAlign="data.headerAlign"
-      >
+         <el-table-column v-for="(data,index) in tableData.title"
+                          :key="index"
+                          :prop="data.field"
+                          :label="data.name"
+                          v-if="data.show"
+                          :width="data.width"
+                          :fixed="data.fixed"
+                          :sortable="data.sortable"
+                          :show-overflow-tooltip="data.showOverflowTooltip"
+                          :align="data.align"
+                          :headerAlign="data.headerAlign"
+         >
+           <el-table-column v-for="(da,index) in data.children" v-if="data.children"
+                            :key="index"
+                            :prop="da.field"
+                            :label="da.name"
+                            :width="da.width"
+                            :fixed="da.fixed"
+                            :sortable="da.sortable"
+                            :show-overflow-tooltip="da.showOverflowTooltip"
+                            :align="da.align"
+                            :headerAlign="da.headerAlign"
+           >
+             <el-table-column v-for="(d,index) in da.children" v-if="da.children"
+                              :key="index"
+                              :prop="d.field"
+                              :label="d.name"
+                              :width="d.width"
+                              :fixed="d.fixed"
+                              :sortable="d.sortable"
+                              :show-overflow-tooltip="d.showOverflowTooltip"
+                              :align="d.align"
+                              :headerAlign="d.headerAlign"
+             >
+
+             </el-table-column>
+           </el-table-column>
       </el-table-column>
+
+
       <!--操作栏-->
       <el-table-column
         label="操作"
