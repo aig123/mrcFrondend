@@ -11,12 +11,34 @@
       return {
         tableData:{
           title: [
-            {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:true},
-            {name: "姓名", field: "name",width:"",show:true,fixed:false,sortable:true},
-            {name: "性别", field: "sex",width:"",show:false,fixed:false,sortable:true},
-            {name: "日期", field: "date",width:"150",show:true,fixed:false,sortable:true},
-            {name: "城市", field: "city",width:"",show:true,fixed:false,sortable:true},
-            {name: "备注", field: "comment",width:"150",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
+            {name: "编号", field: "id", width: "", show: true, fixed: false, sortable: true},
+            {name: "姓名", field: "name", width: "", show: true, fixed: false, sortable: true},
+            {name: "合并头", show: true,children: [
+                {name: "性别", field: "sex", width: "150", show: false, fixed: false},
+                {name: "日期", field: "date", width: "150", show: true, fixed: false}
+              ]
+            },
+            {name: "合并头一级", show: true,children: [
+                {name: "合并头二级", show: true,children: [
+                    {name: "城市", field: "city", width: "", show: true, fixed: false, sortable: true},
+                    {
+                      name: "备注",
+                      field: "comment",
+                      width: "150",
+                      show: true,
+                      fixed: false,
+                      sortable: false,
+                      showOverflowTooltip: true,
+                      align: "left",
+                      headerAlign: "center"
+                    },
+                  ]},
+                {name: "性别", field: "sex", width: "150", show: false, fixed: false},
+                {name: "日期", field: "date", width: "150", show: true, fixed: false},
+
+              ]
+            },
+
           ],
           data: [],
           hideToolbar:true,
