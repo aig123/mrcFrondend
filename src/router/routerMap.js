@@ -5,6 +5,7 @@ Vue.use(Router);
 const home = r => require.ensure([], () => r(require('@/pages/home')), 'home');
 const table = r => require.ensure([], () => r(require('@/pages/table')), 'table');
 const tableMrc = r => require.ensure([], () => r(require('@/pages/table-mrc')), 'tableMrc');
+const tableManyHead = r => require.ensure([], () => r(require('@/pages/table-many-head')), 'tableManyHead');
 const form = r => require.ensure([], () => r(require('@/pages/form.vue')), 'form');
 const formMrc = r => require.ensure([], () => r(require('@/pages/form-mrc')), 'formMrc');
 const tab = r => require.ensure([], () => r(require('@/pages/tab')), 'tab');
@@ -52,6 +53,12 @@ const routes = [
         path: 'tableMrc',
         name: "tableMrc",
         component: tableMrc,
+        meta: [],
+      },
+      {
+        path: 'tableManyHead',
+        name: "tableManyHead",
+        component: tableManyHead,
         meta: [],
       },
       {
