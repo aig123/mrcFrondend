@@ -40,6 +40,11 @@
                 title: "普通列表",
                 icon:"el-icon-edit-outline",
               },
+              {
+                path: '/home/tableManyHead',
+                title: "多级表头",
+                icon:"el-icon-edit-outline",
+              },
             ]
           },
           {
