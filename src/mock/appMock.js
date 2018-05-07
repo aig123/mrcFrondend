@@ -86,6 +86,7 @@ for (let i = 0; i < 30; i++) {
     "comment":"这是一个备注1,这是一个备注1,这是一个备注1" ,
     "city":Mock.Random.city(true),
      "del":true,
-     "edit":Mock.Random.boolean()
+     "edit":Mock.Random.boolean(),
+    "view":true
   }));
 }

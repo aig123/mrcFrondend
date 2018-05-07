@@ -6,6 +6,10 @@
       <mrc-form v-model="formData" ref="mrcForm">
       </mrc-form>
     </mrc-dialog>
+    <mrc-dialog v-model="dialogView">
+      <mrc-form v-model="formView" ref="mrcForm">
+      </mrc-form>
+    </mrc-dialog>
   </div>
 </template>
 <script>
@@ -32,13 +36,13 @@
           selectionChangeFn:"",
           class:"",//添加自定义class
           buttons:[{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"},{name:language.import,click:"",icon:"el-icon-upload"},{name:language.export,click:"",icon:"el-icon-download"}],
-          operate:[{name:language.delect,click:"delData",type:'danger',field:"del"},{name:language.edit,click:"editData",type:'default',field:"edit"}],
+          operate:[{name:language.delect,click:"delData",type:'danger',field:"del"},{name:language.edit,click:"editData",type:'default',field:"edit"},{name:"查看",click:"viewData",type:'default',field:"view"}],
           title: [
-            {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:false},
-            {name: "姓名", field: "name",width:"",show:true,fixed:false,sortable:false},
-            {name: "性别", field: "sex",width:"",show:false,fixed:false,sortable:false},
-            {name: "日期", field: "date",width:"150",show:true,fixed:false,sortable:false},
-            {name: "城市", field: "city",width:"",show:true,fixed:false,sortable:false},
+            {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:true},
+            {name: "姓名", field: "name",width:"",show:true,fixed:false,sortable:true},
+            {name: "性别", field: "sex",width:"",show:false,fixed:false,sortable:true},
+            {name: "日期", field: "date",width:"150",show:true,fixed:false,sortable:true},
+            {name: "城市", field: "city",width:"",show:true,fixed:false,sortable:true},
             {name: "备注", field: "comment",width:"150",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
           ],
           data: []
@@ -103,6 +107,23 @@
             ]
           }
         },
+        formView:{
+          name:"form",
+          title:[
+            {type:'span',title:"编号",value:"",field: "id",placeholder:"请填写编号"},
+            {type:'span',title:"姓名",value:"",field: "name",placeholder:"请输入姓名"},
+            {type:'span',title:"日期",value:"",field: "date",placeholder:"请输入日期"},
+            {type:'span',title:"城市",value:"",field: "city",placeholder:"请输入城市"},
+            {type:'span',title:"备注",value:"",field: "comment",placeholder:"请输入备注"},
+          ],
+          data:{
+            id:"",
+            name:"",
+            date:"",
+            city:"",
+            comment:""
+          },
+        },
         dialogData:{
           show:false,//手否显示
           title:language.add,//名称
@@ -112,7 +133,18 @@
           saveFn:"save",//确定触发的方法
           confirmButtonText:language.save, //确定名称
           cancelButtonText:language.cancel   //取消名称
-        }
+        },
+        dialogView:{
+          show:false,//手否显示
+          title:language.add,//名称
+          width:"40%",//宽度设置
+          closeOnClickModal:true,//是否可以通过点击 modal 关闭 Dialog
+          beforeCloseFn:"beforeCloseFn1",//关闭前的回调，会暂停 Dialog 的关闭
+          saveFn:"save1",//确定触发的方法
+          confirmButtonText:"确定", //确定名称
+          cancelButtonText:language.cancel,   //取消名称
+          showConfirmButton:false
+        },
       };
     },
     methods: {//开始
@@ -141,12 +173,30 @@
       beforeCloseFn(){
         this.dialogData.show=false
       },
+      beforeCloseFn1(){
+        this.dialogView.show=false
+      },
       addData(){
         this.dialogData.show=true;
       },
       editData(row){
         this.formData.data=row;
         this.dialogData.show=true;
+      },
+      // viewData(row){//查看表格数据
+      //   this.formData.rules={};
+      //   this.formData.data=row;
+      //   for(let data of this.formData.title){
+      //     data.type="span"
+      //   }
+      //   this.dialogData.title="查看数据"
+      //   this.dialogData.show=true;
+      // },
+      viewData(row){
+        debugger;
+        //this.formData.data=this.formSpan.data;
+        this.formView.data=row;
+        this.dialogView.show=true;
       },
       delData(row){
         this.$confirm('此操作将永久删除该条记录, 是否继续?', '提示', {
@@ -187,6 +237,31 @@
             return false;
           }
         });
+      },
+      save1(){
+      //this.dialogView.show=false
+
+
+
+        this.$refs['mrcForm'].$refs[this.formView.name].validate((valid) => {
+          if (valid) {
+            let param = this.formView.data;
+            Api.addTable(param).then((res) => {
+              this.$notify({
+                title: '成功',
+                message: '保存成功',
+                type: 'success'
+              });
+              this.dialogView.show=false;
+              this.getTableData();
+            })
+          } else {
+            return false;
+          }
+        });
+
+
+
       },
     },//开始
     mounted: function () {

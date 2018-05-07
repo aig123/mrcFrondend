@@ -7,6 +7,11 @@
       <el-button
         type="text"
         :icon="data.icon" v-for="data in tableData.buttons" :key="data.name" @click="operateClick(data.click)">{{data.name}}</el-button>
+      <!--小按钮开始-->
+      <div class="show-set" style="border:solid 1px red">
+        <span class="el-icon-setting" @click="searDialogVisible=true"></span>
+      </div>
+      <!--小按钮结束-->
     </div>
     <el-table
       :data="tableData.data"
@@ -142,6 +147,30 @@
       >
       </el-pagination>
     </el-dialog>
+
+
+
+
+
+
+
+<!--设置表格顺序和显示隐藏-->
+    <el-dialog
+      title="设置表格"
+      :visible.sync="searDialogVisible"
+      width="30%">
+      <span>
+        <el-checkbox-group v-model="tableData" style="margin-top: 10px">
+          <el-checkbox  v-dragging="{ item: data, list: tableData.title, group: 'data'}" v-for="(data,index) in tableData.title" :label="data.field" :key="data.field">{{data.name}}</el-checkbox>
+        </el-checkbox-group>
+      </span>
+      <span slot="footer" class="dialog-footer">
+           <el-button @click="searDialogVisible = false">取 消</el-button>
+           <el-button type="primary" @click="save">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!--设置表格顺序和显示隐藏-->
+
   </section>
 </template>
 <style>
@@ -171,7 +200,9 @@
     data() {
       return {
         dialogTableVisible:false,
-        fullScreenName:language.fullScreen
+        fullScreenName:language.fullScreen,
+        searDialogVisible:false,//默认表格排序隐藏
+        fields:[]//为checkbox绑定数据
 
       };
     },
@@ -221,6 +252,20 @@
       operateClick(fn,data,){
         this.$parent[fn](data);
       },
+
+      //点击保存按钮触发方法
+      save(){
+        this.searDialogVisible=false;
+        console.log(this.fields);
+        this.tableData.title=[];
+        for(let data of this.tableData.title){
+          for(let field of this.fields){
+            if(field==data.field){
+              this.tableData.title.push(data);
+            }
+          }
+        }
+      },
       // open(){
       //   var de = document.documentElement;
       //   if (de.requestFullscreen) {
@@ -234,6 +279,19 @@
     },
     mounted: function () {
       this.tableData = this.value;
+
+
+
+
+      this.fields=[];
+
+      for(let data of this.tableData.title){
+        //this.fields.push(data.field);
+        console.log(data)
+       // data.show=false
+      }
+
+
     },
     computed: {
       tableData: {

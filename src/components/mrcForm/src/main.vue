@@ -3,6 +3,7 @@
     <div style="padding: 20px;max-width: 700px">
     <el-form :model="formData.data" :label-width="labelWidth" :rules="formData.rules" :ref="formData.name">
       <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" style="width: 100%;" :prop="config.field">
+        <span v-if="config.type=='span'">{{formData.data[config.field]}}</span>
         <span v-if="config.type=='input'">
         <el-input v-model="formData.data[config.field]"  :placeholder="config.placeholder"  style="width: 100%">
         </el-input>
