@@ -8,7 +8,7 @@
         type="text"
         :icon="data.icon" v-for="data in tableData.buttons" :key="data.name" @click="operateClick(data.click)">{{data.name}}</el-button>
       <!--小按钮开始-->
-      <div class="show-set" style="border:solid 1px red">
+      <div class="show-set" style="margin-left:8px">
         <span class="el-icon-setting" @click="searDialogVisible=true"></span>
       </div>
       <!--小按钮结束-->
@@ -147,20 +147,12 @@
       >
       </el-pagination>
     </el-dialog>
-
-
-
-
-
-
-
-<!--设置表格顺序和显示隐藏-->
     <el-dialog
       title="设置表格"
       :visible.sync="searDialogVisible"
       width="30%">
       <span>
-        <el-checkbox-group v-model="tableData" style="margin-top: 10px">
+        <el-checkbox-group v-model="fields" style="margin-top: 10px">
           <el-checkbox  v-dragging="{ item: data, list: tableData.title, group: 'data'}" v-for="(data,index) in tableData.title" :label="data.field" :key="data.field">{{data.name}}</el-checkbox>
         </el-checkbox-group>
       </span>
@@ -169,8 +161,6 @@
            <el-button type="primary" @click="save">确 定</el-button>
       </span>
     </el-dialog>
-    <!--设置表格顺序和显示隐藏-->
-
   </section>
 </template>
 <style>
@@ -183,7 +173,7 @@
 
   }
   #floatR{
-    float: right;margin-right: 18px;margin-top:-5px
+    float: right;margin-right: -14px;margin-top:-5px
   }
   #user{
     float: left;font-size: 18px;margin-bottom:16px;color:#a4aeb2;margin-left: 8px;
@@ -191,6 +181,9 @@
   .tablePaging,.dialogPaging{text-align: right;margin-top: 10px}/*分页右对齐和上边界*/
   .mrcTable{height: calc(100% - 80px) !important;}/*表格高度*/
   .dialogTable{height: calc(100% - 43px) !important}/*调整dialog内部分页位置*/
+  .el-checkbox:first-child {/*调整弹窗内部复选框对齐*/
+    margin-left: 30px!important;
+  }
 </style>
 <script>
   import language  from "../../language/language";
@@ -257,41 +250,26 @@
       save(){
         this.searDialogVisible=false;
         console.log(this.fields);
-        this.tableData.title=[];
+        for(let showFalse of this.tableData.title){
+           showFalse.show=false
+         }
         for(let data of this.tableData.title){
           for(let field of this.fields){
             if(field==data.field){
-              this.tableData.title.push(data);
+              data.show=true
             }
           }
         }
       },
-      // open(){
-      //   var de = document.documentElement;
-      //   if (de.requestFullscreen) {
-      //     de.requestFullscreen();
-      //   } else if (de.mozRequestFullScreen) {
-      //     de.mozRequestFullScreen();
-      //   } else if (de.webkitRequestFullScreen) {
-      //     de.webkitRequestFullScreen();
-      //   }
-      // }
     },
     mounted: function () {
       this.tableData = this.value;
-
-
-
-
       this.fields=[];
-
       for(let data of this.tableData.title){
-        //this.fields.push(data.field);
-        console.log(data)
-       // data.show=false
+      if(data.show==true){
+        this.fields.push(data.field);
       }
-
-
+      }
     },
     computed: {
       tableData: {

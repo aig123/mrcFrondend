@@ -240,9 +240,6 @@
       },
       save1(){
       //this.dialogView.show=false
-
-
-
         this.$refs['mrcForm'].$refs[this.formView.name].validate((valid) => {
           if (valid) {
             let param = this.formView.data;
