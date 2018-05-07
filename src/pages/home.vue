@@ -19,7 +19,6 @@
       return {
         menu:[
           {
-
             path: "/home/autoForm",
             title: "自动化组件",
             icon:"el-icon-news",
@@ -43,6 +42,16 @@
               {
                 path: '/home/tableManyHead',
                 title: "多级表头",
+                icon:"el-icon-edit-outline",
+              },
+              {
+                path: '/home/col',
+                title: "合并列",
+                icon:"el-icon-edit-outline",
+              },
+              {
+                path: '/home/row',
+                title: "合并行",
                 icon:"el-icon-edit-outline",
               },
             ]

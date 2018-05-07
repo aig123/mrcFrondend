@@ -19,7 +19,9 @@
       border
       @selection-change="handleSelectionChange"
       height="80%" style="width: 99%;margin: 0 auto;"
-      class="mrcTable">
+      class="mrcTable"
+      :span-method="arraySpanMethod"
+    >
       <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
       <!--check多选框-->
       <el-table-column
@@ -285,6 +287,15 @@
             if(field==data.field){
               data.show=true
             }
+          }
+        }
+      },
+      arraySpanMethod({ row, column, rowIndex, columnIndex }) {
+        if (rowIndex % 2 === 0) {
+          if (columnIndex === 0) {
+            return [1,2];//rowspan，colspan
+          } else if (columnIndex === 1) {
+            return [0, 0];
           }
         }
       },
