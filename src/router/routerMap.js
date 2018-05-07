@@ -8,6 +8,7 @@ const tableMrc = r => require.ensure([], () => r(require('@/pages/table-mrc')), 
 const tableManyHead = r => require.ensure([], () => r(require('@/pages/table-many-head')), 'tableManyHead');
 const col = r => require.ensure([], () => r(require('@/pages/col')), 'col');
 const row = r => require.ensure([], () => r(require('@/pages/row')), 'row');
+const colfixed = r => require.ensure([], () => r(require('@/pages/colfixed')), 'colfixed');
 const form = r => require.ensure([], () => r(require('@/pages/form.vue')), 'form');
 const formMrc = r => require.ensure([], () => r(require('@/pages/form-mrc')), 'formMrc');
 const tab = r => require.ensure([], () => r(require('@/pages/tab')), 'tab');
@@ -73,6 +74,12 @@ const routes = [
         path: 'row',
         name: "row",
         component: row,
+        meta: [],
+      },
+      {
+        path: 'colfixed',
+        name: "colfixed",
+        component: colfixed,
         meta: [],
       },
       {

@@ -54,6 +54,11 @@
                 title: "合并行",
                 icon:"el-icon-edit-outline",
               },
+              {
+                path: '/home/colfixed',
+                title: "固定列",
+                icon:"el-icon-edit-outline",
+              },
             ]
           },
           {

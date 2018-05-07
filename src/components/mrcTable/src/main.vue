@@ -24,7 +24,7 @@
     >
       <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
       <!--check多选框-->
-      <el-table-column
+      <el-table-column v-if="true"
         width="80" label="拖拽排序">
         <template slot-scope="scope">
           <!--<i class="el-icon-menu" style="cursor: pointer"></i>-->
