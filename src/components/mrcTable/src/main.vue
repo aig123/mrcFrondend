@@ -1,14 +1,14 @@
-﻿<template>
+﻿﻿<template>
   <section  id="outer" :style="'height:'+ '-webkit-calc(100% - '+sHeight+'px)'+';'+'height:'+ 'calc(100% - '+sHeight+'px)' ">
     <!--表格功能按钮-->
-    <div id="user" v-show="!this.tableData.hideToolbar">{{tableData.description}}</div>
-    <div id="floatR" v-show="!this.tableData.hideToolbar">
+    <div id="user">{{tableData.description}}</div>
+    <div id="floatR">
       <el-button type="text" icon="el-icon-rank" @click="dialogTableVisible=true" v-if="tableData.FullScreen">{{fullScreenName}}</el-button>
       <el-button
         type="text"
         :icon="data.icon" v-for="data in tableData.buttons" :key="data.name" @click="operateClick(data.click)">{{data.name}}</el-button>
       <!--小按钮开始-->
-      <div class="show-set" style="border:solid 1px red" v-if="false">
+      <div class="show-set" style="margin-left:8px">
         <span class="el-icon-setting" @click="searDialogVisible=true"></span>
       </div>
       <!--小按钮结束-->
@@ -18,9 +18,8 @@
       :empty-text="tableData.emptyText"
       border
       @selection-change="handleSelectionChange"
-      height="100%" style="width: 99%;margin: 0 auto;"
+      height="80%" style="width: 99%;margin: 0 auto;"
       class="mrcTable">
-
       <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
       <!--check多选框-->
       <el-table-column
@@ -69,7 +68,7 @@
       <!--操作栏-->
       <el-table-column
         label="操作"
-        v-if="tableData.operate&&tableData.operate.length>0"
+        v-if="tableData.buttons&&tableData.operate.length>0"
         width="150">
         <template slot-scope="scope">
           <el-button @click="operateClick(data.click,scope.row)" :disabled="!scope.row[data.field]" size="mini" type="text"  v-for="data in tableData.operate" :key="data.name" v-if="data.type=='default'"> {{data.name}}</el-button>
@@ -79,7 +78,7 @@
     </el-table>
     <!--分页栏-->
     <el-pagination
-      v-if="tableData.pagination&&tableData.pagination.switch"
+      v-if="tableData.pagination.switch"
       background
       :page-sizes="tableData.pagination.pageSizes"
       :layout="tableData.pagination.layout"
@@ -94,32 +93,15 @@
         :empty-text="tableData.emptyText"
         border
         @selection-change="handleSelectionChange"
-        height="80%" style="width: 99%;margin: 0 auto;"
-        class="mrcTable">
-        <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
+        style="width: 100%;overflow-y: auto"
+        class="dialogTable">
         <!--check多选框-->
-        <el-table-column
-          width="80" label="拖拽排序">
-          <template slot-scope="scope">
-            <!--<i class="el-icon-menu" style="cursor: pointer"></i>-->
-            <drop @drop="handleDrop(scope.row, ...arguments)" class="event">
-              <drag :transfer-data="scope.row" class="drag"> <i class="el-icon-menu" style="cursor: move"></i>
-                <div slot="image" class="drag-image">
-                  <ul>
-                    <li style="float: left;list-style-type:none;width: 350px" v-for="(data,index) in tableData.title" :key="index">{{scope.row[data.field]}}</li>
-                    <li ></li>
-                  </ul>
-                </div>
-              </drag>
-            </drop>
-          </template>
-        </el-table-column>
         <el-table-column
           type="selection"
           v-if="tableData.Checkbox"
           width="60">
         </el-table-column>
-        <!--索引列-->
+        <!--索引列 -->
         <el-table-column
           :label="tableData.indexName"
           type="index"
@@ -129,8 +111,8 @@
         </el-table-column>
 
         <el-table-column v-for="(data,index) in tableData.title"
-                         :key="index"
                          :prop="data.field"
+                         :key="index"
                          :label="data.name"
                          v-if="data.show"
                          :width="data.width"
@@ -144,40 +126,33 @@
         <!--操作栏-->
         <el-table-column
           label="操作"
-          v-if="tableData.operate&&tableData.operate.length>0"
+          v-if="tableData.buttons&&tableData.buttons.length>0"
           width="150">
           <template slot-scope="scope">
             <el-button @click="operateClick(data.click,scope.row)" :disabled="!scope.row[data.field]" size="mini" type="text"  v-for="data in tableData.operate" :key="data.name" v-if="data.type=='default'"> {{data.name}}</el-button>
             <el-button @click="operateClick(data.click,scope.row)"  :disabled="!scope.row[data.field]" type="text" size="mini"   v-for="data in tableData.operate" :key="data.name" v-if="data.type=='danger'">{{data.name}}</el-button>
+
           </template>
         </el-table-column>
       </el-table>
       <!--分页栏-->
       <el-pagination
-        v-if="tableData.pagination&&tableData.pagination.switch"
+        v-if="tableData.pagination.switch"
         background
         :page-sizes="tableData.pagination.pageSizes"
         :layout="tableData.pagination.layout"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange" :current-page="tableData.pagination.pageIndex" :page-size="tableData.pagination.pageSize" :total="tableData.pagination.total"
-        class="tablePaging"
+        class="dialogPaging"
       >
       </el-pagination>
     </el-dialog>
-
-
-
-
-
-
-
-<!--设置表格顺序和显示隐藏-->
     <el-dialog
       title="设置表格"
       :visible.sync="searDialogVisible"
       width="30%">
       <span>
-        <el-checkbox-group v-model="tableData" style="margin-top: 10px">
+        <el-checkbox-group v-model="fields" style="margin-top: 10px">
           <el-checkbox  v-dragging="{ item: data, list: tableData.title, group: 'data'}" v-for="(data,index) in tableData.title" :label="data.field" :key="data.field">{{data.name}}</el-checkbox>
         </el-checkbox-group>
       </span>
@@ -186,8 +161,6 @@
            <el-button type="primary" @click="save">确 定</el-button>
       </span>
     </el-dialog>
-    <!--设置表格顺序和显示隐藏-->
-
   </section>
 </template>
 <style>
@@ -200,7 +173,7 @@
 
   }
   #floatR{
-    float: right;margin-right: 18px;margin-top:-5px
+    float: right;margin-right: -14px;margin-top:-5px
   }
   #user{
     float: left;font-size: 18px;margin-bottom:16px;color:#a4aeb2;margin-left: 8px;
@@ -208,6 +181,9 @@
   .tablePaging,.dialogPaging{text-align: right;margin-top: 10px}/*分页右对齐和上边界*/
   .mrcTable{height: calc(100% - 80px) !important;}/*表格高度*/
   .dialogTable{height: calc(100% - 43px) !important}/*调整dialog内部分页位置*/
+  .el-checkbox:first-child {/*调整弹窗内部复选框对齐*/
+    margin-left: 30px!important;
+  }
 </style>
 <script>
   import language  from "../../language/language";
@@ -274,29 +250,26 @@
       save(){
         this.searDialogVisible=false;
         console.log(this.fields);
-        this.tableData.title=[];
+        for(let showFalse of this.tableData.title){
+           showFalse.show=false
+         }
         for(let data of this.tableData.title){
           for(let field of this.fields){
             if(field==data.field){
-              this.tableData.title.push(data);
+              data.show=true
             }
           }
         }
       },
-      // open(){
-      //   var de = document.documentElement;
-      //   if (de.requestFullscreen) {
-      //     de.requestFullscreen();
-      //   } else if (de.mozRequestFullScreen) {
-      //     de.mozRequestFullScreen();
-      //   } else if (de.webkitRequestFullScreen) {
-      //     de.webkitRequestFullScreen();
-      //   }
-      // }
     },
     mounted: function () {
       this.tableData = this.value;
       this.fields=[];
+      for(let data of this.tableData.title){
+      if(data.show==true){
+        this.fields.push(data.field);
+      }
+      }
     },
     computed: {
       tableData: {
@@ -309,12 +282,7 @@
         }
       },
       sHeight() {
-        if(this.tableData.hideToolbar){
-          return 5
-        }else {
-          return this.$store.getters.sHeight;
-        }
-
+        return this.$store.getters.sHeight;
       }
     },
 
