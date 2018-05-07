@@ -1,14 +1,14 @@
 ﻿<template>
   <section  id="outer" :style="'height:'+ '-webkit-calc(100% - '+sHeight+'px)'+';'+'height:'+ 'calc(100% - '+sHeight+'px)' ">
     <!--表格功能按钮-->
-    <div id="user">{{tableData.description}}</div>
-    <div id="floatR">
+    <div id="user" v-show="!this.tableData.hideToolbar">{{tableData.description}}</div>
+    <div id="floatR" v-show="!this.tableData.hideToolbar">
       <el-button type="text" icon="el-icon-rank" @click="dialogTableVisible=true" v-if="tableData.FullScreen">{{fullScreenName}}</el-button>
       <el-button
         type="text"
         :icon="data.icon" v-for="data in tableData.buttons" :key="data.name" @click="operateClick(data.click)">{{data.name}}</el-button>
       <!--小按钮开始-->
-      <div class="show-set" style="border:solid 1px red">
+      <div class="show-set" style="border:solid 1px red" v-if="false">
         <span class="el-icon-setting" @click="searDialogVisible=true"></span>
       </div>
       <!--小按钮结束-->
@@ -18,8 +18,9 @@
       :empty-text="tableData.emptyText"
       border
       @selection-change="handleSelectionChange"
-      height="80%" style="width: 99%;margin: 0 auto;"
+      height="100%" style="width: 99%;margin: 0 auto;"
       class="mrcTable">
+
       <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
       <!--check多选框-->
       <el-table-column
@@ -68,7 +69,7 @@
       <!--操作栏-->
       <el-table-column
         label="操作"
-        v-if="tableData.buttons&&tableData.operate.length>0"
+        v-if="tableData.operate&&tableData.operate.length>0"
         width="150">
         <template slot-scope="scope">
           <el-button @click="operateClick(data.click,scope.row)" :disabled="!scope.row[data.field]" size="mini" type="text"  v-for="data in tableData.operate" :key="data.name" v-if="data.type=='default'"> {{data.name}}</el-button>
@@ -78,7 +79,7 @@
     </el-table>
     <!--分页栏-->
     <el-pagination
-      v-if="tableData.pagination.switch"
+      v-if="tableData.pagination&&tableData.pagination.switch"
       background
       :page-sizes="tableData.pagination.pageSizes"
       :layout="tableData.pagination.layout"
@@ -93,15 +94,32 @@
         :empty-text="tableData.emptyText"
         border
         @selection-change="handleSelectionChange"
-        style="width: 100%;overflow-y: auto"
-        class="dialogTable">
+        height="80%" style="width: 99%;margin: 0 auto;"
+        class="mrcTable">
+        <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
         <!--check多选框-->
+        <el-table-column
+          width="80" label="拖拽排序">
+          <template slot-scope="scope">
+            <!--<i class="el-icon-menu" style="cursor: pointer"></i>-->
+            <drop @drop="handleDrop(scope.row, ...arguments)" class="event">
+              <drag :transfer-data="scope.row" class="drag"> <i class="el-icon-menu" style="cursor: move"></i>
+                <div slot="image" class="drag-image">
+                  <ul>
+                    <li style="float: left;list-style-type:none;width: 350px" v-for="(data,index) in tableData.title" :key="index">{{scope.row[data.field]}}</li>
+                    <li ></li>
+                  </ul>
+                </div>
+              </drag>
+            </drop>
+          </template>
+        </el-table-column>
         <el-table-column
           type="selection"
           v-if="tableData.Checkbox"
           width="60">
         </el-table-column>
-        <!--索引列 -->
+        <!--索引列-->
         <el-table-column
           :label="tableData.indexName"
           type="index"
@@ -111,8 +129,8 @@
         </el-table-column>
 
         <el-table-column v-for="(data,index) in tableData.title"
-                         :prop="data.field"
                          :key="index"
+                         :prop="data.field"
                          :label="data.name"
                          v-if="data.show"
                          :width="data.width"
@@ -126,24 +144,23 @@
         <!--操作栏-->
         <el-table-column
           label="操作"
-          v-if="tableData.buttons&&tableData.buttons.length>0"
+          v-if="tableData.operate&&tableData.operate.length>0"
           width="150">
           <template slot-scope="scope">
             <el-button @click="operateClick(data.click,scope.row)" :disabled="!scope.row[data.field]" size="mini" type="text"  v-for="data in tableData.operate" :key="data.name" v-if="data.type=='default'"> {{data.name}}</el-button>
             <el-button @click="operateClick(data.click,scope.row)"  :disabled="!scope.row[data.field]" type="text" size="mini"   v-for="data in tableData.operate" :key="data.name" v-if="data.type=='danger'">{{data.name}}</el-button>
-
           </template>
         </el-table-column>
       </el-table>
       <!--分页栏-->
       <el-pagination
-        v-if="tableData.pagination.switch"
+        v-if="tableData.pagination&&tableData.pagination.switch"
         background
         :page-sizes="tableData.pagination.pageSizes"
         :layout="tableData.pagination.layout"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange" :current-page="tableData.pagination.pageIndex" :page-size="tableData.pagination.pageSize" :total="tableData.pagination.total"
-        class="dialogPaging"
+        class="tablePaging"
       >
       </el-pagination>
     </el-dialog>
@@ -279,19 +296,7 @@
     },
     mounted: function () {
       this.tableData = this.value;
-
-
-
-
       this.fields=[];
-
-      for(let data of this.tableData.title){
-        //this.fields.push(data.field);
-        console.log(data)
-       // data.show=false
-      }
-
-
     },
     computed: {
       tableData: {
@@ -304,7 +309,12 @@
         }
       },
       sHeight() {
-        return this.$store.getters.sHeight;
+        if(this.tableData.hideToolbar){
+          return 5
+        }else {
+          return this.$store.getters.sHeight;
+        }
+
       }
     },
 
