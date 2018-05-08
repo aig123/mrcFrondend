@@ -39,10 +39,6 @@
         <span class="el-icon-setting" @click="searDialogShow"></span>
       </div>
     </div>
-
-
-
-
     <section  id="outer" :style="'height:'+ '-webkit-calc(100% - '+sHeight+'px)'+';'+'height:'+ 'calc(100% - '+sHeight+'px)' ">
       <!--表格功能按钮-->
       <div id="user" v-show="!this.tableData.hideToolbar">{{tableData.description}}</div>
@@ -67,10 +63,8 @@
         border
         @selection-change="handleSelectionChange"
         height="80%" style="width: 99%;margin: 0 auto;"
-        :class="''+TableClass+''"
-      ><!--20180508-->
-        <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
-        <!--check多选框-->
+        class="mrcTable"
+      >
         <el-table-column v-if="tableData.dragSort"
                          width="80" label="拖拽排序">
           <template slot-scope="scope">
@@ -223,9 +217,10 @@
         >
         </el-pagination>
       </el-dialog>
+      <!--设置表格列显示隐藏和顺序-->
       <el-dialog
         title="设置表格"
-        :visible.sync="searDialogVisible"
+        :visible.sync="tableDialogVisible"
         width="30%">
       <span>
         <el-checkbox-group v-model="fields" style="margin-top: 10px">
@@ -233,10 +228,11 @@
         </el-checkbox-group>
       </span>
         <span slot="footer" class="dialog-footer">
-           <el-button @click="searDialogVisible = false">取 消</el-button>
-           <el-button type="primary" @click="save">确 定</el-button>
+           <el-button @click="tableDialogVisible = false">取 消</el-button>
+           <el-button type="primary" @click="saveTable">确 定</el-button>
       </span>
       </el-dialog>
+      <!--设置表格列显示隐藏和顺序-->
     </section>
     <el-dialog title="全屏列表" :visible.sync="dialogTableVisible" :fullscreen="true" style="height: 100%">
       <el-table
@@ -375,8 +371,8 @@
         dialogData:false,//点击新增弹出表单
         dialogTableVisible:false,//全屏dialing默认返回值
         searDialogVisible:false,//点击弹窗编辑更多和拖拽顺序
+        tableDialogVisible:false,//设置表格顺序和显示隐藏
         fields:[],
-        filter:[{text:"丁军",value:"丁军"},{text:"孙杰",value:"孙杰"}],
         tableData:{
           description:"用户列表",//表单左上角显示的文字
           FullScreen:true,
@@ -472,15 +468,6 @@
           return this.$parent[this.tableData.arraySpanMethodFn]({ row, column, rowIndex, columnIndex });
         }
       },
-      TableClass(){//动态加载表格高度
-        if(this.tableData.hideToolbar && !this.tableData.pagination.switch){
-          return "mrcTable3"
-        }else if(!this.tableData.hideToolbar){
-          return "mrcTable1"
-        }else if(this.tableData.hideToolbar){
-          return "mrcTable2"
-        }
-      },
       sHeight() {
         if(this.tableData.hideToolbar){
           return 5
@@ -499,6 +486,8 @@
             }
           }
         }
+      },
+      saveTable(){
       },
       moreSearch() {//点击更多回调函数
         if (!this.more) {
@@ -600,26 +589,7 @@
         const property = column['property'];
         return row[property] === value;
       },
-      test(){
-        this.filter=[{text:"123",value:"123"},{text:"456",value:"456"}]
-      },
       save(formName){
-        // this.$refs['mrcForm'].$refs[this.formData.name].validate((valid) => {
-        //   if (valid) {
-        //     let param = this.formData.data;
-        //     Api.addTable(param).then((res) => {
-        //       this.$notify({
-        //         title: '成功',
-        //         message: '保存成功',
-        //         type: 'success'
-        //       });
-        //       this.dialogData.show=false;
-        //       this.getTableData();
-        //     })
-        //   } else {
-        //     return false;
-        //   }
-        // });
         this.$refs[formName].validate((valid) => {
           if (valid) {
             alert('submit!');
@@ -654,7 +624,7 @@
 </script>
 <style scoped>
   .tablePaging,.dialogPaging{text-align: right;margin-top: 10px}/*分页右对齐和上边界*/
-  .mrcTable{height: calc(100% - 86px) !important;}/*表格高度*/
+  .mrcTable{height: calc(100% - 78px) !important;}/*表格高度*/
   .dialogTable{height: calc(100% - 52px) !important}/*调整dialog内部分页位置*/
   .search-input {
     width: 180px;
@@ -680,9 +650,6 @@
     float: left;font-size: 18px;margin-bottom:16px;color:#a4aeb2;margin-left: 8px;
   }
   .tablePaging,.dialogPaging{text-align: right;margin-top: 10px}/*分页右对齐和上边界*/
-  .mrcTable1{height: calc(100% - 80px) !important;}/*含有ToolBar和分页表格高度*/
-  .mrcTable2{height: calc(100% - 38px) !important;}/*不含有ToolBar表格高度*/
-  .mrcTable3{height: calc(100% - 1px) !important;}/*不含有分页表格高度*/
   .dialogTable{height: calc(100% - 43px) !important}/*调整dialog内部分页位置*/
   .mode:first-child {/*调整弹窗内部复选框对齐*/
     margin-left: 30px!important;

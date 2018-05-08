@@ -322,15 +322,12 @@
           return this.$parent[this.tableData.arraySpanMethodFn]({ row, column, rowIndex, columnIndex });
         }
       },
-      //调整不同情情况表格高度不同
-      TableClass(){
-        if(this.tableData.hideToolbar && !this.tableData.pagination.switch){
-          return "mrcTable3"
-        }else if(!this.tableData.hideToolbar){
-          return "mrcTable1"
-        }else if(this.tableData.hideToolbar){
-          return "mrcTable2"
-        }
+      formatter(row, column) {
+        return row.name;
+      },
+      filterHandler(value, row, column) {
+        const property = column['property'];
+        return row[property] === value;
       },
 
     },
