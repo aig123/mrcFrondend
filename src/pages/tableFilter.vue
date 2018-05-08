@@ -22,7 +22,7 @@
           hideToolbar:true,
           Checkbox:true,
           pagination: {
-            switch: true,
+            switch: false,
             type: "default",
             CurrentChangeFn: "getTableData",
             pageSize: 15,

@@ -14,9 +14,9 @@
             {name: "编号", field: "id",width:"200",show:true,fixed:true,sortable:true},
             {name: "姓名", field: "name",width:"400",show:true,fixed:false,sortable:true},
             {name: "性别", field: "sex",width:"200",show:false,fixed:false,sortable:true},
-            {name: "日期", field: "date",width:"150",show:true,fixed:false,sortable:true},
-            {name: "城市", field: "city",width:"800",show:true,fixed:false,sortable:true},
-            {name: "备注", field: "comment",width:"950",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
+            {name: "日期", field: "date",width:"300",show:true,fixed:false,sortable:true},
+            {name: "城市", field: "city",width:"600",show:true,fixed:false,sortable:true},
+            {name: "备注", field: "comment",width:"450",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
           ],
           pagination: {
             switch: true,
