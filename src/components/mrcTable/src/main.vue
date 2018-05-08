@@ -1,4 +1,4 @@
-﻿﻿<template>
+﻿﻿﻿<template>
   <section  id="outer" :style="'height:'+ '-webkit-calc(100% - '+sHeight+'px)'+';'+'height:'+ 'calc(100% - '+sHeight+'px)' ">
     <!--表格功能按钮-->
     <div id="user" v-show="!this.tableData.hideToolbar">{{tableData.description}}</div>
@@ -330,6 +330,16 @@
       filterHandler(value, row, column) {
         const property = column['property'];
         return row[property] === value;
+      },
+      //调整不同情情况表格高度不同
+      TableClass(){
+        if(this.tableData.hideToolbar && !this.tableData.pagination.switch){
+          return "mrcTable3"
+        }else if(!this.tableData.hideToolbar){
+          return "mrcTable1"
+        }else if(this.tableData.hideToolbar){
+          return "mrcTable2"
+        }
       },
 
     },

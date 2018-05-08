@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="searchForm" style="margin-bottom: 10px">
-      <div class="searchForm--item" v-if="!more" v-for="(data,index) in formSearchData.data" :key="index">
+      <div class="searchForm--item" v-if="!more" v-for="(data,index) in formSearchData.title" :key="index"><!--更少条件-->
         <label class="searchForm--item__label" style="text-align: right;width: 50px">{{data.title}}</label><!--修改标签宽度-->
         <div class="searchForm--item__content">
           <el-input class="search-input" v-model="data[data.field]" v-if="data.type=='input'" :placeholder="data.placeholder"
@@ -16,34 +16,19 @@
           <el-date-picker v-model="data[data.field]" v-if="data.type=='daterange'" :type="data.type" :range-separator="data.rangeseparator" :start-placeholder="data.startPlaceholder" :end-placeholder="data.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
         </div>
       </div>
-      <div class="searchForm--item" v-if="more">
-        <label class="searchForm--item__label" style="width: 50px;text-align: right">姓名</label>
+      <div class="searchForm--item" v-if="more" v-for="(data,index) in formSearchData.moreTitle" :key="index"><!--更多条件-->
+        <label class="searchForm--item__label" style="text-align: right;width: 50px">{{data.title}}</label><!--修改标签宽度-->
         <div class="searchForm--item__content">
-          <el-input type="input" placeholder="默认的姓名" size="small"></el-input>
-        </div>
-        <label class="searchForm--item__label" style="width: 50px;text-align: right">年龄</label>
-        <div class="searchForm--item__content">
-          <el-input type="input" placeholder="请输入年龄" size="small" title="年龄"></el-input>
-        </div>
-        <label class="searchForm--item__label" style="width: 50px;text-align: right">年级</label>
-        <div class="searchForm--item__content">
-          <el-select v-model="data.value" @change="gradeChange" size="small" placeholder="请选择">
-            <el-option label="一年级" value="1"></el-option>
-            <el-option label="二年级" value="2"></el-option>
+          <el-input class="search-input" v-model="data[data.field]" v-if="data.type=='input'" :placeholder="data.placeholder"
+                    size="small"></el-input>
+          <el-select class="search-input" v-model="data[data.field]" v-if="data.type=='select'"
+                     :placeholder="data.placeholder" @change="change(data.change)" size="small">
+            <el-option :label="item[data.datafield.key]" :value="item[data.datafield.value]" :key="item[data.datafield.value]"
+                       v-for="item in data.data"></el-option>
           </el-select>
-          <el-date-picker type="date" placeholder="选择日期" v-model="data.value" size="small" v-if="false"></el-date-picker>
-        </div>
-        <label class="searchForm--item__label" style="width: 50px;text-align: right">text5</label>
-        <div class="searchForm--item__content">
-          <el-input type="input" placeholder="请输入年龄" size="small" title="年龄"></el-input>
-        </div>
-        <label class="searchForm--item__label" style="width: 50px;text-align: right">text6</label>
-        <div class="searchForm--item__content">
-          <el-input type="input" placeholder="请输入年龄" size="small" title="年龄"></el-input>
-        </div>
-        <label class="searchForm--item__label" style="width: 50px;text-align: right">text7</label>
-        <div class="searchForm--item__content">
-          <el-input type="input" placeholder="请输入年龄" size="small" title="年龄"></el-input>
+          <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="data[data.field]"
+                          v-if="data.type=='date'" size="small"></el-date-picker>
+          <el-date-picker v-model="data[data.field]" v-if="data.type=='daterange'" :type="data.type" :range-separator="data.rangeseparator" :start-placeholder="data.startPlaceholder" :end-placeholder="data.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
         </div>
       </div>
       <div  class="searchForm--item" style="margin-left: 10px">
@@ -54,34 +39,59 @@
         <span class="el-icon-setting" @click="searDialogShow"></span>
       </div>
     </div>
-    <div id="outer">
-      <div id="user">用户</div>
-      <div id="floatR">
-        <el-button
-          type="text"
-          icon="el-icon-rank" @click="dialogTableVisible=true">全屏</el-button>
-        <el-button
-          type="text"
-          icon="el-icon-circle-plus-outline" @click="addData">增加</el-button>
-        <el-button
-          type="text"
-          icon="el-icon-upload">导入</el-button>
-        <el-button
-          type="text"
-          icon="el-icon-download">导出</el-button>
+
+
+
+
+    <section  id="outer" :style="'height:'+ '-webkit-calc(100% - '+sHeight+'px)'+';'+'height:'+ 'calc(100% - '+sHeight+'px)' ">
+      <!--表格功能按钮-->
+      <div id="user" v-show="!this.tableData.hideToolbar">{{tableData.description}}</div>
+      <div id="floatR" v-show="!this.tableData.hideToolbar">
+        <el-button type="text" icon="el-icon-rank" @click="dialogTableVisible=true" v-if="tableData.FullScreen">{{fullScreenName}}</el-button>
+        <!--<el-button-->
+          <!--type="text"-->
+          <!--:icon="data.icon" v-for="data in tableData.buttons" :key="data.name" @click="operateClick(data.click)">{{data.name}}</el-button>-->
+        <el-button type="text" icon="el-icon-circle-plus-outline" @click="dialogData=true">增加</el-button>
+        <el-button type="text" icon="el-icon-upload" @click="addData">导入</el-button>
+        <el-button type="text" icon="el-icon-download" @click="">导出</el-button>
+        <!--小按钮开始-->
+        <div class="show-set" style="margin-left:8px">
+          <span class="el-icon-setting" @click="searDialogVisible=true"></span>
+        </div>
+        <!--小按钮结束-->
       </div>
       <el-table
         :data="tableData.data"
+        :span-method="SpanMethod"
         :empty-text="tableData.emptyText"
         border
         @selection-change="handleSelectionChange"
         height="80%" style="width: 99%;margin: 0 auto;"
-        class="mrcTable">
+        :class="''+TableClass+''"
+      ><!--20180508-->
+        <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
         <!--check多选框-->
+        <el-table-column v-if="tableData.dragSort"
+                         width="80" label="拖拽排序">
+          <template slot-scope="scope">
+            <!--<i class="el-icon-menu" style="cursor: pointer"></i>-->
+            <drop @drop="handleDrop(scope.row, ...arguments)" class="event">
+              <drag :transfer-data="scope.row" class="drag"> <i class="el-icon-menu" style="cursor: move"></i>
+                <div slot="image" class="drag-image">
+                  <ul>
+                    <li style="float: left;list-style-type:none;width: 350px" v-for="(data,index) in tableData.title" :key="index">{{scope.row[data.field]}}</li>
+                    <li ></li>
+                  </ul>
+                </div>
+              </drag>
+            </drop>
+          </template>
+        </el-table-column>
         <el-table-column
           type="selection"
-          v-if="tableData.index"
-          width="60">
+          v-if="tableData.Checkbox"
+          width="60"
+        >
         </el-table-column>
         <!--索引列-->
         <el-table-column
@@ -91,59 +101,143 @@
           v-if="tableData.index"
         >
         </el-table-column>
-        <el-table-column label="编号"
-                         prop="id"
-                         sortable>
-        </el-table-column>
-        <el-table-column label="姓名"
-                         prop="name"
-                         :filters="[{text: '余刚', value: '余刚'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"
-                         :filter-method="filterHandler">
-        </el-table-column>
-        <el-table-column label="日期"
-                         sortable
-                         width="150"
-                         prop="date"
+
+        <el-table-column v-for="(data,index) in tableData.title"
+                         :key="index"
+                         :prop="data.field"
+                         :label="data.name"
+                         v-if="data.show"
+                         :width="data.width"
+                         :fixed="data.fixed"
+                         :sortable="data.sortable"
+                         :show-overflow-tooltip="data.showOverflowTooltip"
+                         :align="data.align"
+                         :headerAlign="data.headerAlign"
         >
+          <el-table-column v-for="(da,index) in data.children" v-if="data.children"
+                           :key="index"
+                           :prop="da.field"
+                           :label="da.name"
+                           :width="da.width"
+                           :fixed="da.fixed"
+                           :sortable="da.sortable"
+                           :show-overflow-tooltip="da.showOverflowTooltip"
+                           :align="da.align"
+                           :headerAlign="da.headerAlign"
+          >
+            <el-table-column v-for="(d,index) in da.children" v-if="da.children"
+                             :key="index"
+                             :prop="d.field"
+                             :label="d.name"
+                             :width="d.width"
+                             :fixed="d.fixed"
+                             :sortable="d.sortable"
+                             :show-overflow-tooltip="d.showOverflowTooltip"
+                             :align="d.align"
+                             :headerAlign="d.headerAlign"
+            >
+            </el-table-column>
+          </el-table-column>
         </el-table-column>
-        <el-table-column label="城市"
-                         prop="city">
-        </el-table-column>
-        <el-table-column label="备注"
-                         prop="comment"
-                         show-overflow-tooltip="true"
-                         align="left"
-                         headerAlign="center">
-        </el-table-column>
-        <el-table-column label="操作"
-                         width="150"
-                         v-if="tableData.buttons&&tableData.buttons.length>0">
+
+
+        <!--操作栏-->
+        <el-table-column
+          label="操作"
+          v-if="tableData.buttons&&tableData.operate.length>0"
+          width="150">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              type="text"
-              @click="editData(scope.row)"
-            >编辑</el-button>
-            <el-button
-              size="mini"
-              type="text"
-              @click="delData(scope.row)">删除</el-button>
+            <el-button @click="operateClick(data.click,scope.row)" :disabled="!scope.row[data.field]" size="mini" type="text"  v-for="data in tableData.operate" :key="data.name" v-if="data.type=='default'"> {{data.name}}</el-button>
+            <el-button @click="operateClick(data.click,scope.row)"  :disabled="!scope.row[data.field]" type="text" size="mini"   v-for="data in tableData.operate" :key="data.name" v-if="data.type=='danger'">{{data.name}}</el-button>
           </template>
         </el-table-column>
       </el-table>
+      <!--分页栏-->
       <el-pagination
-        v-if="true"
-        style="position: fixed; bottom: 15px;right: 10px;"
+        v-if="tableData.pagination&&tableData.pagination.switch"
         background
-        :page-sizes="tableData.pagination.pageSize"
+        :page-sizes="tableData.pagination.pageSizes"
         :layout="tableData.pagination.layout"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange" :current-page="tableData.pagination.pageIndex" :page-size="tableData.pagination.pageSize" :total="tableData.pagination.total"
-        class="tablePaging">
+        class="tablePaging"
+      >
       </el-pagination>
-      <!--表格分页结束-->
-    </div>
-    <!--全屏分页开始-->
+      <el-dialog title="全屏列表" :visible.sync="dialogTableVisible" :fullscreen="true" style="height: 100%">
+        <el-table
+          :data="tableData.data"
+          :empty-text="tableData.emptyText"
+          border
+          @selection-change="handleSelectionChange"
+          style="width: 100%;overflow-y: auto"
+          class="dialogTable">
+          <!--check多选框-->
+          <el-table-column
+            type="selection"
+            v-if="tableData.Checkbox"
+            width="60">
+          </el-table-column>
+          <!--索引列 -->
+          <el-table-column
+            :label="tableData.indexName"
+            type="index"
+            width="60"
+            v-if="tableData.index"
+          >
+          </el-table-column>
+
+          <el-table-column v-for="(data,index) in tableData.title"
+                           :prop="data.field"
+                           :key="index"
+                           :label="data.name"
+                           v-if="data.show"
+                           :width="data.width"
+                           :fixed="data.fixed"
+                           :sortable="data.sortable"
+                           :show-overflow-tooltip="data.showOverflowTooltip"
+                           :align="data.align"
+                           :headerAlign="data.headerAlign"
+          >
+          </el-table-column>
+          <!--操作栏-->
+          <el-table-column
+            label="操作"
+            v-if="tableData.buttons&&tableData.buttons.length>0"
+            width="150">
+            <template slot-scope="scope">
+              <el-button @click="operateClick(data.click,scope.row)" :disabled="!scope.row[data.field]" size="mini" type="text"  v-for="data in tableData.operate" :key="data.name" v-if="data.type=='default'"> {{data.name}}</el-button>
+              <el-button @click="operateClick(data.click,scope.row)"  :disabled="!scope.row[data.field]" type="text" size="mini"   v-for="data in tableData.operate" :key="data.name" v-if="data.type=='danger'">{{data.name}}</el-button>
+
+            </template>
+          </el-table-column>
+        </el-table>
+        <!--分页栏-->
+        <el-pagination
+          v-if="tableData.pagination.switch"
+          background
+          :page-sizes="tableData.pagination.pageSizes"
+          :layout="tableData.pagination.layout"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange" :current-page="tableData.pagination.pageIndex" :page-size="tableData.pagination.pageSize" :total="tableData.pagination.total"
+          class="dialogPaging"
+        >
+        </el-pagination>
+      </el-dialog>
+      <el-dialog
+        title="设置表格"
+        :visible.sync="searDialogVisible"
+        width="30%">
+      <span>
+        <el-checkbox-group v-model="fields" style="margin-top: 10px">
+          <el-checkbox class="mode"  v-dragging="{ item: data, list: tableData.title, group: 'data'}" v-for="(data,index) in tableData.title" :label="data.field" :key="data.field">{{data.name}}</el-checkbox>
+        </el-checkbox-group>
+      </span>
+        <span slot="footer" class="dialog-footer">
+           <el-button @click="searDialogVisible = false">取 消</el-button>
+           <el-button type="primary" @click="save">确 定</el-button>
+      </span>
+      </el-dialog>
+    </section>
     <el-dialog title="全屏列表" :visible.sync="dialogTableVisible" :fullscreen="true" style="height: 100%">
       <el-table
         :data="tableData.data"
@@ -183,7 +277,7 @@
         </el-table-column>
         <el-table-column label="备注"
                          prop="comment"
-                         show-overflow-tooltip="true"
+                         :show-overflow-tooltip="true"
                          align="left"
                          header-align="center">
         </el-table-column>
@@ -251,23 +345,22 @@
     <!--点击新增按钮弹窗结束-->
 
 
-    <!--修改searchForm顺序和显示哪个-->
+    <!--修改searchForm显示内容和顺序-->
     <el-dialog
       title="更多设置"
       :visible.sync="searDialogVisible"
       width="30%">
       <span>
         <el-checkbox-group v-model="fields" style="margin-top: 10px">
-            <el-checkbox  v-dragging="{ item: data, list: formSearchData.moreData, group: 'data'}" v-for="(data,index) in formSearchData.moreData" :label="data.field" :key="data.field">{{data.title}}</el-checkbox>
+            <el-checkbox  v-dragging="{ item: data, list: formSearchData.moreTitle, group: 'data'}" v-for="(data,index) in formSearchData.moreTitle" :label="data.field" :key="data.field">{{data.title}}</el-checkbox>
         </el-checkbox-group>
       </span>
       <span slot="footer" class="dialog-footer">
            <el-button @click="searDialogVisible = false">取 消</el-button>
-           <el-button type="primary" @click="save">确 定</el-button>
+           <el-button type="primary" @click="saveSearch">确 定</el-button>
       </span>
     </el-dialog>
     <!--修改searchForm顺序和显示哪个-->
-
   </div>
 </template>
 <script>
@@ -278,36 +371,50 @@
       return {
         more:false,//更多条件和更少条件切换
         moreName: language.moreConditions,//默认显示更多条件
-        dialogData:false,
+        fullScreenName:language.fullScreen,//显示全屏名称
+        dialogData:false,//点击新增弹出表单
         dialogTableVisible:false,//全屏dialing默认返回值
         searDialogVisible:false,//点击弹窗编辑更多和拖拽顺序
         fields:[],
+        filter:[{text:"丁军",value:"丁军"},{text:"孙杰",value:"孙杰"}],
         tableData:{
+          description:"用户列表",//表单左上角显示的文字
+          FullScreen:true,
+          dragSort:true,
           pagination: {
-            switch: false,
+            switch: true,
             type: "default",
             CurrentChangeFn: "getTableData",
-            pageSize: 10,
+            pageSize: 15,
             pageIndex: 1,
-            layout: "prev, pager, next, jumper, total",//组件布局，子组件名用逗号分隔
+            layout: "total, sizes, prev, pager, next, jumper",
             pageSizes: [10, 20, 40],
           },//是否开启分页
           index:false,//显示索引序号
-          indexName:"序号",
+          indexName:language.index,
           Checkbox:false,
           selectionChangeFn:"",
           class:"",//添加自定义class
-          buttons:[{name:"增加",click:"addData",icon:"el-icon-circle-plus-outline"}],
-          operate:[{name:"编辑",click:"delData",type:'danger',field:"del"},{name:"编辑",click:"editData",type:'default',field:"edit"}],
+          buttons:[{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"},{name:language.import,click:"",icon:"el-icon-upload"},{name:language.export,click:"",icon:"el-icon-download"}],
+          operate:[{name:language.delect,click:"delData",type:'danger',field:"del"},{name:language.edit,click:"editData",type:'default',field:"edit"},{name:"查看",click:"viewData",type:'default',field:"view"}],
+          title: [
+            {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:true},
+            {name: "姓名", field: "name",width:"",show:true,fixed:false,sortable:true},
+            {name: "性别", field: "sex",width:"",show:false,fixed:false,sortable:true},
+            {name: "日期", field: "date",width:"150",show:true,fixed:false,sortable:true},
+            {name: "城市", field: "city",width:"",show:true,fixed:false,sortable:true},
+            {name: "备注", field: "comment",width:"150",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
+          ],
           data: []
         },
         formSearchData:{
-          data:[
+          buttons:{dataLeft:[{name:language.search,click:"search"}],dataRight:[]},//操作按钮
+          title:[
             {type:'input',title:language.age,age:"",field:"age",placeholder:language.age},
             {type:'select',title:language.grade,change:"gradeChange",placeholder:language.grade,datafield:{key:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],grade:"",field:"grade"},
             //{type: 'daterange',title: "活动时间范围",startPlaceholder: "开始日期",endPlaceholder: "结束日期",rangeseparator:"至",value: "",field: "value6",placeholder: "请输入活动时间范围",labelWidth:"80px"}
           ],
-          moreData:[
+          moreTitle:[
             {type:'input',title:language.name,name:"",field:"name",placeholder:language.name},
             {type:'input',title:language.age,age:"",field:"age",placeholder:language.age},
             {type:'input',title:language.grade,grade:"",field:"grade",placeholder:language.grade},
@@ -316,6 +423,15 @@
             {type:'input',title:"test7",test7:"",field:"test7",placeholder:language.age},
             {type:'select',title:"test8",change:"gradeChange",placeholder:language.grade,datafield:{key:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],test8:"",field:"test8"},
           ],
+          data:{
+            age:"",
+            grade:"",
+            name:"",
+            test5:"",
+            test6:"",
+            test7:"",
+            test8:""
+          }
         },
         //下拉列表开始
         data:{
@@ -350,6 +466,40 @@
       };
     },
     methods: {
+      //合并单元格
+      SpanMethod({ row, column, rowIndex, columnIndex }){
+        if(this.tableData.arraySpanMethodFn&&this.tableData.arraySpanMethodFn!="") {
+          return this.$parent[this.tableData.arraySpanMethodFn]({ row, column, rowIndex, columnIndex });
+        }
+      },
+      TableClass(){//动态加载表格高度
+        if(this.tableData.hideToolbar && !this.tableData.pagination.switch){
+          return "mrcTable3"
+        }else if(!this.tableData.hideToolbar){
+          return "mrcTable1"
+        }else if(this.tableData.hideToolbar){
+          return "mrcTable2"
+        }
+      },
+      sHeight() {
+        if(this.tableData.hideToolbar){
+          return 5
+        }else {
+          return this.$store.getters.sHeight;
+        }
+      },
+      saveSearch(){//searchForm点击保存执行函数
+        this.searDialogVisible=false;
+        console.log(this.fields);
+        this.formSearchData.title=[];
+        for(let data of this.formSearchData.moreTitle){
+          for(let field of this.fields){
+            if(field==data.field){
+              this.formSearchData.title.push(data);
+            }
+          }
+        }
+      },
       moreSearch() {//点击更多回调函数
         if (!this.more) {
           this.more = true;
@@ -357,25 +507,6 @@
         } else {
           this.more = false;
           this.moreName = language.moreConditions;
-        }
-
-        let _this=this
-        setTimeout(function () {
-          _this.$store.commit("sHeight", _this.$refs.searchForm.offsetHeight+13);
-          console.log(_this.$refs.searchForm.offsetHeight);
-        },2)
-
-      },
-      save(){
-        this.searDialogVisible=false;
-        console.log(this.fields);
-        this.formData.data=[];
-        for(let data of this.formData.moreData){
-          for(let field of this.fields){
-            if(field==data.field){
-              this.formData.data.push(data);
-            }
-          }
         }
       },
       searDialogShow(){
@@ -430,13 +561,36 @@
       //点击新增回调函数
       addData(){
         this.dialogData=true;
+        //alert(12345678)
       },
       //点击编辑回调函数
       editData(row){
         this.formData.data=row;//通过传递形参将table中数据传递到表单中
         this.dialogData=true;//显示出dialogue
       },
+      //表格内删除回调函数
+      delData(row){
+        this.$confirm('此操作将永久删除该条记录, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          Api.delTable(row).then((res) => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+            this.getTableData();
+          })
 
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+
+      },
 
 
       formatter(row, column) {
@@ -445,26 +599,56 @@
       filterHandler(value, row, column) {
         const property = column['property'];
         return row[property] === value;
-      }
+      },
+      test(){
+        this.filter=[{text:"123",value:"123"},{text:"456",value:"456"}]
+      },
+      save(formName){
+        // this.$refs['mrcForm'].$refs[this.formData.name].validate((valid) => {
+        //   if (valid) {
+        //     let param = this.formData.data;
+        //     Api.addTable(param).then((res) => {
+        //       this.$notify({
+        //         title: '成功',
+        //         message: '保存成功',
+        //         type: 'success'
+        //       });
+        //       this.dialogData.show=false;
+        //       this.getTableData();
+        //     })
+        //   } else {
+        //     return false;
+        //   }
+        // });
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
 
 
     },
     operateClick(fn,data,){
-      this.$parent[fn](data);
+      this[fn](data);
     },
     mounted: function () {
       this.getTableData();
+
     },
     computed: {
-      tableData: {
-        // 动态计算currentValue的值
-        get: function () {
-          return this.value;
-        },
-        set: function (val) {
-          this.$emit('input', val);
-        }
-      }
+      // tableData: {
+      //   // 动态计算currentValue的值
+      //   get: function () {
+      //     return this.value;
+      //   },
+      //   set: function (val) {
+      //     this.$emit('input', val);
+      //   }
+      // }
     },
   }
 </script>
@@ -472,12 +656,35 @@
   .tablePaging,.dialogPaging{text-align: right;margin-top: 10px}/*分页右对齐和上边界*/
   .mrcTable{height: calc(100% - 86px) !important;}/*表格高度*/
   .dialogTable{height: calc(100% - 52px) !important}/*调整dialog内部分页位置*/
-   .el-checkbox:first-child {
-     margin-left: 30px!important;
-   }
   .search-input {
     width: 180px;
     margin-bottom: 5px;}
   .searchForm--item{margin-bottom: -2px}
 
+
+
+
+
+
+   #outer{
+     border:solid 1px #dce0e1;
+     border-radius:4px;
+     padding:12px 20px;
+     height:calc(100% - 73px);
+     margin: 0 2px;
+   }
+  #floatR{
+    float: right;margin-right: -14px;margin-top:-5px
+  }
+  #user{
+    float: left;font-size: 18px;margin-bottom:16px;color:#a4aeb2;margin-left: 8px;
+  }
+  .tablePaging,.dialogPaging{text-align: right;margin-top: 10px}/*分页右对齐和上边界*/
+  .mrcTable1{height: calc(100% - 80px) !important;}/*含有ToolBar和分页表格高度*/
+  .mrcTable2{height: calc(100% - 38px) !important;}/*不含有ToolBar表格高度*/
+  .mrcTable3{height: calc(100% - 1px) !important;}/*不含有分页表格高度*/
+  .dialogTable{height: calc(100% - 43px) !important}/*调整dialog内部分页位置*/
+  .mode:first-child {/*调整弹窗内部复选框对齐*/
+    margin-left: 30px!important;
+  }
 </style>
