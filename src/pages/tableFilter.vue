@@ -10,41 +10,40 @@
     data(){
       return {
         tableData:{
-          title: [
-            {name: "编号", field: "id",width:"200",show:true,fixed:true,sortable:true},
-            {name: "姓名", field: "name",width:"400",show:true,fixed:false,sortable:true},
-            {name: "性别", field: "sex",width:"200",show:false,fixed:false,sortable:true},
+          title:[
+            {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:true},
+            {name: "姓名", field: "name",width:"",show:true,fixed:false,sortable:true},
+            {name: "性别", field: "sex",width:"",show:false,fixed:false,sortable:true},
             {name: "日期", field: "date",width:"150",show:true,fixed:false,sortable:true},
-            {name: "城市", field: "city",width:"800",show:true,fixed:false,sortable:true},
-            {name: "备注", field: "comment",width:"950",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
+            {name: "城市", field: "city",width:"",show:true,fixed:false,sortable:true},
+            {name: "备注", field: "comment",width:"150",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
           ],
+          data: [],
+          hideToolbar:true,
+          Checkbox:true,
           pagination: {
             switch: true,
             type: "default",
             CurrentChangeFn: "getTableData",
-            pageSize: 30,
+            pageSize: 15,
             pageIndex: 1,
             layout: "total, sizes, prev, pager, next, jumper",
             pageSizes: [10, 20, 40],
-          },
-
-          data: [],
-          hideToolbar:true,
-        },
+          },//是否开启分页
+        }
       };
     },
     methods: {//开始
       getTableData() {
         let param = {
-          pageIndex: this.tableData.pagination.pageIndex,
+          pageIndex: 1,
           searchData:{},
           sort:"",//排序字段
           sortasc:"",// asc desc
-          pageSize: this.tableData.pagination.pageSize
+          pageSize: 10000
         };
         Api.getTableData(param).then((res) => {
           this.tableData.data = res.data.data.content;
-          this.tableData.pagination.total = res.data.data.totalPages;
         })
       },
     },//开始

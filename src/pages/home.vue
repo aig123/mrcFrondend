@@ -59,6 +59,11 @@
                 title: "固定列",
                 icon:"el-icon-edit-outline",
               },
+              {
+                path: '/home/tableFilter',
+                title: "筛选",
+                icon:"el-icon-edit-outline",
+              },
             ]
           },
           {

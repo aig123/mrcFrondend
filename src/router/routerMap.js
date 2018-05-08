@@ -9,6 +9,7 @@ const tableManyHead = r => require.ensure([], () => r(require('@/pages/table-man
 const tableCol = r => require.ensure([], () => r(require('@/pages/tableCol')), 'tableCol');
 const tableRow = r => require.ensure([], () => r(require('@/pages/tableRow')), 'tableRow');
 const tableColfixed = r => require.ensure([], () => r(require('@/pages/tableColfixed')), 'tableColfixed');
+const tableFilter = r => require.ensure([], () => r(require('@/pages/tableFilter')), 'tableFilter');
 const form = r => require.ensure([], () => r(require('@/pages/form.vue')), 'form');
 const formMrc = r => require.ensure([], () => r(require('@/pages/form-mrc')), 'formMrc');
 const tab = r => require.ensure([], () => r(require('@/pages/tab')), 'tab');
@@ -80,6 +81,12 @@ const routes = [
         path: 'tableColfixed',
         name: "tableColfixed",
         component: tableColfixed,
+        meta: [],
+      },
+      {
+        path: 'tableFilter',
+        name: "tableFilter",
+        component: tableFilter,
         meta: [],
       },
       {

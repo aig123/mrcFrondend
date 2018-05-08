@@ -96,12 +96,15 @@
                          sortable>
         </el-table-column>
         <el-table-column label="姓名"
-                         prop="name">
+                         prop="name"
+                         :filters="[{text: '余刚', value: '余刚'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"
+                         :filter-method="filterHandler">
         </el-table-column>
         <el-table-column label="日期"
                          sortable
                          width="150"
-                         prop="date">
+                         prop="date"
+        >
         </el-table-column>
         <el-table-column label="城市"
                          prop="city">
@@ -433,6 +436,18 @@
         this.formData.data=row;//通过传递形参将table中数据传递到表单中
         this.dialogData=true;//显示出dialogue
       },
+
+
+
+      formatter(row, column) {
+        return row.field;
+      },
+      filterHandler(value, row, column) {
+        const property = column['property'];
+        return row[property] === value;
+      }
+
+
     },
     operateClick(fn,data,){
       this.$parent[fn](data);

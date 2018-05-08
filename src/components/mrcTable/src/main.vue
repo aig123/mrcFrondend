@@ -15,6 +15,7 @@
     </div>
     <el-table
       :data="tableData.data"
+      :span-method="SpanMethod"
       :empty-text="tableData.emptyText"
       border
       @selection-change="handleSelectionChange"
@@ -42,7 +43,9 @@
       <el-table-column
         type="selection"
         v-if="tableData.Checkbox"
-        width="60">
+        width="60"
+
+      >
       </el-table-column>
       <!--索引列-->
       <el-table-column
@@ -64,6 +67,8 @@
                           :show-overflow-tooltip="data.showOverflowTooltip"
                           :align="data.align"
                           :headerAlign="data.headerAlign"
+                          :filters="fliter"
+                          :filter-method="filterHandler"
          >
            <el-table-column v-for="(da,index) in data.children" v-if="data.children"
                             :key="index"
@@ -180,7 +185,7 @@
       width="30%">
       <span>
         <el-checkbox-group v-model="fields" style="margin-top: 10px">
-          <el-checkbox  v-dragging="{ item: data, list: tableData.title, group: 'data'}" v-for="(data,index) in tableData.title" :label="data.field" :key="data.field">{{data.name}}</el-checkbox>
+          <el-checkbox class="mode"  v-dragging="{ item: data, list: tableData.title, group: 'data'}" v-for="(data,index) in tableData.title" :label="data.field" :key="data.field">{{data.name}}</el-checkbox>
         </el-checkbox-group>
       </span>
       <span slot="footer" class="dialog-footer">
@@ -197,7 +202,6 @@
     padding:12px 20px;
     height:calc(100% - 73px);
     margin: 0 2px;
-
   }
   #floatR{
     float: right;margin-right: -14px;margin-top:-5px
@@ -208,7 +212,7 @@
   .tablePaging,.dialogPaging{text-align: right;margin-top: 10px}/*分页右对齐和上边界*/
   .mrcTable{height: calc(100% - 80px) !important;}/*表格高度*/
   .dialogTable{height: calc(100% - 43px) !important}/*调整dialog内部分页位置*/
-  .el-checkbox:first-child {/*调整弹窗内部复选框对齐*/
+  .mode:first-child {/*调整弹窗内部复选框对齐*/
     margin-left: 30px!important;
   }
 </style>
@@ -222,7 +226,8 @@
         dialogTableVisible:false,
         fullScreenName:language.fullScreen,
         searDialogVisible:false,//默认表格排序隐藏
-        fields:[]//为checkbox绑定数据
+        fields:[],//为checkbox绑定数据
+        fliter:[{text:404,value:404},{text:"96",value:"96"},{text:"184",value:"184"}]
 
       };
     },
@@ -232,7 +237,6 @@
 //    },
     methods:{
       handleDrop(toList, data) {
-         debugger
          let indexTo=this.tableData.data.indexOf(toList);
          let index=this.tableData.data.indexOf(data);
          let _toList=Object.assign({}, toList);
@@ -288,6 +292,19 @@
           }
         }
       },
+      SpanMethod({ row, column, rowIndex, columnIndex }){
+        if(this.tableData.arraySpanMethodFn&&this.tableData.arraySpanMethodFn!="") {
+          return this.$parent[this.tableData.arraySpanMethodFn]({ row, column, rowIndex, columnIndex });
+        }
+      },
+      formatter(row, column) {
+        return row.name;
+      },
+      filterHandler(value, row, column) {
+        const property = column['property'];
+        return row[property] === value;
+      },
+
     },
     mounted: function () {
       this.tableData = this.value;
