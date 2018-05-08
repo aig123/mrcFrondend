@@ -20,7 +20,7 @@
       border
       @selection-change="handleSelectionChange"
       height="80%" style="width: 99%;margin: 0 auto;"
-      class="mrcTable"
+      :class="''+TableClass+''"
     >
       <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
       <!--check多选框-->
@@ -220,7 +220,9 @@
     float: left;font-size: 18px;margin-bottom:16px;color:#a4aeb2;margin-left: 8px;
   }
   .tablePaging,.dialogPaging{text-align: right;margin-top: 10px}/*分页右对齐和上边界*/
-  .mrcTable{height: calc(100% - 80px) !important;}/*表格高度*/
+  .mrcTable1{height: calc(100% - 80px) !important;}/*含有ToolBar和分页表格高度*/
+  .mrcTable2{height: calc(100% - 38px) !important;}/*不含有ToolBar表格高度*/
+  .mrcTable3{height: calc(100% - 1px) !important;}/*不含有分页表格高度*/
   .dialogTable{height: calc(100% - 43px) !important}/*调整dialog内部分页位置*/
   .mode:first-child {/*调整弹窗内部复选框对齐*/
     margin-left: 30px!important;
@@ -356,8 +358,17 @@
         }else {
           return this.$store.getters.sHeight;
         }
-
-      }
+      },
+      //调整不同情情况表格高度不同
+      TableClass(){
+        if(this.tableData.hideToolbar && !this.tableData.pagination.switch){
+          return "mrcTable3"
+        }else if(!this.tableData.hideToolbar){
+          return "mrcTable1"
+        }else if(this.tableData.hideToolbar){
+          return "mrcTable2"
+        }
+      },
     },
 
   };

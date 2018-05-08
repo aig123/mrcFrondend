@@ -20,12 +20,8 @@
             layout: "total, sizes, prev, pager, next, jumper",
             pageSizes: [10, 20, 40],
           },//是否开启分页
-          index:false,//显示索引序号
-          indexName:language.index,
-          Checkbox:false,
           selectionChangeFn:"",
           class:"",//添加自定义class
-          operate:[{name:language.delect,click:"delData",type:'danger',field:"del"},{name:language.edit,click:"editData",type:'default',field:"edit"},{name:"查看",click:"viewData",type:'default',field:"view"}],
           title: [
             {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:true},
             {name: "姓名", field: "name",width:"",show:true,fixed:false,sortable:true},
@@ -34,7 +30,8 @@
             {name: "城市", field: "city",width:"",show:true,fixed:false,sortable:true},
             {name: "备注", field: "comment",width:"150",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
           ],
-          data: []
+          data: [],
+          hideToolbar:true,
         },
       };
     },
@@ -53,10 +50,9 @@
         })
       },
       arraySpanMethod({ row, column, rowIndex, columnIndex }) {
-        debugger
         if (rowIndex % 2 === 0) {
           if (columnIndex === 0) {
-            return [1, 2];
+            return [2,1];
           } else if (columnIndex === 1) {
             return [0, 0];
           }

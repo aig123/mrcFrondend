@@ -51,7 +51,7 @@ let _App = new Vue({
 }).$mount('#app');
 
 //import {cats} from './index2.js'
-import install from '../dist/bundle.js'
+//import install from '../dist/bundle.js'
 //var  install=require('../dist/bundle.js').default
 console.log(install,'------------cats');
 //console.log(install);

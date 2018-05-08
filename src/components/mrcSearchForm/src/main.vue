@@ -53,7 +53,7 @@
       width="30%">
       <span>
         <el-checkbox-group v-model="fields" style="margin-top: 10px">
-            <el-checkbox  v-dragging="{ item: data, list: formData.moreTitle, group: 'data'}" v-for="(data,index) in formData.moreTitle" :label="data.field" :key="data.field">{{data.title}}</el-checkbox>
+            <el-checkbox class="mode"  v-dragging="{ item: data, list: formData.moreTitle, group: 'data'}" v-for="(data,index) in formData.moreTitle" :label="data.field" :key="data.field">{{data.title}}</el-checkbox>
         </el-checkbox-group>
       </span>
       <span slot="footer" class="dialog-footer">
@@ -146,7 +146,7 @@
   };
 </script>
 <style scoped>
-  .el-checkbox:first-child {
+  .mode:first-child {
     margin-left: 30px!important;
   }
   .search-input {
