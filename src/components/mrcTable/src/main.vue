@@ -77,8 +77,6 @@
                           :show-overflow-tooltip="data.showOverflowTooltip"
                           :align="data.align"
                           :headerAlign="data.headerAlign"
-                          :filters="fliter"
-                          :filter-method="filterHandler"
          >
            <el-table-column v-for="(da,index) in data.children" v-if="data.children"
                             :key="index"
@@ -323,13 +321,6 @@
         if(this.tableData.arraySpanMethodFn&&this.tableData.arraySpanMethodFn!="") {
           return this.$parent[this.tableData.arraySpanMethodFn]({ row, column, rowIndex, columnIndex });
         }
-      },
-      formatter(row, column) {
-        return row.name;
-      },
-      filterHandler(value, row, column) {
-        const property = column['property'];
-        return row[property] === value;
       },
       //调整不同情情况表格高度不同
       TableClass(){
