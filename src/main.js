@@ -50,7 +50,8 @@ let _App = new Vue({
   render: h => h(App)
 }).$mount('#app');
 
-import install2 from './index.js'
-//import install from '../dist/bundle.js'
-console.log(install2);
-console.log(install);
+//import {cats} from './index2.js'
+import install from '../dist/bundle.js'
+//var  install=require('../dist/bundle.js').default
+console.log(install,'------------cats');
+//console.log(install);
