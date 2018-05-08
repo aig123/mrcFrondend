@@ -39,12 +39,12 @@
           buttons:[{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"},{name:language.import,click:"",icon:"el-icon-upload"},{name:language.export,click:"",icon:"el-icon-download"}],
           operate:[{name:language.delect,click:"delData",type:'danger',field:"del"},{name:language.edit,click:"editData",type:'default',field:"edit"},{name:"查看",click:"viewData",type:'default',field:"view"}],
           title: [
-            {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:true},
-            {name: "姓名", field: "name",width:"",show:true,fixed:false,sortable:true},
-            {name: "性别", field: "sex",width:"",show:false,fixed:false,sortable:true},
+            {name: "编号", field: "sortId",width:"150",show:true,fixed:false,sortable:true},
+            {name: "姓名", field: "name",width:"150",show:true,fixed:false,sortable:true},
+            {name: "性别", field: "sex",width:"150",show:false,fixed:false,sortable:true},
             {name: "日期", field: "date",width:"150",show:true,fixed:false,sortable:true},
-            {name: "城市", field: "city",width:"",show:true,fixed:false,sortable:true},
-            {name: "备注", field: "comment",width:"150",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
+            {name: "城市", field: "city",width:"450",show:true,fixed:false,sortable:true},
+            {name: "备注", field: "comment",width:"",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
           ],
           data: []
         },

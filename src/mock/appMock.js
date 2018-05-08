@@ -77,9 +77,10 @@ export default {
   }
 };
 var tableDatas = [];
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 15; i++) {
   tableDatas.push(Mock.mock({
-    "id": Mock.Random.integer(0, 1000),
+    "id": Mock.Random.integer(0, 50),
+    "sortId": Mock.Random.integer(0, 100),
     "name": Mock.Random.cname(),
     "sex":Mock.Random.integer(0, 1).toString(),
     "date":Mock.Random.date('yyyy-MM-dd'),

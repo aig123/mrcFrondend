@@ -27,17 +27,27 @@
       <el-table-column v-if="tableData.dragSort"
         width="80" label="拖拽排序">
         <template slot-scope="scope">
-          <!--<i class="el-icon-menu" style="cursor: pointer"></i>-->
-          <drop @drop="handleDrop(scope.row, ...arguments)" class="event">
-            <drag :transfer-data="scope.row" class="drag"> <i class="el-icon-menu" style="cursor: move"></i>
-              <div slot="image" class="drag-image">
-                <ul>
-                  <li style="float: left;list-style-type:none;width: 350px" v-for="(data,index) in tableData.title" :key="index">{{scope.row[data.field]}}</li>
-                  <li ></li>
-                </ul>
-              </div>
-            </drag>
-          </drop>
+          <drag :transfer-data="scope.row"   class="drag"  style="cursor: move;width: 100%;position: absolute;top: 0px;height: 40px;line-height: 40px;margin-left: -10px;">
+            <i class="el-icon-menu" ></i>
+            <div slot="image" class="drag-image" style="width: 100%;border-top: 1px solid #e91b24;overflow: hidden;background: #909399;height: 40px;line-height: 40px;width: 100%;opacity: 1 !important;">
+              <ul>
+                <li style="width: 30px;float: left"><i class="el-icon-menu" ></i></li>
+                <li   v-if="data.show" :style="'float: left;list-style-type:none;width:'+ data.width+'px'" v-for="(data,index) in tableData.title" :key="index">{{scope.row[data.field]}}</li>
+                <li  style="width: 50px;float: left" v-for="data in tableData.operate" :key="data.name">{{data.name}}</li>
+              </ul>
+            </div>
+            <div style="position: absolute;width: 80px;top: 0px;">
+              <drop @drop="handleDrop(scope.row, ...arguments)" class="event" style="height: 20px">
+
+              </drop>
+              <drop @drop="handleDropEnd(scope.row, ...arguments)" class="event" style="height: 20px">
+
+              </drop>
+            </div>
+          </drag>
+
+
+
         </template>
       </el-table-column>
       <el-table-column
@@ -237,19 +247,34 @@
 //    },
     methods:{
       handleDrop(toList, data) {
-         let indexTo=this.tableData.data.indexOf(toList);
-         let index=this.tableData.data.indexOf(data);
+        let index=0;
+        for (let i in this.tableData.data){
+            if(this.tableData.data[i].sortId==data.sortId){
+              index=i
+            }
+        }
          let _toList=Object.assign({}, toList);
          let _data=Object.assign({}, data);
-        // console.log(indexTo);
-      //  this.tableData.data[1].id=23;
-        for(let title of this.tableData.title){
-          this.tableData.data[indexTo][title.field]=_data[title.field];
-          this.tableData.data[index][title.field]=_toList[title.field];
+         this.tableData.data.splice(index,1);
+        let indexTo=this.tableData.data.indexOf(toList);
+         //this.tableData.data.insert(indexTo,_data);
+        this.tableData.data.splice(indexTo,0,_data);
+
+      },
+      handleDropEnd(toList, data){
+        let index=0;
+        for (let i in this.tableData.data){
+          if(this.tableData.data[i].sortId==data.sortId){
+            index=i
+          }
         }
-      //  this.tableData.data[0]=Object.assign({}, toList);
-       // this.tableData.data[0]=toList;
-       // this.tableData.data.splice(this.tableData.data.indexOf(data) - 1, 1, ... this.tableData.data.splice(this.tableData.data.indexOf(toList)- 1, 1, this.tableData.data[this.tableData.data.indexOf(data) - 1]))
+
+        let _toList=Object.assign({}, toList);
+        let _data=Object.assign({}, data);
+        this.tableData.data.splice(index,1);
+        let indexTo=this.tableData.data.indexOf(toList);
+        //this.tableData.data.insert(indexTo,_data);
+        this.tableData.data.splice(indexTo+1,0,_data);
       },
       //Select框变化触发方法
       handleSelectionChange(val) {
