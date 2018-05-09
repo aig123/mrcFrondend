@@ -12,6 +12,7 @@ const tableColfixed = r => require.ensure([], () => r(require('@/pages/tableColf
 const tableFilter = r => require.ensure([], () => r(require('@/pages/tableFilter')), 'tableFilter');
 const form = r => require.ensure([], () => r(require('@/pages/form.vue')), 'form');
 const formMrc = r => require.ensure([], () => r(require('@/pages/form-mrc')), 'formMrc');
+const formInline = r => require.ensure([], () => r(require('@/pages/formInline')), 'formInline');
 const tab = r => require.ensure([], () => r(require('@/pages/tab')), 'tab');
 const tabMrc = r => require.ensure([], () => r(require('@/pages/tab-mrc')), 'tabMrc');
 const fullScreen = r => require.ensure([], () => r(require('@/pages/fullScreen')), 'fullScreen');
@@ -45,6 +46,12 @@ const routes = [
         path: 'formMrc',
         name: "formMrc",
         component: formMrc,
+        meta: [],
+      },
+      {
+        path: 'formInline',
+        name: "formInline",
+        component: formInline,
         meta: [],
       },
       {

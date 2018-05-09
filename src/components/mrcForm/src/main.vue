@@ -1,17 +1,17 @@
 <template>
   <section>
-    <div style="padding: 20px;max-width: 700px">
-    <el-form :model="formData.data" :label-width="labelWidth" :rules="formData.rules" :ref="formData.name">
-      <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" style="width: 100%;" :prop="config.field">
-        <span v-if="config.type=='span'">{{formData.data[config.field]}}</span>
-        <span v-if="config.type=='input'">
+    <div style="padding: 20px;max-width: 700px" v-if="!formData.inline">
+      <el-form :model="formData.data" :label-width="labelWidth" :rules="formData.rules" :ref="formData.name" :inline="formData.inline">
+        <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" style="width: 100%;" :prop="config.field">
+          <span v-if="config.type=='span'">{{formData.data[config.field]}}</span>
+          <span v-if="config.type=='input'">
         <el-input v-model="formData.data[config.field]"  :placeholder="config.placeholder"  style="width: 100%">
         </el-input>
         <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
           <i class="el-icon-warning"></i>
         </el-tooltip>
         </span>
-        <span v-if="config.type=='select'">
+          <span v-if="config.type=='select'">
         <el-select v-model="formData.data[config.field]" :placeholder="config.placeholder" style="width: 100%">
           <el-option :label="item.name" :value="item.id" :key="item.id" v-for="item in config.data"></el-option>
         </el-select>
@@ -19,19 +19,19 @@
           <i class="el-icon-warning"></i>
         </el-tooltip>
         </span>
-        <span v-if="config.type=='date'">
+          <span v-if="config.type=='date'">
         <el-date-picker v-model="formData.data[config.field]" @change="dateChange" :placeholder="config.placeholder" style="width: 100%"></el-date-picker>
           <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
           <i class="el-icon-warning"></i>
         </el-tooltip>
         </span>
-        <span v-if="config.type=='daterange'">
+          <span v-if="config.type=='daterange'">
         <el-date-picker v-model="formData.data[config.field]" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%"></el-date-picker>
           <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
           <i class="el-icon-warning"></i>
         </el-tooltip>
         </span>
-        <span v-if="config.type=='uploadFile'">
+          <span v-if="config.type=='uploadFile'">
         <el-upload v-model="formData.data[config.field]"
                    :action="config.action"
                    :limit="config.limit"
@@ -41,7 +41,7 @@
                    :multiple="config.multiple"
                    :accept="config.accept"
                    :file-list="config.fileList.data"
-                    >
+        >
           <el-button size="small" type="primary">点击上传</el-button>
           <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb1</div>
         </el-upload>
@@ -49,13 +49,13 @@
           <i class="el-icon-warning"></i>
         </el-tooltip>
         </span>
-        <span v-if="config.type=='switch'">
+          <span v-if="config.type=='switch'">
         <el-switch v-model="formData.data[config.field]"></el-switch>
           <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
           <i class="el-icon-warning"></i>
         </el-tooltip>
         </span>
-        <span v-if="config.type=='checkbox'">
+          <span v-if="config.type=='checkbox'">
         <el-checkbox-group v-model="formData.data[config.field]">
           <el-checkbox :label="item.name" :value="item.id" :key="item.id" v-for="item in config.data"></el-checkbox>
         </el-checkbox-group>
@@ -63,7 +63,7 @@
           <i class="el-icon-warning"></i>
         </el-tooltip>
         </span>
-        <span v-if="config.type=='radio'">
+          <span v-if="config.type=='radio'">
         <el-radio-group v-model="formData.data[config.field]">
           <el-radio :label="item.name" :value="item.id" :key="item.id" v-for="item in config.data"></el-radio>
         </el-radio-group>
@@ -71,13 +71,92 @@
           <i class="el-icon-warning"></i>
         </el-tooltip>
         </span>
-        <el-input  v-model="formData.data[config.field]" v-if="config.type=='textarea'" :type="config.type"></el-input>
-      </el-form-item>
-      <slot></slot>
-      <el-form-item :model="formData.buttons" :ref="formData.name" >
-        <el-button :type="config.type" @click="uploadFn(config.click)"   v-for="(config,index) in formData.buttons" :key="index">{{config.name}}</el-button>
-      </el-form-item>
-    </el-form>
+          <el-input  v-model="formData.data[config.field]" v-if="config.type=='textarea'" :type="config.type"></el-input>
+        </el-form-item>
+        <slot></slot>
+        <el-form-item :model="formData.buttons" :ref="formData.name" >
+          <el-button :type="config.type" @click="uploadFn(config.click)"   v-for="(config,index) in formData.buttons" :key="index">{{config.name}}</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div style="padding: 20px;" v-if="formData.inline">
+      <el-form :model="formData.data" :label-width="labelWidth" :rules="formData.rules" :ref="formData.name" :inline="formData.inline">
+        <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" :prop="config.field">
+          <span v-if="config.type=='span'">{{formData.data[config.field]}}</span>
+          <span v-if="config.type=='input'">
+        <el-input v-model="formData.data[config.field]"  :placeholder="config.placeholder">
+        </el-input>
+        <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
+          <i class="el-icon-warning"></i>
+        </el-tooltip>
+        </span>
+          <span v-if="config.type=='select'">
+        <el-select v-model="formData.data[config.field]" :placeholder="config.placeholder">
+          <el-option :label="item.name" :value="item.id" :key="item.id" v-for="item in config.data"></el-option>
+        </el-select>
+          <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
+          <i class="el-icon-warning"></i>
+        </el-tooltip>
+        </span>
+          <span v-if="config.type=='date'">
+        <el-date-picker v-model="formData.data[config.field]" @change="dateChange" :placeholder="config.placeholder"></el-date-picker>
+          <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
+          <i class="el-icon-warning"></i>
+        </el-tooltip>
+        </span>
+          <span v-if="config.type=='daterange'">
+        <el-date-picker v-model="formData.data[config.field]" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder"></el-date-picker>
+          <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
+          <i class="el-icon-warning"></i>
+        </el-tooltip>
+        </span>
+          <span v-if="config.type=='uploadFile'">
+        <el-upload v-model="formData.data[config.field]"
+                   :action="config.action"
+                   :limit="config.limit"
+                   :on-preview="uploadFn(config.onPreviewFn)"
+                   :on-remove="uploadFn(config.onRemoveFn)"
+                   :before-remove="uploadFn(config.onRemoveFn)"
+                   :multiple="config.multiple"
+                   :accept="config.accept"
+                   :file-list="config.fileList.data"
+        >
+          <el-button size="small" type="primary">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb1</div>
+        </el-upload>
+          <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
+          <i class="el-icon-warning"></i>
+        </el-tooltip>
+        </span>
+          <span v-if="config.type=='switch'">
+        <el-switch v-model="formData.data[config.field]"></el-switch>
+          <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
+          <i class="el-icon-warning"></i>
+        </el-tooltip>
+        </span>
+          <span v-if="config.type=='checkbox'">
+        <el-checkbox-group v-model="formData.data[config.field]">
+          <el-checkbox :label="item.name" :value="item.id" :key="item.id" v-for="item in config.data"></el-checkbox>
+        </el-checkbox-group>
+          <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
+          <i class="el-icon-warning"></i>
+        </el-tooltip>
+        </span>
+          <span v-if="config.type=='radio'">
+        <el-radio-group v-model="formData.data[config.field]">
+          <el-radio :label="item.name" :value="item.id" :key="item.id" v-for="item in config.data"></el-radio>
+        </el-radio-group>
+          <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
+          <i class="el-icon-warning"></i>
+        </el-tooltip>
+        </span>
+          <el-input  v-model="formData.data[config.field]" v-if="config.type=='textarea'" :type="config.type"></el-input>
+        </el-form-item>
+        <slot></slot>
+        <el-form-item :model="formData.buttons" :ref="formData.name" style="width:calc(100% - 100px);margin-left: 100px;">
+          <el-button :type="config.type" @click="uploadFn(config.click)"   v-for="(config,index) in formData.buttons" :key="index">{{config.name}}</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </section>
 </template>

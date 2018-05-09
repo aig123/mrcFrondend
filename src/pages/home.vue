@@ -77,6 +77,11 @@
                 icon:"el-icon-news",
               },
               {
+                path: "/home/formInline",
+                title: "行内表单",
+                icon:"el-icon-news",
+              },
+              {
 
                 path: "/home/form",
                 title: "普通表单",
