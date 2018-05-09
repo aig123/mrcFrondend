@@ -114,7 +114,7 @@
         setTimeout(function () {
           _this.$store.commit("sHeight", _this.$refs.searchForm.offsetHeight+13);
           console.log(_this.$refs.searchForm.offsetHeight);
-        },2)
+        },5)
 
       },
       change(data) {
