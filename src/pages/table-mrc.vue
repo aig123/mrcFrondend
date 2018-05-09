@@ -41,9 +41,9 @@
           title: [
             {name: "编号", field: "sortId",width:"150",show:true,fixed:false,sortable:true},
             {name: "姓名", field: "name",width:"150",show:true,fixed:false,sortable:true},
-            {name: "性别", field: "sex",width:"150",show:false,fixed:false,sortable:true},
+            {name: "性别", field: "sex",width:"150",show:true,fixed:false,formatter:"sexFormatter"},
             {name: "日期", field: "date",width:"150",show:true,fixed:false,sortable:true},
-            {name: "城市", field: "city",width:"450",show:true,fixed:false,sortable:true},
+            {name: "城市", field: "city",width:"450",show:true,fixed:false},
             {name: "备注", field: "comment",width:"",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
           ],
           data: []
@@ -77,7 +77,6 @@
         },
         formData:{
           name:"form",
-         // buttons:{dataLeft:[{name:language.search,click:"search"}],dataRight:[{name:language.add,click:"getDatas"}]},
           title:[
             {type:'input',title:"编号",value:"",field: "id",placeholder:"请填写编号"},
             {type:'input',title:"姓名",value:"",field: "name",placeholder:"请输入姓名"},
@@ -162,6 +161,9 @@
           this.tableData.pagination.total = res.data.data.totalPages;
         })
       },
+      sexFormatter(row, column){
+        return row.gender == '1' ? '男' : '女';
+      },
       search(){
         this.formData.data[0].value="搜索改变了这里的值";
       },
@@ -184,15 +186,6 @@
         this.formData.data=row;
         this.dialogData.show=true;
       },
-      // viewData(row){//查看表格数据
-      //   this.formData.rules={};
-      //   this.formData.data=row;
-      //   for(let data of this.formData.title){
-      //     data.type="span"
-      //   }
-      //   this.dialogData.title="查看数据"
-      //   this.dialogData.show=true;
-      // },
       viewData(row){
         debugger;
         //this.formData.data=this.formSpan.data;

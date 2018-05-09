@@ -53,5 +53,5 @@ let _App = new Vue({
 //import {cats} from './index2.js'
 //import install from '../dist/bundle.js'
 //var  install=require('../dist/bundle.js').default
-console.log(install,'------------cats');
+//console.log(install,'------------cats');
 //console.log(install);
