@@ -1,8 +1,8 @@
 {
   "name": "vue-mrc",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "vue-mrc",
-  "main": "src/index.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
@@ -13,6 +13,7 @@
     "awe-dnd": "^0.3.1",
     "axios": "^0.17.1",
     "axios-mock-adapter": "^1.14.1",
+    "babel-preset-es2015": "^6.24.1",
     "element-ui": "^2.3.4",
     "mockjs": "^1.0.1-beta3",
     "vddl": "^0.7.1",
