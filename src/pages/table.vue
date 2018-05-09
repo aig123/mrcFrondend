@@ -44,15 +44,12 @@
       <div id="user" v-show="!this.tableData.hideToolbar">{{tableData.description}}</div>
       <div id="floatR" v-show="!this.tableData.hideToolbar">
         <el-button type="text" icon="el-icon-rank" @click="dialogTableVisible=true" v-if="tableData.FullScreen">{{fullScreenName}}</el-button>
-        <!--<el-button-->
-          <!--type="text"-->
-          <!--:icon="data.icon" v-for="data in tableData.buttons" :key="data.name" @click="operateClick(data.click)">{{data.name}}</el-button>-->
         <el-button type="text" icon="el-icon-circle-plus-outline" @click="dialogData=true">增加</el-button>
-        <el-button type="text" icon="el-icon-upload" @click="addData">导入</el-button>
+        <el-button type="text" icon="el-icon-upload" @click="">导入</el-button>
         <el-button type="text" icon="el-icon-download" @click="">导出</el-button>
         <!--小按钮开始-->
         <div class="show-set" style="margin-left:8px">
-          <span class="el-icon-setting" @click="searDialogVisible=true"></span>
+          <span class="el-icon-setting" @click="tableDialogVisible=true"></span>
         </div>
         <!--小按钮结束-->
       </div>
@@ -65,22 +62,6 @@
         height="80%" style="width: 99%;margin: 0 auto;"
         class="mrcTable"
       >
-        <el-table-column v-if="tableData.dragSort"
-                         width="80" label="拖拽排序">
-          <template slot-scope="scope">
-            <!--<i class="el-icon-menu" style="cursor: pointer"></i>-->
-            <drop @drop="handleDrop(scope.row, ...arguments)" class="event">
-              <drag :transfer-data="scope.row" class="drag"> <i class="el-icon-menu" style="cursor: move"></i>
-                <div slot="image" class="drag-image">
-                  <ul>
-                    <li style="float: left;list-style-type:none;width: 350px" v-for="(data,index) in tableData.title" :key="index">{{scope.row[data.field]}}</li>
-                    <li ></li>
-                  </ul>
-                </div>
-              </drag>
-            </drop>
-          </template>
-        </el-table-column>
         <el-table-column
           type="selection"
           v-if="tableData.Checkbox"
@@ -138,11 +119,10 @@
         <!--操作栏-->
         <el-table-column
           label="操作"
-          v-if="tableData.buttons&&tableData.operate.length>0"
           width="150">
           <template slot-scope="scope">
-            <el-button @click="operateClick(data.click,scope.row)" :disabled="!scope.row[data.field]" size="mini" type="text"  v-for="data in tableData.operate" :key="data.name" v-if="data.type=='default'"> {{data.name}}</el-button>
-            <el-button @click="operateClick(data.click,scope.row)"  :disabled="!scope.row[data.field]" type="text" size="mini"   v-for="data in tableData.operate" :key="data.name" v-if="data.type=='danger'">{{data.name}}</el-button>
+            <el-button type="text" size="mini" @click="editData(scope.row)">编辑</el-button>
+            <el-button type="text" size="mini" @click="delData(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -199,9 +179,9 @@
             v-if="tableData.buttons&&tableData.buttons.length>0"
             width="150">
             <template slot-scope="scope">
-              <el-button @click="operateClick(data.click,scope.row)" :disabled="!scope.row[data.field]" size="mini" type="text"  v-for="data in tableData.operate" :key="data.name" v-if="data.type=='default'"> {{data.name}}</el-button>
-              <el-button @click="operateClick(data.click,scope.row)"  :disabled="!scope.row[data.field]" type="text" size="mini"   v-for="data in tableData.operate" :key="data.name" v-if="data.type=='danger'">{{data.name}}</el-button>
-
+              <!--<el-button @click="operateClick(data.click,scope.row)" :disabled="!scope.row[data.field]" size="mini" type="text"  v-for="data in tableData.operate" :key="data.name" v-if="data.type=='default'"> {{data.name}}</el-button>-->
+              <!--<el-button @click="operateClick(data.click,scope.row)"  :disabled="!scope.row[data.field]" type="text" size="mini"   v-for="data in tableData.operate" :key="data.name" v-if="data.type=='danger'">{{data.name}}</el-button>-->
+              <el-button>12341</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -223,7 +203,7 @@
         :visible.sync="tableDialogVisible"
         width="30%">
       <span>
-        <el-checkbox-group v-model="fields" style="margin-top: 10px">
+        <el-checkbox-group v-model="tableFields" style="margin-top: 10px">
           <el-checkbox class="mode"  v-dragging="{ item: data, list: tableData.title, group: 'data'}" v-for="(data,index) in tableData.title" :label="data.field" :key="data.field">{{data.name}}</el-checkbox>
         </el-checkbox-group>
       </span>
@@ -298,7 +278,7 @@
       <el-pagination
         v-if="tableData.pagination.switch"
         style="position: fixed; bottom: 15px;right: 10px;"
-
+        background
         :page-sizes="tableData.pagination.pageSizes"
         :layout="tableData.pagination.layout"
         @size-change="handleSizeChange"
@@ -347,8 +327,8 @@
       :visible.sync="searDialogVisible"
       width="30%">
       <span>
-        <el-checkbox-group v-model="fields" style="margin-top: 10px">
-            <el-checkbox  v-dragging="{ item: data, list: formSearchData.moreTitle, group: 'data'}" v-for="(data,index) in formSearchData.moreTitle" :label="data.field" :key="data.field">{{data.title}}</el-checkbox>
+        <el-checkbox-group v-model="fields" style="margin-top: 10px" >
+            <el-checkbox class="mode" v-dragging="{ item: data, list: formSearchData.moreTitle, group: 'data'}" v-for="(data,index) in formSearchData.moreTitle" :label="data.field" :key="data.field">{{data.title}}</el-checkbox>
         </el-checkbox-group>
       </span>
       <span slot="footer" class="dialog-footer">
@@ -373,6 +353,7 @@
         searDialogVisible:false,//点击弹窗编辑更多和拖拽顺序
         tableDialogVisible:false,//设置表格顺序和显示隐藏
         fields:[],
+        tableFields:[],//改变表格列顺序和显示隐藏
         tableData:{
           description:"用户列表",//表单左上角显示的文字
           FullScreen:true,
@@ -392,7 +373,7 @@
           selectionChangeFn:"",
           class:"",//添加自定义class
           buttons:[{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"},{name:language.import,click:"",icon:"el-icon-upload"},{name:language.export,click:"",icon:"el-icon-download"}],
-          operate:[{name:language.delect,click:"delData",type:'danger',field:"del"},{name:language.edit,click:"editData",type:'default',field:"edit"},{name:"查看",click:"viewData",type:'default',field:"view"}],
+          //operate:[{name:language.delect,click:"delData",type:'danger',field:"del"},{name:language.edit,click:"editData",type:'default',field:"edit"},{name:"查看",click:"viewData",type:'default',field:"view"}],
           title: [
             {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:true},
             {name: "姓名", field: "name",width:"",show:true,fixed:false,sortable:true},
@@ -462,6 +443,10 @@
       };
     },
     methods: {
+      viewData(row){
+        this.formView.data=row;
+        this.dialogView.show=true;
+      },
       //合并单元格
       SpanMethod({ row, column, rowIndex, columnIndex }){
         if(this.tableData.arraySpanMethodFn&&this.tableData.arraySpanMethodFn!="") {
@@ -488,6 +473,18 @@
         }
       },
       saveTable(){
+        this.tableDialogVisible=false;
+        console.log(this.tableFields);
+        for(let showFalse of this.tableData.title){
+          showFalse.show=false
+        }
+        for(let data of this.tableData.title){
+          for(let field of this.tableFields){
+            if(field==data.field){
+              data.show=true
+            }
+          }
+        }
       },
       moreSearch() {//点击更多回调函数
         if (!this.more) {
@@ -520,26 +517,29 @@
       handleSelectionChange(val) {
         // this.multipleSelection = val;
         if(this.tableData.selectionChangeFn&&this.tableData.selectionChangeFn!=""){
-          this.$parent[this.tableData.selectionChangeFn](val);
+          this[this.tableData.selectionChangeFn](val);
         }
       },
       //当前页变化触发方法
       handleCurrentChange(val) {
         this.tableData.pagination.pageIndex = val;
         if (this.tableData.pagination.CurrentChangeFn && this.tableData.pagination.CurrentChangeFn != "") {
-          this.$parent[this.tableData.pagination.CurrentChangeFn](val);
+          this[this.tableData.pagination.CurrentChangeFn](val);
         }
       },
       //当前页显示条数变化 触发方法
       handleSizeChange(val) {
         this.tableData.pagination.pageSize = val;
         if (this.tableData.pagination.CurrentChangeFn && this.tableData.pagination.CurrentChangeFn != "") {
-          this.$parent[this.tableData.pagination.CurrentChangeFn](val);
+          this[this.tableData.pagination.CurrentChangeFn](val);
         }
       },
 
-      gradeChange(){//下拉列表改变回调函数
-        alert("gradeChange");
+      // gradeChange(){//下拉列表改变回调函数
+      //   alert("gradeChange");
+      // },
+      change(){
+        alert("gradeChange")
       },
       selectionChange(data){
         console.log(data);
@@ -550,7 +550,6 @@
       //点击新增回调函数
       addData(){
         this.dialogData=true;
-        //alert(12345678)
       },
       //点击编辑回调函数
       editData(row){
@@ -580,21 +579,20 @@
         });
 
       },
-
-
-      formatter(row, column) {
-        return row.field;
-      },
-      filterHandler(value, row, column) {
-        const property = column['property'];
-        return row[property] === value;
-      },
       save(formName){
-        this.$refs[formName].validate((valid) => {
+        this.$refs[this.formData.name].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            let param = this.formData.data;
+            Api.addTable(param).then((res) => {
+              this.$notify({
+                title: '成功',
+                message: '保存成功',
+                type: 'success'
+              });
+              this.dialogData.show=false;
+              this.getTableData();
+            })
           } else {
-            console.log('error submit!!');
             return false;
           }
         });
@@ -602,11 +600,25 @@
 
 
     },
-    operateClick(fn,data,){
-      this[fn](data);
-    },
     mounted: function () {
+      this.fields=[];
+      for(let data of this.formSearchData.title){
+        this.fields.push(data.field);
+      }
+
       this.getTableData();
+
+      this.tableFields=[];
+      for(let data of this.tableData.title){
+        if(data.show==true){
+          this.tableFields.push(data.field);
+        }
+      }
+
+
+
+
+
 
     },
     computed: {
@@ -636,13 +648,13 @@
 
 
 
-   #outer{
-     border:solid 1px #dce0e1;
-     border-radius:4px;
-     padding:12px 20px;
-     height:calc(100% - 73px);
-     margin: 0 2px;
-   }
+  #outer{
+    border:solid 1px #dce0e1;
+    border-radius:4px;
+    padding:12px 20px;
+    height:calc(100% - 73px);
+    margin: 0 2px;
+  }
   #floatR{
     float: right;margin-right: -14px;margin-top:-5px
   }
