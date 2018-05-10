@@ -27,7 +27,6 @@
             layout: "total, sizes, prev, pager, next, jumper",
             pageSizes: [10, 20, 40],
           },
-
           data: [],
           hideToolbar:true,
         },
@@ -49,7 +48,6 @@
       },
     },//开始
     mounted: function () {
-
       this.getTableData();
     },
   }

@@ -145,7 +145,7 @@
   }
 
   body {
-    padding: 40px 90px;
+    /*padding: 40px 90px;*/
     line-height: 1.5;
   }
 

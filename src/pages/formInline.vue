@@ -18,27 +18,6 @@
           property: "",
           source: "",
         },
-        rules: {
-          name: [
-            { required: true, message: '请输入活动名称', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-          ],
-          stime: [
-            { type: 'date', required: true, message: '请选择开始时间', trigger: 'change' }
-          ],
-          etime:[
-            { type: 'date', required: true, message: '请选择结束时间', trigger: 'change' }
-          ],
-          zone: [
-            {required: true, message: '请选择活动区域', trigger: 'change' }
-          ],
-          property: [
-            {required: true, message: '请选择活动性质', trigger: 'change' }
-          ],
-          source: [
-            {required: true, message: '请选择特殊资源', trigger: 'change' }
-          ]
-        },
         formData:{
           name:"form",
           inline:true,//判断是否表单元素为行内元素

@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div class="searchForm" style="margin-bottom: 10px">
+    <div class="searchForm" style="margin-bottom: 8px">
       <div class="searchForm--item" v-if="!more" v-for="(data,index) in formSearchData.title" :key="index"><!--更少条件-->
         <label class="searchForm--item__label" style="text-align: right;width: 50px">{{data.title}}</label><!--修改标签宽度-->
         <div class="searchForm--item__content">
@@ -352,46 +352,44 @@
         dialogTableVisible:false,//全屏dialing默认返回值
         searDialogVisible:false,//点击弹窗编辑更多和拖拽顺序
         tableDialogVisible:false,//设置表格顺序和显示隐藏
-        fields:[],
+        fields:[],//搜索包含内容数组
         tableFields:[],//改变表格列顺序和显示隐藏
         tableData:{
           description:"用户列表",//表单左上角显示的文字
-          FullScreen:true,
-          dragSort:true,
-          pagination: {
-            switch: true,
+          FullScreen:true,//是否显示全屏按钮
+          dragSort:true,//是否显示拖拽列
+          pagination: {//分页配置
+            switch: true,//是否显示分页
             type: "default",
-            CurrentChangeFn: "getTableData",
-            pageSize: 15,
-            pageIndex: 1,
-            layout: "total, sizes, prev, pager, next, jumper",
-            pageSizes: [10, 20, 40],
+            CurrentChangeFn: "getTableData",//当前页改变触发函数·
+            pageSize: 15,//每页显示条目个数
+            pageIndex: 1,//当前页数
+            layout: "total, sizes, prev, pager, next, jumper",//	组件布局，子组件名用逗号分隔
+            pageSizes: [10, 20, 40],//每页显示个数选择器的选项设置
           },//是否开启分页
           index:false,//显示索引序号
-          indexName:language.index,
-          Checkbox:false,
-          selectionChangeFn:"",
+          indexName:language.index,//索引序号标题
+          Checkbox:false,//是否显示复选框
+          selectionChangeFn:"",//Select框变化触发方法
           class:"",//添加自定义class
           buttons:[{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"},{name:language.import,click:"",icon:"el-icon-upload"},{name:language.export,click:"",icon:"el-icon-download"}],
-          //operate:[{name:language.delect,click:"delData",type:'danger',field:"del"},{name:language.edit,click:"editData",type:'default',field:"edit"},{name:"查看",click:"viewData",type:'default',field:"view"}],
-          title: [
+          title: [//表格信息
             {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:true},
             {name: "姓名", field: "name",width:"",show:true,fixed:false,sortable:true},
-            {name: "性别", field: "sex",width:"",show:false,fixed:false,sortable:true},
+            {name: "性别", field: "sex",width:"",show:true,fixed:false,sortable:true,formatter:"sexFormatter"},
             {name: "日期", field: "date",width:"150",show:true,fixed:false,sortable:true},
             {name: "城市", field: "city",width:"",show:true,fixed:false,sortable:true},
             {name: "备注", field: "comment",width:"150",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
           ],
           data: []
         },
-        formSearchData:{
+        formSearchData:{//搜索栏数据
           buttons:{dataLeft:[{name:language.search,click:"search"}],dataRight:[]},//操作按钮
-          title:[
+          title:[//默认显示的搜索内容
             {type:'input',title:language.age,age:"",field:"age",placeholder:language.age},
             {type:'select',title:language.grade,change:"gradeChange",placeholder:language.grade,datafield:{key:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],grade:"",field:"grade"},
-            //{type: 'daterange',title: "活动时间范围",startPlaceholder: "开始日期",endPlaceholder: "结束日期",rangeseparator:"至",value: "",field: "value6",placeholder: "请输入活动时间范围",labelWidth:"80px"}
           ],
-          moreTitle:[
+          moreTitle:[//点击更多显示的搜索内容
             {type:'input',title:language.name,name:"",field:"name",placeholder:language.name},
             {type:'input',title:language.age,age:"",field:"age",placeholder:language.age},
             {type:'input',title:language.grade,grade:"",field:"grade",placeholder:language.grade},
@@ -400,7 +398,7 @@
             {type:'input',title:"test7",test7:"",field:"test7",placeholder:language.age},
             {type:'select',title:"test8",change:"gradeChange",placeholder:language.grade,datafield:{key:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],test8:"",field:"test8"},
           ],
-          data:{
+          data:{//绑定搜索栏数据
             age:"",
             grade:"",
             name:"",
@@ -410,21 +408,16 @@
             test8:""
           }
         },
-        //下拉列表开始
-        data:{
-          value:"",
-        },
-        //下拉列表结束
-        formData:{
+        formData:{//点击弹出表单数据
           name:"form",
-          data:{//弹窗表单数据唯一标识
+          data:{//绑定表单内容
             id:"",
             name:"",
             date:"",
             city:"",
             comment:""
           },
-          rules: { //弹窗表单验证规则
+          rules: { //表单验证规则
             name: [
               { required: true, message: '请输入姓名', trigger: 'blur' },
               { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
@@ -443,9 +436,8 @@
       };
     },
     methods: {
-      viewData(row){
-        this.formView.data=row;
-        this.dialogView.show=true;
+      sexFormatter(row, column){//性别文字和数字转换函数
+        return row.gender == '1' ? '男' : '女';
       },
       //合并单元格
       SpanMethod({ row, column, rowIndex, columnIndex }){
@@ -453,7 +445,7 @@
           return this.$parent[this.tableData.arraySpanMethodFn]({ row, column, rowIndex, columnIndex });
         }
       },
-      sHeight() {
+      sHeight() {//根据实际情况设置表格高度
         if(this.tableData.hideToolbar){
           return 5
         }else {
@@ -472,7 +464,7 @@
           }
         }
       },
-      saveTable(){
+      saveTable(){//表格列显示内容和顺序回调函数
         this.tableDialogVisible=false;
         console.log(this.tableFields);
         for(let showFalse of this.tableData.title){
@@ -486,7 +478,7 @@
           }
         }
       },
-      moreSearch() {//点击更多回调函数
+      moreSearch() {//点击更多条件回调函数
         if (!this.more) {
           this.more = true;
           this.moreName = language.lessConditions;
@@ -495,10 +487,8 @@
           this.moreName = language.moreConditions;
         }
       },
-      searDialogShow(){
+      searDialogShow(){//点击搜索表单右侧按钮弹出
         this.searDialogVisible=true;
-      },
-      dateChange(value){
       },
       //表格数据接口开始
       getTableData() {
@@ -534,11 +524,7 @@
           this[this.tableData.pagination.CurrentChangeFn](val);
         }
       },
-
-      // gradeChange(){//下拉列表改变回调函数
-      //   alert("gradeChange");
-      // },
-      change(){
+      change(){//下拉列表框内容改变回调函数
         alert("gradeChange")
       },
       selectionChange(data){
@@ -579,7 +565,7 @@
         });
 
       },
-      save(formName){
+      save(formName){//弹出框点击保存回调
         this.$refs[this.formData.name].validate((valid) => {
           if (valid) {
             let param = this.formData.data;
@@ -597,29 +583,22 @@
           }
         });
       },
-
-
     },
     mounted: function () {
+      //搜索内容默认选中
       this.fields=[];
       for(let data of this.formSearchData.title){
         this.fields.push(data.field);
       }
-
+      //获取表格数据
       this.getTableData();
-
+      //表格列内容默认选中
       this.tableFields=[];
       for(let data of this.tableData.title){
         if(data.show==true){
           this.tableFields.push(data.field);
         }
       }
-
-
-
-
-
-
     },
     computed: {
       // tableData: {
@@ -642,12 +621,6 @@
     width: 180px;
     margin-bottom: 5px;}
   .searchForm--item{margin-bottom: -2px}
-
-
-
-
-
-
   #outer{
     border:solid 1px #dce0e1;
     border-radius:4px;

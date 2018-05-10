@@ -4,7 +4,7 @@
       <slot></slot>
       <el-button
         type="text"
-        icon="el-icon-rank" @click="openFull">全屏</el-button><!--点击全屏按钮-->
+        icon="el-icon-rank" @click="openFull" style="position:absolute;top:0;right:26px;top:22px">全屏</el-button><!--点击全屏按钮-->
     </el-card>
     <el-dialog title="全屏" :visible.sync="dialogFullVisible" :fullscreen="true" style="height: 100%" v-if="dialog" :before-close="closeDia">
       <slot></slot>
