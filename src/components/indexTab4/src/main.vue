@@ -163,6 +163,7 @@
     }
     .sys_route_out> div{
       overflow-y: auto;
+      background: rgba(239, 238, 238, 0.49);
     }
 
   }

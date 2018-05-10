@@ -19,10 +19,14 @@
       return {
         menu:[
           {
+            path: "/home/myIndex",
+            title: "我的门户",
+            icon:"el-icon-news",
+          },
+          {
             path: "/home/autoForm",
             title: "自动化组件",
             icon:"el-icon-news",
-
           },
           {
             title: "table列表",
