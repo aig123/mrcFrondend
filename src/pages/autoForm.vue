@@ -58,13 +58,13 @@
         </el-form-item>
         <div v-if="formData.type=='radio'||formData.type=='select'">
           <el-form-item label="label">
-            <el-input v-model="formData.datafield.key" placeholder="字段名称"></el-input>
+            <el-input v-model="formData.dataField.key" placeholder="字段名称"></el-input>
           </el-form-item>
           <el-form-item label="value">
-            <el-input v-model="formData.datafield.value" placeholder="字段名称field"></el-input>
+            <el-input v-model="formData.dataField.value" placeholder="字段名称field"></el-input>
           </el-form-item>
           <el-form-item label="data数据源">
-            <el-input  type="textarea" :rows="2" v-model="formData.datafield.data" placeholder="json格式"></el-input>
+            <el-input  type="textarea" :rows="2" v-model="formData.dataField.data" placeholder="json格式"></el-input>
           </el-form-item>
         </div>
         <el-form-item label="表单字段名称">
@@ -111,7 +111,7 @@
           title:"",
           placeholder:"",
           rule:{state:false,required: true,trigger: 'change'},
-          datafield:{},
+          dataField:{},
           data:[]
         },
         rules:[],
@@ -190,7 +190,7 @@
           title: "",
           placeholder: "",
           rule: {state: false, required: true, trigger: 'change'},
-          keydatafield: {},
+          dataField: {},
           data: []
         };
       },
