@@ -20,43 +20,42 @@
       return {
         tableData:{
           description:"用户列表",//表单左上角显示的文字
-          FullScreen:true,
-          dragSort:true,
+          FullScreen:true,//是否显示全屏
+          dragSort:true,//是否显示拖拽列
           pagination: {
-            switch: true,
+            switch: true,//是否显示分页
             type: "default",
-            CurrentChangeFn: "getTableData",
-            pageSize: 15,
-            pageIndex: 1,
-            layout: "total, sizes, prev, pager, next, jumper",
-            pageSizes: [10, 20, 40],
+            CurrentChangeFn: "getTableData",//当前页改变触发函数
+            pageSize: 15,//每页显示条目个数
+            pageIndex: 1,//当前页数
+            layout: "total, sizes, prev, pager, next, jumper",//	组件布局，子组件名用逗号分隔
+            pageSizes: [10, 20, 40],//每页显示个数选择器的选项设置
           },//是否开启分页
           index:false,//显示索引序号
-          indexName:language.index,
-          Checkbox:false,
-          selectionChangeFn:"",
+          indexName:language.index,//索引序号标题
+          Checkbox:false,//是否显示复选框
+          selectionChangeFn:"",//Select框变化触发方法
           class:"",//添加自定义class
-          buttons:[{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"},{name:language.import,click:"",icon:"el-icon-upload"},{name:language.export,click:"",icon:"el-icon-download"}],
-          operate:[{name:language.delect,click:"delData",type:'danger',field:"del"},{name:language.edit,click:"editData",type:'default',field:"edit"},{name:"查看",click:"viewData",type:'default',field:"view"}],
-          title: [
+          buttons:[{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"},{name:language.import,click:"",icon:"el-icon-upload"},{name:language.export,click:"",icon:"el-icon-download"}],//表格功能按钮
+          operate:[{name:language.delect,click:"delData",type:'danger',field:"del"},{name:language.edit,click:"editData",type:'default',field:"edit"},{name:"查看",click:"viewData",type:'default',field:"view"}],//表格操作按钮
+          title: [//表格信息
             {name: "编号", field: "sortId",width:"150",show:true,fixed:false,sortable:true},
             {name: "姓名", field: "name",width:"150",show:true,fixed:false,sortable:true},
-            {name: "性别", field: "sex",width:"150",show:true,fixed:false,formatter:"sexFormatter"},
+            {name: "性别", field: "sex",width:"150",show:true,fixed:false,formatter:"sexFormatter"},//转换性别的内容
             {name: "日期", field: "date",width:"150",show:true,fixed:false,sortable:true},
             {name: "城市", field: "city",width:"450",show:true,fixed:false},
             {name: "备注", field: "comment",width:"",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
           ],
-          data: []
+          data: []//表格内部数据
         },
-        formSearchData:{
-          labelWidth:50,
+        formSearchData:{//搜索栏数据
+          labelWidth:50,//搜索栏标签宽度
           buttons:{dataLeft:[{name:language.search,click:"search"}],dataRight:[]},//操作按钮
-          title:[
+          title:[//默认显示的搜索内容
             {type:'input',title:language.age,age:"",field:"age",placeholder:language.age},
             {type:'select',title:language.grade,change:"gradeChange",placeholder:language.grade,datafield:{key:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],grade:"",field:"grade"},
-            //{type: 'daterange',title: "活动时间范围",startPlaceholder: "开始日期",endPlaceholder: "结束日期",rangeseparator:"至",value: "",field: "value6",placeholder: "请输入活动时间范围",labelWidth:"80px"}
     ],
-          moreTitle:[
+          moreTitle:[//点击更多显示的搜索内容
             {type:'input',title:language.name,name:"",field:"name",placeholder:language.name},
             {type:'input',title:language.age,age:"",field:"age",placeholder:language.age},
             {type:'input',title:language.grade,grade:"",field:"grade",placeholder:language.grade},
@@ -65,7 +64,7 @@
             {type:'input',title:"test7",test7:"",field:"test7",placeholder:language.age},
             {type:'select',title:"test8",change:"gradeChange",placeholder:language.grade,datafield:{key:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],test8:"",field:"test8"},
           ],
-          data:{
+          data:{//绑定搜索栏数据
             age:"",
             grade:"",
             name:"",
@@ -75,23 +74,23 @@
             test8:""
           }
         },
-        formData:{
+        formData:{//点击编辑弹出表单数据
           name:"form",
-          title:[
+          title:[//弹出表单内容
             {type:'input',title:"编号",value:"",field: "id",placeholder:"请填写编号"},
             {type:'input',title:"姓名",value:"",field: "name",placeholder:"请输入姓名"},
             {type:'date',title:"日期",value:"",field: "date",placeholder:"请输入日期"},
             {type:'input',title:"城市",value:"",field: "city",placeholder:"请输入城市"},
             {type:'input',title:"备注",value:"",field: "comment",placeholder:"请输入备注"},
           ],
-          data:{
+          data:{//绑定弹出表单内容
             id:"",
             name:"",
             date:"",
             city:"",
             comment:""
           },
-          rules: {       //验证规则
+          rules: {//编辑表单验证规则
             name: [
               { required: true, message: '请输入姓名', trigger: 'blur' },
               { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
@@ -107,7 +106,7 @@
             ]
           }
         },
-        formView:{
+        formView:{//点击查看弹出表单数据
           name:"form",
           title:[
             {type:'span',title:"编号",value:"",field: "id",placeholder:"请填写编号"},
@@ -116,7 +115,7 @@
             {type:'span',title:"城市",value:"",field: "city",placeholder:"请输入城市"},
             {type:'span',title:"备注",value:"",field: "comment",placeholder:"请输入备注"},
           ],
-          data:{
+          data:{//绑定弹出表单内容
             id:"",
             name:"",
             date:"",
@@ -124,7 +123,7 @@
             comment:""
           },
         },
-        dialogData:{
+        dialogData:{//点击编辑弹出层数据
           show:false,//手否显示
           title:language.add,//名称
           width:"40%",//宽度设置
@@ -134,7 +133,7 @@
           confirmButtonText:language.save, //确定名称
           cancelButtonText:language.cancel   //取消名称
         },
-        dialogView:{
+        dialogView:{//点击查看弹出层数据
           show:false,//手否显示
           title:language.add,//名称
           width:"40%",//宽度设置
@@ -143,7 +142,6 @@
           saveFn:"save1",//确定触发的方法
           confirmButtonText:"确定", //确定名称
           cancelButtonText:language.cancel,   //取消名称
-          showConfirmButton:false
         },
       };
     },
@@ -161,38 +159,36 @@
           this.tableData.pagination.total = res.data.data.totalPages;
         })
       },
-      sexFormatter(row, column){
+      sexFormatter(row, column){//性别文字和数字转换函数
         return row.gender == '1' ? '男' : '女';
       },
-      search(){
-        this.formData.data[0].value="搜索改变了这里的值";
+      search(){//点击搜索执行函数
+        this.formData.data.value="搜索改变了这里的值";
       },
-      gradeChange(){
+      gradeChange(){//下拉框内容改变回调函数
         alert("gradeChange");
       },
       selectionChange(data){
         console.log(data);
       },
-      beforeCloseFn(){
-        this.dialogData.show=false
+      beforeCloseFn(){//点击编辑弹窗出现后，点击右上角×回调函数
+        this.dialogData.show=false;
       },
-      beforeCloseFn1(){
+      beforeCloseFn1(){//点击查看弹窗出现后，点击右上角×回调函数
         this.dialogView.show=false
       },
-      addData(){
+      addData(){//点击增加回调函数
         this.dialogData.show=true;
       },
-      editData(row){
+      editData(row){//点击编辑回调函数
         this.formData.data=row;
         this.dialogData.show=true;
       },
-      viewData(row){
-        debugger;
-        //this.formData.data=this.formSpan.data;
+      viewData(row){//点击查看回调函数
         this.formView.data=row;
         this.dialogView.show=true;
       },
-      delData(row){
+      delData(row){//点击删除回调函数
         this.$confirm('此操作将永久删除该条记录, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -214,7 +210,7 @@
         });
 
       },
-      save(){
+      save(){//点击编辑保存回调函数
         this.$refs['mrcForm'].$refs[this.formData.name].validate((valid) => {
           if (valid) {
             let param = this.formData.data;
@@ -232,17 +228,17 @@
           }
         });
       },
-      save1(){
+      save1(){//点击查看确定回调函数
       //this.dialogView.show=false
         this.$refs['mrcForm'].$refs[this.formView.name].validate((valid) => {
           if (valid) {
             let param = this.formView.data;
             Api.addTable(param).then((res) => {
-              this.$notify({
-                title: '成功',
-                message: '保存成功',
-                type: 'success'
-              });
+              // this.$notify({
+              //   title: '成功',
+              //   message: '保存成功',
+              //   type: 'success'
+              // });
               this.dialogView.show=false;
               this.getTableData();
             })
@@ -250,13 +246,9 @@
             return false;
           }
         });
-
-
-
       },
     },//开始
     mounted: function () {
-
       this.getTableData();
     },
   }

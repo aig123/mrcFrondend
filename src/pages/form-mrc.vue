@@ -22,33 +22,6 @@
           value6:"",
           date:"",
         },
-        rules: {
-          name: [
-            { required: true, message: '请输入活动名称', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-          ],
-          region: [
-            { required: true, message: '请选择活动区域', trigger: 'change' }
-          ],
-          date:[
-            { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
-          ],
-          date1: [
-            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
-          ],
-          date2: [
-            { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
-          ],
-          type: [
-            { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
-          ],
-          resource: [
-            { required: true, message: '请选择活动资源', trigger: 'change' }
-          ],
-          desc: [
-            { required: true, message: '请填写活动形式', trigger: 'blur' }
-          ],
-        },
         fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
         formData:{
           name:"form",
@@ -79,7 +52,7 @@
               onExceed: "handleExceed",
               accept:"",
               showTip:false,
-              tipText:"1235"
+              tipText:""
             },
             {
               type: 'select',
@@ -90,13 +63,13 @@
               datafield: {key: "name", value: "id"},
               data: [{id: 1, name: "区域一"}, {id: 2, name: "区域二"}],
               showTip:false,
-              tipText:"1235"
+              tipText:""
             },
-            {type: 'switch', title: "即时配送", value: "", field: "delivery",showTip:false,tipText:"1235"},
+            {type: 'switch', title: "即时配送", value: "", field: "delivery",showTip:false,tipText:""},
             //后添加的开始
-            {type: 'checkbox', title: "活动性质", value: "", field: "type",key: {label: "name", value: "id"},data: [{id: 1, name: "美食/餐厅线上活动"}, {id: 2, name: "地推活动"},{id: 3, name: "线下主题活动"}],showTip:false,tipText:"1235"},
-            {type: 'radio', title: "特殊资源", value: "", field: "resource",placeholder: "请选择活动区域",key: {label: "name", value: "id"},data: [{id: 1, name: "线上品牌商赞助"}, {id: 2, name: "线下场地免费"}],showTip:false,tipText:"1235"},
-            {type: 'textarea', title: "活动形式", value: "", field: "desc",showTip:false,tipText:"1235"},
+            {type: 'checkbox', title: "活动性质", value: "", field: "type",key: {label: "name", value: "id"},data: [{id: 1, name: "美食/餐厅线上活动"}, {id: 2, name: "地推活动"},{id: 3, name: "线下主题活动"}],showTip:false,tipText:""},
+            {type: 'radio', title: "特殊资源", value: "", field: "resource",placeholder: "请选择活动区域",key: {label: "name", value: "id"},data: [{id: 1, name: "线上品牌商赞助"}, {id: 2, name: "线下场地免费"}],showTip:false,tipText:""},
+            {type: 'textarea', title: "活动形式", value: "", field: "desc",showTip:false,tipText:""},
           ],
           data:{
             name: '',

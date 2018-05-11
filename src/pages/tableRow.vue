@@ -10,9 +10,9 @@
     data(){
       return {
         tableData:{
-          arraySpanMethodFn:"arraySpanMethod",
+          arraySpanMethodFn:"arraySpanMethod",//合并行方法
           pagination: {
-            switch: true,
+            switch: true,//是否显示分页
             type: "default",
             CurrentChangeFn: "getTableData",
             pageSize: 30,
@@ -60,7 +60,6 @@
       },
     },//开始
     mounted: function () {
-
       this.getTableData();
     },
   }
