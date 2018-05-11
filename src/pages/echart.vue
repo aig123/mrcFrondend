@@ -1,8 +1,8 @@
 <template>
-  <div style="height:100%;margin-left: 100px;width: 100%">
-    <chart :options="polar" style="width: 1000px"></chart>
+  <div class="content">
+    <chart :options="polar"></chart>
     <br>
-    <chart :options="data" style="width: 1000px"></chart>
+    <chart :options="data"></chart>
   </div>
 </template>
 <script>
@@ -123,8 +123,14 @@
     }
   }
 </script>
-<style>
+<style scoped>
   .echarts {
     height: 300px;
+  }
+  .content{
+    height:100%;margin-left: 100px;width: 100%
+  }
+  .content chart{
+    width: 1000px;
   }
 </style>

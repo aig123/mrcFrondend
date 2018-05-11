@@ -1,9 +1,9 @@
 <template>
-  <div style="position: relative;height: 100%">
-    <el-dropdown  style="position: absolute;top: 13px;right: 20px;z-index: 1000;cursor: pointer" @command="handleCommand">
-                  <span class="el-dropdown-link">
-                      <i class="el-icon-setting"></i>
-                   </span>
+  <div class="content">
+    <el-dropdown @command="handleCommand" class="pull_down">
+         <span class="el-dropdown-link">
+            <i class="el-icon-setting"></i>
+         </span>
       <el-dropdown-menu slot="dropdown" >
         <el-dropdown-item command="a">关闭当前标签页</el-dropdown-item>
         <el-dropdown-item command="b">关闭其他标签页</el-dropdown-item>
@@ -56,12 +56,13 @@
       },
       addTab(targetName,src) {
         let newTabName = ++this.tabIndex + '';
+
         this.editableTabs.push({
           title: targetName,
           name: newTabName,
           src:src
         });
-        this.editableTabsValue = newTabName;
+        this.editableTabsValue = newTabName;//最新添加项默认为选中
       },
       //
       removeTab(targetName) {
@@ -127,3 +128,16 @@
   }
 
 </script>
+<style scoped>
+  .content{
+    position: relative;
+    height: 100%
+  }
+  .pull_down{
+    position: absolute;
+    top: 13px;
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer
+  }
+</style>

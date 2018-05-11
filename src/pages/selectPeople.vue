@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 20px;">
+  <div class="content">
     <div class="block">
       <span class="demonstration">显示值带部门</span>
       <el-cascader
@@ -205,5 +205,8 @@
   .block{
     float: left;
     margin-right: 36px;
+  }
+  .content{
+    padding: 20px;
   }
 </style>

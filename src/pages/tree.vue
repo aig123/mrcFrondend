@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 20px;">
+  <div class="content">
     <el-input
       placeholder="输入关键字进行过滤"
       v-model="filterText">
@@ -141,3 +141,6 @@
     },
   };
 </script>
+<style scoped>
+  .content{padding: 20px;}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <div style="height:500px;margin-left: 400px">
+  <div class="content">
     <el-steps direction="vertical" :active="1">
       <el-step title="今天">  </el-step>
       <el-step title="明天"></el-step>
@@ -7,4 +7,6 @@
     </el-steps>
   </div>
 </template>
-
+<style scoped>
+  .content{height:500px;margin-left: 400px}
+</style>
