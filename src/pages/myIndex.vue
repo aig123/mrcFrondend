@@ -7,45 +7,100 @@
    </div>
     <div style="padding: 5px;width: 100%">
       <div class="area" v-for="(area,index) in areas" :class="editArea" >
+
         <div v-if="area.type==2" class="area">
-          <div class="eidtIcon"  v-if="editMode" style="top: -25px;right: -25px;"  @click="areas.splice(index,1)"><i class="el-icon-remove" ></i></div>
+          <div class="eidtIcon" v-if="editMode" style="top: -25px;right: -25px;" @click="areas.splice(index,1)"><i
+            class="el-icon-remove"></i></div>
           <div class="two" v-for="template in area.templates">
-            <div class="eidtIcon" v-if="editMode&&(template.template!=''&&template.template)"  @click="delTemplate(template)"><i class="el-icon-remove" ></i></div>
-            <div class="emptyT" v-if="editMode&&(!template.template||template.template=='')">
-              <i class="el-icon-plus emptyIcon" @click="openDialogVisibleT(template)"></i>
-              <div class="emptyFont">添加应用{{template.template}}</div>
-            </div>
-            <div class="templateC" v-if="template.template!=''">
-              <component :is='template.template'></component>
-            </div>
-          </div>
-        </div>
-        <div v-if="area.type==3"class="area">
-          <div class="eidtIcon"  v-if="editMode" style="top: -25px;right: -25px;"  @click="areas.splice(index,1)"><i class="el-icon-remove" ></i></div>
-          <div class="three" v-for="template in area.templates">
-            <div class="eidtIcon" v-if="editMode&&(template.template!=''&&template.template)"  @click="delTemplate(template)"><i class="el-icon-remove" ></i></div>
-            <div class="emptyT" v-if="editMode&&(!template.template||template.template=='')">
-              <i class="el-icon-plus emptyIcon" @click="openDialogVisibleT(template)"></i>
-              <div class="emptyFont">添加应用{{template.template}}</div>
-            </div>
-            <div class="templateC" v-if="template.template!=''">
-              <component :is='template.template'></component>
-            </div>
-          </div>
-        </div>
-        <div v-if="area.type==4" class="area">
-          <div class="eidtIcon"  v-if="editMode" style="top: -25px;right: -25px;"  @click="areas.splice(index,1)"><i class="el-icon-remove" ></i></div>
-          <div class="four" v-for="template in area.templates">
-            <div class="eidtIcon" v-if="editMode&&(template.template!=''&&template.template)"  @click="delTemplate(template)"><i class="el-icon-remove" ></i></div>
-            <div class="emptyT" v-if="editMode&&(!template.template||template.template=='')">
-              <i class="el-icon-plus emptyIcon" @click="openDialogVisibleT(template)"></i>
-              <div class="emptyFont">添加应用{{template.template}}</div>
-            </div>
-            <div class="templateC" v-if="template.template!=''">
-              <component :is='template.template'></component>
+            <drop @drop="handleDrop(template, ...arguments)" v-if="editMode">
+              <drag
+                :transfer-data="template">
+                <div class="eidtIcon" v-if="editMode&&(template.template!=''&&template.template)"
+                     @click="delTemplate(template)"><i class="el-icon-remove"></i></div>
+                <div class="emptyT" v-if="editMode&&(!template.template||template.template=='')">
+                  <i class="el-icon-plus emptyIcon" @click="openDialogVisibleT(template)"></i>
+                  <div class="emptyFont">添加应用{{template.template}}</div>
+                </div>
+                <div class="templateC" v-if="template.template!=''">
+                  <component :is='template.template'></component>
+                </div>
+              </drag>
+            </drop>
+            <div v-else>
+              <div class="eidtIcon" v-if="editMode&&(template.template!=''&&template.template)"
+                   @click="delTemplate(template)"><i class="el-icon-remove"></i></div>
+              <div class="emptyT" v-if="editMode&&(!template.template||template.template=='')">
+                <i class="el-icon-plus emptyIcon" @click="openDialogVisibleT(template)"></i>
+                <div class="emptyFont">添加应用{{template.template}}</div>
+              </div>
+              <div class="templateC" v-if="template.template!=''">
+                <component :is='template.template'></component>
+              </div>
             </div>
           </div>
         </div>
+            <div v-if="area.type==3"class="area">
+              <div class="eidtIcon"  v-if="editMode" style="top: -25px;right: -25px;"  @click="areas.splice(index,1)"><i class="el-icon-remove" ></i></div>
+              <div class="three" v-for="template in area.templates">
+                <drop @drop="handleDrop(template, ...arguments)" v-if="editMode">
+                  <drag
+                    :transfer-data="template">
+                    <div class="eidtIcon" v-if="editMode&&(template.template!=''&&template.template)"
+                         @click="delTemplate(template)"><i class="el-icon-remove"></i></div>
+                    <div class="emptyT" v-if="editMode&&(!template.template||template.template=='')">
+                      <i class="el-icon-plus emptyIcon" @click="openDialogVisibleT(template)"></i>
+                      <div class="emptyFont">添加应用{{template.template}}</div>
+                    </div>
+                    <div class="templateC" v-if="template.template!=''">
+                      <component :is='template.template'></component>
+                    </div>
+                  </drag>
+                </drop>
+                <div v-else>
+                  <div class="eidtIcon" v-if="editMode&&(template.template!=''&&template.template)"
+                       @click="delTemplate(template)"><i class="el-icon-remove"></i></div>
+                  <div class="emptyT" v-if="editMode&&(!template.template||template.template=='')">
+                    <i class="el-icon-plus emptyIcon" @click="openDialogVisibleT(template)"></i>
+                    <div class="emptyFont">添加应用{{template.template}}</div>
+                  </div>
+                  <div class="templateC" v-if="template.template!=''">
+                    <component :is='template.template'></component>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-if="area.type==4" class="area">
+              <div class="eidtIcon"  v-if="editMode" style="top: -25px;right: -25px;"  @click="areas.splice(index,1)"><i class="el-icon-remove" ></i></div>
+              <div class="four" v-for="template in area.templates">
+                <drop @drop="handleDrop(template, ...arguments)" v-if="editMode">
+                  <drag
+                    :transfer-data="template">
+                    <div class="eidtIcon" v-if="editMode&&(template.template!=''&&template.template)"
+                         @click="delTemplate(template)"><i class="el-icon-remove"></i></div>
+                    <div class="emptyT" v-if="editMode&&(!template.template||template.template=='')">
+                      <i class="el-icon-plus emptyIcon" @click="openDialogVisibleT(template)"></i>
+                      <div class="emptyFont">添加应用{{template.template}}</div>
+                    </div>
+                    <div class="templateC" v-if="template.template!=''">
+                      <component :is='template.template'></component>
+                    </div>
+                  </drag>
+                </drop>
+                <div v-else>
+                  <div class="eidtIcon" v-if="editMode&&(template.template!=''&&template.template)"
+                       @click="delTemplate(template)"><i class="el-icon-remove"></i></div>
+                  <div class="emptyT" v-if="editMode&&(!template.template||template.template=='')">
+                    <i class="el-icon-plus emptyIcon" @click="openDialogVisibleT(template)"></i>
+                    <div class="emptyFont">添加应用{{template.template}}</div>
+                  </div>
+                  <div class="templateC" v-if="template.template!=''">
+                    <component :is='template.template'></component>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
       </div>
       <div class="addT" v-show="editMode" @click="dialogVisible=true">添加模板类型</div>
     </div>
@@ -95,12 +150,28 @@
         dialogVisibleT:false,
         type:2,
         template:'template1',
-        areas:[{type:2,templates:[{},{}]}],
+        areas:[{type:2,templates:[{type:2,template:"template1"},{type:2}]}],
         currentTemplate:{},
         editArea:""
       };
     },
     methods: {
+      handleDrop(toList, data) {
+        debugger
+        if(toList.type==data.type){
+          let _toList=Object.assign({}, toList);
+          let _data=Object.assign({}, data);
+          toList.template=_data.template;
+          data.template=_toList.template
+        }else {
+          this.$message({
+            message: '不同模板类型不能拖拽互换位置',
+            type: 'warning'
+          });
+        }
+
+
+      },
       open(){
         this.dialogVisible=true;
       },
@@ -114,11 +185,11 @@
       },
       addTemplateType(){
         if(this.type==2){
-          this.areas.push({type:this.type,templates:[{},{}]})
+          this.areas.push({type:this.type,templates:[{type:2},{type:2}]})
         }else if(this.type==3){
-          this.areas.push({type:this.type,templates:[{},{},{}]})
+          this.areas.push({type:this.type,templates:[{type:3},{type:3},{type:3}]})
         }else if(this.type==4){
-          this.areas.push({type:this.type,templates:[{},{},{},{}]})
+          this.areas.push({type:this.type,templates:[{type:4},{type:4},{type:4},{type:4}]})
         }
 
         this.dialogVisible=false;
@@ -227,5 +298,9 @@
   }
   .emptyFont{
     color: white;margin-top: 10px
+  }
+  .templateC{
+    width: 100%;
+    height: 200px;
   }
 </style>
