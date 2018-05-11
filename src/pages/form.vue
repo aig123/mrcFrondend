@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 20px;max-width: 700px">
+  <div class="content">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
       <el-form-item label="活动名称---zu" prop="name">
         <el-input v-model="ruleForm.name"></el-input>
@@ -14,7 +14,7 @@
         <el-date-picker
           v-model="ruleForm.date"
           type="date"
-          style="width: 100%"
+          class="widthFull"
           placeholder="选择日期">
         </el-date-picker>
       </el-form-item>
@@ -24,7 +24,7 @@
           type="daterange"
           range-separator="至"
           start-placeholder="开始日期"
-          end-placeholder="结束日期" style="width: 100%">
+          end-placeholder="结束日期" class="widthFull">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="上传附件" prop="name">
@@ -43,7 +43,7 @@
         </el-upload>
       </el-form-item>
       <el-form-item label="活动区域" prop="region" >
-        <el-select v-model="ruleForm.region" placeholder="请选择活动区域" style="width: 100%">
+        <el-select v-model="ruleForm.region" placeholder="请选择活动区域" class="widthFull">
           <el-option label="区域一" value="shanghai"></el-option>
           <el-option label="区域二" value="beijing"></el-option>
         </el-select>
@@ -153,5 +153,12 @@
     top: 12px;
     right: -24px;
     color: #e6a23c;
+  }
+  .content{
+    padding: 20px;
+    max-width: 700px
+  }
+  .widthFull{
+    width: 100%;
   }
 </style>

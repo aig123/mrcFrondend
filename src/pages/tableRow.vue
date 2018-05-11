@@ -50,10 +50,10 @@
         })
       },
       arraySpanMethod({ row, column, rowIndex, columnIndex }) {
+        if (columnIndex === 0) {
         if (rowIndex % 2 === 0) {
-          if (columnIndex === 0) {
             return [2,1];
-          } else if (columnIndex === 1) {
+          } else if (columnIndex === 0) {
             return [0, 0];
           }
         }

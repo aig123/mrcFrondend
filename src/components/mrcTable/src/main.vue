@@ -45,9 +45,6 @@
               </drop>
             </div>
           </drag>
-
-
-
         </template>
       </el-table-column>
       <el-table-column
@@ -237,7 +234,6 @@
         fullScreenName:language.fullScreen,
         searDialogVisible:false,//默认表格排序隐藏
         fields:[],//为checkbox绑定数据
-        fliter:[{text:404,value:404},{text:"96",value:"96"},{text:"184",value:"184"}]
 
       };
     },
