@@ -6,6 +6,7 @@ import App from './App'
 import VueRouter from 'vue-router'
 import elementUi from 'element-ui'
 import mrcTable from './components/mrcTable';
+import mrcTableDrag from './components/mrcTableDrag';
 import mrcForm from './components/mrcForm';
 import mrcSearchForm from './components/mrcSearchForm';
 import mrcDialog from './components/mrcDialog';
@@ -14,10 +15,12 @@ import mrcIframeTab from './components/mrcIframeTab';
 import { VueEditor, Quill } from 'vue2-editor';
 import VueDND from 'awe-dnd'   //拖拽
 import { Drag, Drop } from 'vue-drag-drop';
+import Vddl from 'vddl';
 // import fullCalendar from 'vue-fullcalendar'  //日历
 import FullCalendar from 'vue-full-calendar'
 import 'fullcalendar/dist/fullcalendar.css'
 Vue.use(FullCalendar)
+Vue.use(Vddl);
 import ECharts from 'vue-echarts'
 Vue.component('chart', ECharts)
 //语言切换
@@ -36,6 +39,7 @@ Vue.component('drag', Drag);
 Vue.component('drop', Drop);
 
 Vue.component('mrc-table', mrcTable)
+Vue.component('mrc-table-drag', mrcTableDrag)
 Vue.component('mrc-form', mrcForm)
 Vue.component('mrc-search-form', mrcSearchForm)
 Vue.component('mrc-dialog', mrcDialog)

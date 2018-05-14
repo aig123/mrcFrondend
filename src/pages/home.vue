@@ -39,6 +39,11 @@
                 icon:"el-icon-edit-outline",
               },
               {
+                path: '/home/tableDrag',
+                title: "列表拖拽",
+                icon:"el-icon-edit-outline",
+              },
+              {
                 path: '/home/table',
                 title: "普通列表",
                 icon:"el-icon-edit-outline",

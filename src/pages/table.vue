@@ -54,6 +54,7 @@
         <!--小按钮结束-->
       </div>
       <el-table
+        v-dragging="{ item: tr, list:table, group: 'tr'}"
         :data="tableData.data"
         :span-method="SpanMethod"
         :empty-text="tableData.emptyText"

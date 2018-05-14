@@ -4,6 +4,7 @@
      <div style="float: left;margin-left: 20px;font-size: 17px;color: #82848a;">我的首页</div>
      <div  style="float: right;margin-right: 20px;cursor: pointer" v-show="!editMode" @click="customClick"><i class="el-icon-setting"></i> 自定义</div>
      <div  style="float: right;margin-right: 20px" v-show="editMode"> <el-button @click="saveClick"  type="primary" size="small">保存</el-button></div>
+     <div  style="float: right;margin-right: 20px" v-show="editMode"> <el-button @click="dialogVisible=true"  type="primary" size="small">添加模板类型</el-button></div>
    </div>
     <div style="padding: 5px;width: 100%">
       <div class="area" v-for="(area,index) in areas" :class="editArea" >
@@ -99,10 +100,8 @@
                 </div>
               </div>
             </div>
-
-
       </div>
-      <div class="addT" v-show="editMode" @click="dialogVisible=true">添加模板类型</div>
+
     </div>
     <el-dialog
       title="请选择模版类型"
@@ -150,7 +149,7 @@
         dialogVisibleT:false,
         type:2,
         template:'template1',
-        areas:[{type:2,templates:[{type:2,template:"template1"},{type:2}]}],
+        areas:[{type:2,templates:[{type:2,template:"template1"},{type:2,template:""}]}],
         currentTemplate:{},
         editArea:""
       };
@@ -211,13 +210,13 @@
     },
     components:{
       "template1": {
-        template: '<div style="background: #0d99e9;color: white;border-radius:10px ">模板1----</div>',
+        template: '<div style="background: #0d99e9;color: white;border-radius:10px;height: 200px ">模板1----</div>',
       },
       "template2": {
-        template: '<div style="background: #e91b24;color: white;border-radius:10px">模板2----</div>',
+        template: '<div style="background: #e91b24;color: white;border-radius:10px;height: 200px">模板2----</div>',
       },
       "template3": {
-        template: '<div style="background: #06e915;color: white;border-radius:10px">模板3----</div>',
+        template: '<div style="background: #06e915;color: white;border-radius:10px;height: 200px">模板3----</div>',
       }
     },
   }
