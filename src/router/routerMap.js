@@ -10,6 +10,8 @@ const tableCol = r => require.ensure([], () => r(require('@/pages/tableCol')), '
 const tableRow = r => require.ensure([], () => r(require('@/pages/tableRow')), 'tableRow');
 const tableColfixed = r => require.ensure([], () => r(require('@/pages/tableColfixed')), 'tableColfixed');
 const tableFilter = r => require.ensure([], () => r(require('@/pages/tableFilter')), 'tableFilter');
+const tableCheckbox = r => require.ensure([], () => r(require('@/pages/tableCheckbox')), 'tableCheckbox');
+const tableIndex = r => require.ensure([], () => r(require('@/pages/tableIndex')), 'tableIndex');
 const form = r => require.ensure([], () => r(require('@/pages/form.vue')), 'form');
 const formMrc = r => require.ensure([], () => r(require('@/pages/form-mrc')), 'formMrc');
 const formInline = r => require.ensure([], () => r(require('@/pages/formInline')), 'formInline');
@@ -110,6 +112,19 @@ const routes = [
         component: tableFilter,
         meta: [],
       },
+      {
+        path: 'tableCheckbox',
+        name: "tableCheckbox",
+        component: tableCheckbox,
+        meta: [],
+      },
+      {
+        path: 'tableIndex',
+        name: "tableIndex",
+        component: tableIndex,
+        meta: [],
+      },
+
       {
         path: 'table',
         name: "table",
