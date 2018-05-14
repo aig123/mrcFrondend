@@ -1,18 +1,18 @@
 <template>
   <section>
-    <div style="padding: 20px;max-width: 700px" v-if="!formData.inline">
+    <div v-if="!formData.inline" class="content">
       <el-form :model="formData.data" :label-width="labelWidth" :rules="formData.rules" :ref="formData.name" :inline="formData.inline">
-        <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" style="width: 100%;" :prop="config.field">
+        <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" :prop="config.field" class="widthFull">
           <span v-if="config.type=='span'">{{formData.data[config.field]}}</span>
           <span v-if="config.type=='input'">
-        <el-input v-model="formData.data[config.field]"  :placeholder="config.placeholder"  style="width: 100%">
+        <el-input v-model="formData.data[config.field]"  :placeholder="config.placeholder" class="widthFull">
         </el-input>
         <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
           <i class="el-icon-warning"></i>
         </el-tooltip>
         </span>
           <span v-if="config.type=='select'">
-        <el-select v-model="formData.data[config.field]" :placeholder="config.placeholder" style="width: 100%">
+        <el-select v-model="formData.data[config.field]" :placeholder="config.placeholder" class="widthFull">
           <el-option :label="item.name" :value="item.id" :key="item.id" v-for="item in config.data"></el-option>
         </el-select>
           <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
@@ -20,13 +20,13 @@
         </el-tooltip>
         </span>
           <span v-if="config.type=='date'">
-        <el-date-picker v-model="formData.data[config.field]" @change="dateChange" :placeholder="config.placeholder" style="width: 100%"></el-date-picker>
+        <el-date-picker v-model="formData.data[config.field]" @change="dateChange" :placeholder="config.placeholder" class="widthFull"></el-date-picker>
           <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
           <i class="el-icon-warning"></i>
         </el-tooltip>
         </span>
           <span v-if="config.type=='daterange'">
-        <el-date-picker v-model="formData.data[config.field]" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%"></el-date-picker>
+        <el-date-picker v-model="formData.data[config.field]" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" class="widthFull"></el-date-picker>
           <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
           <i class="el-icon-warning"></i>
         </el-tooltip>
@@ -79,19 +79,19 @@
         </el-form-item>
       </el-form>
     </div>
-    <div style="padding: 20px;max-width: 1024px" v-if="formData.inline">
+    <div v-if="formData.inline" class="content-inline">
       <el-form :model="formData.data" :label-width="labelWidth" :rules="formData.rules" :ref="formData.name" :inline="formData.inline">
         <el-form-item :label="config.title" :key="config.field" v-for="config in formData.title" :prop="config.field">
           <span v-if="config.type=='span'">{{formData.data[config.field]}}</span>
           <span v-if="config.type=='input'">
-        <el-input v-model="formData.data[config.field]"  :placeholder="config.placeholder" style="width: 216px">
+        <el-input v-model="formData.data[config.field]"  :placeholder="config.placeholder" class="widthInline">
         </el-input>
         <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
           <i class="el-icon-warning"></i>
         </el-tooltip>
         </span>
           <span v-if="config.type=='select'">
-        <el-select v-model="formData.data[config.field]" :placeholder="config.placeholder" style="width: 216px">
+        <el-select v-model="formData.data[config.field]" :placeholder="config.placeholder" class="widthInline">
           <el-option :label="item.name" :value="item.id" :key="item.id" v-for="item in config.data"></el-option>
         </el-select>
           <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
@@ -99,13 +99,13 @@
         </el-tooltip>
         </span>
           <span v-if="config.type=='date'">
-        <el-date-picker v-model="formData.data[config.field]" @change="dateChange" :placeholder="config.placeholder" style="width:216px"></el-date-picker>
+        <el-date-picker v-model="formData.data[config.field]" @change="dateChange" :placeholder="config.placeholder" class="widthInline"></el-date-picker>
           <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
           <i class="el-icon-warning"></i>
         </el-tooltip>
         </span>
           <span v-if="config.type=='daterange'">
-        <el-date-picker v-model="formData.data[config.field]" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 216px"></el-date-picker>
+        <el-date-picker v-model="formData.data[config.field]" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" class="widthInline"></el-date-picker>
           <el-tooltip effect="dark" :content=" config.tipText" placement="right" v-if="config.showTip"><!--增加感叹号，后面还对应样式-->
           <i class="el-icon-warning"></i>
         </el-tooltip>
@@ -153,7 +153,7 @@
           <el-input  v-model="formData.data[config.field]" v-if="config.type=='textarea'" :type="config.type"></el-input>
         </el-form-item>
         <slot></slot>
-        <el-form-item :model="formData.buttons" :ref="formData.name" style="width:calc(100% - 100px);margin-left: 100px;">
+        <el-form-item :model="formData.buttons" :ref="formData.name" class="btn-group">
           <el-button :type="config.type" @click="uploadFn(config.click)"   v-for="(config,index) in formData.buttons" :key="index">{{config.name}}</el-button>
         </el-form-item>
       </el-form>
@@ -175,7 +175,6 @@
         this.$parent[data]();
       },
       dateChange(value){
-
       }
     },
     mounted: function () {
@@ -205,4 +204,13 @@
     right: -24px;
     color: #e6a23c;
   }
+  .widthFull{
+    width: 100%;
+  }
+  .widthInline{/*行内表单元素宽度*/
+    width:216px;
+  }
+  .content{padding: 20px;max-width: 700px}
+  .content-inline{padding: 20px;max-width: 1024px}
+  .btn-group{width:calc(100% - 100px);margin-left: 100px;}
 </style>

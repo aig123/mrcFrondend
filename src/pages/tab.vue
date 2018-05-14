@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 20px;max-width: 700px">
+  <div class="content">
     <el-tabs type="border-card">
       <el-tab-pane label="用户管理">用户管理</el-tab-pane>
       <el-tab-pane label="配置管理">配置管理</el-tab-pane>
@@ -8,3 +8,6 @@
     </el-tabs>
   </div>
 </template>
+<style scoped>
+  .content{padding: 20px;max-width: 700px}
+</style>

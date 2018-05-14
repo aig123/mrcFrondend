@@ -1,8 +1,8 @@
 <template>
-  <div style="padding: 10px;float: left" class="fullscreen">
+  <div class="fullscreen">
     <mrc-full-screen class="content">
       <div v-for="o in 4" :key="o" class="text item">
-        {{'用户管理 ' + o }}
+        {{'用户管理' + o }}
       </div>
     </mrc-full-screen>
     <mrc-full-screen class="content">
@@ -25,5 +25,6 @@
     padding: 18px 0;
   }
   .fullscreen .content{width: 480px;}
+  .fullscreen{padding: 10px;float: left}
   .content{position:relative}
 </style>

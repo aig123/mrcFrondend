@@ -1,6 +1,6 @@
 <template>
-  <div style="padding: 20px;">
-    <div style="margin-bottom: 20px;">
+  <div class="content">
+    <div class="tabContent">
 
       <el-button
         size="small"
@@ -78,3 +78,7 @@
     }
   }
 </script>
+<style scoped>
+  .content{padding: 20px;}
+  .tabContent{margin-bottom: 20px}
+</style>
