@@ -68,6 +68,16 @@
                 title: "筛选",
                 icon:"el-icon-edit-outline",
               },
+              {
+                path: '/home/tableCheckbox',
+                title: "多选",
+                icon:"el-icon-edit-outline",
+              },
+              {
+                path: '/home/tableIndex',
+                title: "显示行号",
+                icon:"el-icon-edit-outline",
+              },
             ]
           },
           {
