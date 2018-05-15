@@ -5,6 +5,8 @@
     :width="dialogData.width"
     :close-on-click-modal="dialogData.closeOnClickModal"
     :before-close="beforeClose"
+    :fullscreen="dialogData.fullscreen"
+    class="diaFull"
     >
     <slot></slot>
     <!--<slot name="CPU">这儿插你的CPU</slot>-->

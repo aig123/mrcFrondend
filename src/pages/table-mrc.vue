@@ -135,8 +135,9 @@
         },
         dialogView:{//点击查看弹出层数据
           show:false,//手否显示
+          fullscreen:true,
           title:language.add,//名称
-          width:"40%",//宽度设置
+          width:"100%",//宽度设置
           closeOnClickModal:true,//是否可以通过点击 modal 关闭 Dialog
           beforeCloseFn:"beforeCloseFn1",//关闭前的回调，会暂停 Dialog 的关闭
           saveFn:"save1",//确定触发的方法
@@ -160,7 +161,8 @@
         })
       },
       sexFormatter(row, column){//性别文字和数字转换函数
-        return row.gender == '1' ? '男' : '女';
+        //return row.gender == '1' ? '男' : '女';
+        return row.sex == '1' ? '男' : '女';
       },
       search(){//点击搜索执行函数
         this.formData.data.value="搜索改变了这里的值";
