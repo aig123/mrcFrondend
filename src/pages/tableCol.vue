@@ -21,8 +21,8 @@
             pageSizes: [10, 20, 40],
           },
           title: [
-            {name: "编号", field: "id",width:"",show:true,fixed:false,sortable:true},
-            {name: "姓名", field: "name",width:"",show:true,fixed:false,sortable:true},
+            {name: "1年级人数", field: "id",width:"",show:true,fixed:false,sortable:true},
+            {name: "2姓名人数", field: "id",width:"",show:true,fixed:false,sortable:true},
             {name: "性别", field: "sex",width:"",show:false,fixed:false,sortable:true},
             {name: "日期", field: "date",width:"150",show:true,fixed:false,sortable:true},
             {name: "城市", field: "city",width:"",show:true,fixed:false,sortable:true},

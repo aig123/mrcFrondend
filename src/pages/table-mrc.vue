@@ -21,7 +21,6 @@
         tableData:{
           description:"用户列表",//表单左上角显示的文字
           FullScreen:true,//是否显示全屏
-          dragSort:true,//是否显示拖拽列
           pagination: {
             switch: true,//是否显示分页
             type: "default",

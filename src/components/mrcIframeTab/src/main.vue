@@ -103,7 +103,7 @@
             }
           }
         } else if (command == 'c') {
-          let tabs = this.editableTabs;
+          let tabs = Object.assign({}, this.editableTabs);
           this.editableTabs=[];
           for (let index in tabs) {
             if (index>=curentIndex) {

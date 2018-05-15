@@ -27,7 +27,8 @@ const echart = r => require.ensure([], () => r(require('@/pages/echart')), 'echa
 const drag = r => require.ensure([], () => r(require('@/pages/drag')), 'drag');
 const ceshi = r => require.ensure([], () => r(require('@/pages/ceshi')), 'ceshi');
 const autoForm = r => require.ensure([], () => r(require('@/pages/autoForm')), 'autoForm');
-const myIndex = r => require.ensure([], () => r(require('@/pages/myIndex')), 'myIndex');
+const myIndex = r => require.ensure([], () => r(require('@/pages/ceshi')), 'myIndex');
+const tableDrag = r => require.ensure([], () => r(require('@/pages/table-drag')), 'tableDrag');
 const routes = [
   // {
   //   path: '/',
@@ -39,6 +40,12 @@ const routes = [
     component: home,
     name: '',
     children: [
+      {
+        path: 'tableDrag',
+        name: "tableDrag",
+        component: tableDrag,
+        meta: [],
+      },
       {
         path: 'myIndex',
         name: "myIndex",
