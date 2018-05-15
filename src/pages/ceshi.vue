@@ -21,6 +21,7 @@
 </template>
 <script>
   import * as Api from "../api/api";
+  import util from "../common/util";
   export default {
     data(){
       return {
@@ -68,6 +69,10 @@
       },
     },
     mounted: function () {
+      debugger
+      var  date=util.formatDate.format(new Date(), 'yyyy-MM-dd');
+      console.log(util.formatDate.format(new Date(), 'yyyy-MM-dd'));
+      console.log(util.formatDate.parse(date, 'yyyy-MM-dd'));
       this.getTableData();
     },
   }
