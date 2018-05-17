@@ -111,20 +111,6 @@
       class="tablePaging"
     >
     </el-pagination>
-    <el-dialog
-      title="设置表格"
-      :visible.sync="searDialogVisible"
-      width="30%">
-      <span>
-        <el-checkbox-group v-model="fields" style="margin-top: 10px">
-          <el-checkbox class="mode"  v-dragging="{ item: data, list: tableData.title, group: 'data'}" v-for="(data,index) in tableData.title" :label="data.field" :key="data.field">{{data.name}}</el-checkbox>
-        </el-checkbox-group>
-      </span>
-      <span slot="footer" class="dialog-footer">
-           <el-button @click="searDialogVisible = false">取 消</el-button>
-           <el-button type="primary" @click="save">确 定</el-button>
-      </span>
-    </el-dialog>
   </section>
 </template>
 <style scoped>
@@ -137,7 +123,6 @@
   .mrcTable1{height:calc(100% - 44px) !important;}/*含有分页表格高度*/
   .mrcTable2{height:100% !important;}/*不含分页表格高度*/
   .dialogTable .el-dialog__body,.dialogTable .el-table{height: calc(100% - 43px) !important}/*调整dialog内部分页位置*/
-
   .mode:first-child {/*调整弹窗内部复选框对齐*/
     margin-left: 30px!important;
   }
@@ -154,7 +139,6 @@
       return {
         dialogTableVisible:false,
         searDialogVisible:false,//默认表格排序隐藏
-        fields:[],//为checkbox绑定数据
 
       };
     },
@@ -163,39 +147,8 @@
 //      value:Array,
 //    },
     methods:{
-      handleDrop(toList, data) {
-        let index=0;
-        for (let i in this.tableData.data){
-            if(this.tableData.data[i].sortId==data.sortId){
-              index=i
-            }
-        }
-         let _toList=Object.assign({}, toList);
-         let _data=Object.assign({}, data);
-         this.tableData.data.splice(index,1);
-        let indexTo=this.tableData.data.indexOf(toList);
-         //this.tableData.data.insert(indexTo,_data);
-        this.tableData.data.splice(indexTo,0,_data);
-
-      },
-      handleDropEnd(toList, data){
-        let index=0;
-        for (let i in this.tableData.data){
-          if(this.tableData.data[i].sortId==data.sortId){
-            index=i
-          }
-        }
-
-        let _toList=Object.assign({}, toList);
-        let _data=Object.assign({}, data);
-        this.tableData.data.splice(index,1);
-        let indexTo=this.tableData.data.indexOf(toList);
-        //this.tableData.data.insert(indexTo,_data);
-        this.tableData.data.splice(indexTo+1,0,_data);
-      },
       //Select框变化触发方法
       handleSelectionChange(val) {
-        // this.multipleSelection = val;
         if(this.tableData.selectionChangeFn&&this.tableData.selectionChangeFn!=""){
           this.$parent[this.tableData.selectionChangeFn](val);
         }
@@ -218,30 +171,6 @@
       operateClick(fn,data,){
         this.$parent[fn](data);
       },
-
-      //点击保存按钮触发方法
-      save(){
-        this.searDialogVisible=false;
-        console.log(this.fields);
-        for(let showFalse of this.tableData.title){
-           showFalse.show=false
-         }
-        for(let data of this.tableData.title){
-          for(let field of this.fields){
-            if(field==data.field){
-              data.show=true
-            }
-          }
-        }
-      },
-      SpanMethod({ row, column, rowIndex, columnIndex }){
-        if(this.tableData.arraySpanMethodFn&&this.tableData.arraySpanMethodFn!="") {
-          return this.$parent[this.tableData.arraySpanMethodFn]({ row, column, rowIndex, columnIndex });
-        }
-      },
-      formatter(row, column) {
-        return row.name;
-      },
       filterHandler(value, row, column) {
         const property = column['property'];
         return row[property] === value;
@@ -250,12 +179,6 @@
     },
     mounted: function () {
       this.tableData = this.value;
-      this.fields=[];
-      for(let data of this.tableData.title){
-      if(data.show==true){
-        this.fields.push(data.field);
-      }
-      }
     },
     computed: {
       tableData: {
@@ -265,13 +188,6 @@
         },
         set: function (val) {
           this.$emit('input', val);
-        }
-      },
-      sHeight() {
-        if(this.tableData.hideToolbar){
-          return 5
-        }else {
-          return this.$store.getters.sHeight;
         }
       },
       //调整不同情情况表格高度不同
