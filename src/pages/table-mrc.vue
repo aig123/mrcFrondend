@@ -19,17 +19,17 @@
     data(){
       return {
         tableData:{
-          description:"用户列表",//表单左上角显示的文字
-          FullScreen:true,//是否显示全屏
+          description:"用户列表",
+          FullScreen:true,
           pagination: {
-            switch: true,//是否显示分页
+            switch: true,
             type: "default",
-            CurrentChangeFn: "getTableData",//当前页改变触发函数
+            CurrentChangeFn: "getTableData",
             pageSize: 15,//每页显示条目个数
             pageIndex: 1,//当前页数
-            layout: "total, sizes, prev, pager, next, jumper",//	组件布局，子组件名用逗号分隔
-            pageSizes: [10, 20, 40],//每页显示个数选择器的选项设置
-          },//是否开启分页
+            layout: "total, sizes, prev, pager, next, jumper",
+            pageSizes: [10, 20, 40],
+          },
           index:false,//显示索引序号
           indexName:language.index,//索引序号标题
           Checkbox:false,//是否显示复选框

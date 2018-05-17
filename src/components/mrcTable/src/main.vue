@@ -219,10 +219,12 @@
   .mrcTable2{height: calc(100% - 38px) !important;}/*不含有ToolBar表格高度*/
   .mrcTable3{height: calc(100% - 1px) !important;}/*不含有分页表格高度*/
   .dialogTable .el-dialog__body,.dialogTable .el-table{height: calc(100% - 43px) !important}/*调整dialog内部分页位置*/
+  .diaFull .el-dialog__body{height: calc(100% - 92px);}/*调整dialog高度*/
+</style>
+<style scoped>
   .mode:first-child {/*调整弹窗内部复选框对齐*/
     margin-left: 30px!important;
   }
-  .diaFull .el-dialog__body{height: calc(100% - 92px);}/*调整dialog高度*/
 </style>
 <script>
   import language  from "../../language/language";
