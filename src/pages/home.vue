@@ -83,6 +83,11 @@
                 title: "显示行号",
                 icon:"el-icon-edit-outline",
               },
+              {
+                path: '/home/tableSimple',
+                title: "简易表格",
+                icon:"el-icon-edit-outline",
+              },
             ]
           },
           {

@@ -7,6 +7,7 @@ import VueRouter from 'vue-router'
 import elementUi from 'element-ui'
 import mrcTable from './components/mrcTable';
 import mrcTableDrag from './components/mrcTableDrag';
+import mrcTableSimple from './components/mrcTableSimple';
 import mrcForm from './components/mrcForm';
 import mrcSearchForm from './components/mrcSearchForm';
 import mrcDialog from './components/mrcDialog';
@@ -40,6 +41,7 @@ Vue.component('drop', Drop);
 
 Vue.component('mrc-table', mrcTable)
 Vue.component('mrc-table-drag', mrcTableDrag)
+Vue.component('mrc-table-simple', mrcTableSimple)
 Vue.component('mrc-form', mrcForm)
 Vue.component('mrc-search-form', mrcSearchForm)
 Vue.component('mrc-dialog', mrcDialog)
