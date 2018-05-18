@@ -39,7 +39,7 @@
                    v-for="(button,index) in formData.buttons.dataLeft" :key="index">{{button.name}}
         </el-button>
       </div>
-      <div class="searchForm--item" style="margin-left: 10px">
+      <div class="searchForm--item" style="margin-left: 10px" v-if="moreTitle&&moreTitle.length>0">
         <el-button type="primary" @click="moreSearch()" size="small">{{moreName}}</el-button>
       </div>
       <div class="show-set">
