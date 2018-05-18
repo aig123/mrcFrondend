@@ -12,6 +12,7 @@ const tableColfixed = r => require.ensure([], () => r(require('@/pages/tableColf
 const tableFilter = r => require.ensure([], () => r(require('@/pages/tableFilter')), 'tableFilter');
 const tableCheckbox = r => require.ensure([], () => r(require('@/pages/tableCheckbox')), 'tableCheckbox');
 const tableIndex = r => require.ensure([], () => r(require('@/pages/tableIndex')), 'tableIndex');
+const tableSimple = r => require.ensure([], () => r(require('@/pages/tableSimple')), 'tableSimple');
 const form = r => require.ensure([], () => r(require('@/pages/form.vue')), 'form');
 const formMrc = r => require.ensure([], () => r(require('@/pages/form-mrc')), 'formMrc');
 const formInline = r => require.ensure([], () => r(require('@/pages/formInline')), 'formInline');
@@ -124,7 +125,12 @@ const routes = [
         component: tableIndex,
         meta: [],
       },
-
+      {
+        path: 'tableSimple',
+        name: "tableSimple",
+        component: tableSimple,
+        meta: [],
+      },
       {
         path: 'table',
         name: "table",

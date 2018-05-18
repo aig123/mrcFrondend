@@ -82,7 +82,7 @@ for (let i = 0; i < 15; i++) {
     "id": Mock.Random.integer(0, 50),
     "sortId": Mock.Random.integer(0, 100),
     "name": Mock.Random.cname(),
-    "sex":"男",
+    "sex":Mock.Random.integer(0, 1).toString(),
     "date":Mock.Random.date('yyyy-MM-dd'),
     "comment":"这是一个备注1,这是一个备注1,这是一个备注1" ,
     "city":Mock.Random.city(true),

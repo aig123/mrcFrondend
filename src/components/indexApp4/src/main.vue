@@ -137,7 +137,6 @@
         //   element.removeEventListener("mouseenter", _this.mouseenterArr[index])
         // });
         for(let index of doms){
-          debugger
           doms[index].removeEventListener("mouseenter", _this.mouseenterArr[index])
         }
       },

@@ -57,11 +57,6 @@
     font-size: 20px;
     display: block;
   }
-  .el-dialog__body{
-    height: -webkit-calc(100% - 41px);
-    height: -moz-calc(100% - 41px);
-    height: calc(100% - 41px);
-  }
 </style>
 
 <script>
