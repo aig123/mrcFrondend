@@ -6,12 +6,13 @@
         placeholder="试试搜索：艾光"
         :options="options"
         filterable
+        multiple
       ></el-cascader>
     </div>
     <div class="block">
       <span class="demonstration">显示值不带部门</span>
       <el-cascader
-        placeholder="试试搜索：艾光"
+        placeholder="试试搜索：艾光3"
         :show-all-levels="false"
         :options="options"
         filterable
