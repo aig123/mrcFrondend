@@ -147,6 +147,11 @@
 //      value:Array,
 //    },
     methods:{
+      SpanMethod({ row, column, rowIndex, columnIndex }){
+        if(this.tableData.arraySpanMethodFn&&this.tableData.arraySpanMethodFn!="") {
+          return this.$parent[this.tableData.arraySpanMethodFn]({ row, column, rowIndex, columnIndex });
+        }
+      },
       //Select框变化触发方法
       handleSelectionChange(val) {
         if(this.tableData.selectionChangeFn&&this.tableData.selectionChangeFn!=""){
