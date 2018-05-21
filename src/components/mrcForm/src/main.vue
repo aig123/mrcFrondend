@@ -194,7 +194,6 @@
         return  this.formData.labelWidth?this.formData.labelWidth+'px':'100px'
       },
     },
-
   };
 </script>
 <style scoped>

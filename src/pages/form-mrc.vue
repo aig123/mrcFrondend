@@ -47,7 +47,7 @@
               onPreviewFn: "handlePreview",
               onRemoveFn: "handleRemove",
               beforeRemoveFn: "beforeRemove",
-              multiple: "",
+              multiple:"",
               limit: 3,
               onExceed: "handleExceed",
               accept:"",

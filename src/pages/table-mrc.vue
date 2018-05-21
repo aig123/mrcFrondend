@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <mrc-search-form v-model="formSearchData"></mrc-search-form>
-    <mrc-table v-model="tableData"></mrc-table>
+    <mrc-table v-model="tableData" ref="multipleTable"></mrc-table>
     <mrc-dialog v-model="dialogData">
       <mrc-form v-model="formData" ref="mrcForm">
       </mrc-form>
@@ -10,6 +10,7 @@
       <mrc-form v-model="formView" ref="mrcForm">
       </mrc-form>
     </mrc-dialog>
+    <el-button @click="toggleSelection([tableData[1], tableData[2]])">切换第二、第三行的选中状态</el-button>
   </div>
 </template>
 <script>
@@ -18,7 +19,9 @@
   export default {
     data(){
       return {
+        multipleSelection: [],
         tableData:{
+          dragSort:true,
           description:"用户列表",
           FullScreen:true,
           pagination: {
@@ -32,7 +35,7 @@
           },
           index:false,//显示索引序号
           indexName:language.index,//索引序号标题
-          Checkbox:false,//是否显示复选框
+          Checkbox:true,//是否显示复选框
           selectionChangeFn:"",//Select框变化触发方法
           class:"",//添加自定义class
           buttons:[{name:language.add,click:"addData",icon:"el-icon-circle-plus-outline"},{name:language.import,click:"",icon:"el-icon-upload"},{name:language.export,click:"",icon:"el-icon-download"}],//表格功能按钮
@@ -53,7 +56,7 @@
           title:[//默认显示的搜索内容
             {type:'input',title:language.age,age:"",field:"age",placeholder:language.age},
             {type:'select',title:language.grade,change:"gradeChange",placeholder:language.grade,datafield:{key:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],grade:"",field:"grade"},
-    ],
+          ],
           moreTitle:[//点击更多显示的搜索内容
             {type:'input',title:language.name,name:"",field:"name",placeholder:language.name},
             {type:'input',title:language.age,age:"",field:"age",placeholder:language.age},
@@ -146,6 +149,26 @@
       };
     },
     methods: {//开始
+
+
+
+      toggleSelection(rows) {
+        let _this = this;
+        if (rows) {
+          rows.forEach(row => {
+            _this.$refs.multipleTable.toggleRowSelection(row);
+          });
+        } else {
+         // _this.$refs.multipleTable.clearSelection();
+        }
+      },
+      // handleSelectionChange(val) {
+      //   _this.multipleSelection = val;
+      // },
+
+
+
+
       getTableData() {
         let param = {
           pageIndex: this.tableData.pagination.pageIndex,
@@ -230,7 +253,7 @@
         });
       },
       save1(){//点击查看确定回调函数
-      //this.dialogView.show=false
+        //this.dialogView.show=false
         this.$refs['mrcForm'].$refs[this.formView.name].validate((valid) => {
           if (valid) {
             let param = this.formView.data;

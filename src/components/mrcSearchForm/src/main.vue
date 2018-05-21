@@ -97,6 +97,7 @@
           for(let field of this.fields){
             if(field==data.field){
               this.formData.title.push(data);
+              console.log(data)
             }
           }
         }
