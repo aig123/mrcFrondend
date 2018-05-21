@@ -54,7 +54,6 @@
         <!--小按钮结束-->
       </div>
       <el-table
-        v-dragging="{ item: tr, list:table, group: 'tr'}"
         :data="tableData.data"
         :span-method="SpanMethod"
         :empty-text="tableData.emptyText"
@@ -115,8 +114,6 @@
             </el-table-column>
           </el-table-column>
         </el-table-column>
-
-
         <!--操作栏-->
         <el-table-column
           label="操作"
@@ -443,7 +440,7 @@
       //合并单元格
       SpanMethod({ row, column, rowIndex, columnIndex }){
         if(this.tableData.arraySpanMethodFn&&this.tableData.arraySpanMethodFn!="") {
-          return this.$parent[this.tableData.arraySpanMethodFn]({ row, column, rowIndex, columnIndex });
+            return this.$parent[this.tableData.arraySpanMethodFn]({ row, column, rowIndex, columnIndex });
         }
       },
       sHeight() {//根据实际情况设置表格高度

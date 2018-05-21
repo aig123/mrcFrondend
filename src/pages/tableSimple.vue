@@ -135,7 +135,7 @@
         this.formData.data.value="搜索改变了这里的值";
       },
       selectionChange(data){
-        console.log(data);
+        //console.log(data);
       },
       beforeCloseFn(){
         this.dialogData.show=false;

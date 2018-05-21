@@ -82,12 +82,15 @@
     methods: {
       search(data, name) {
         if (data) {
-          this.$parent[data]();
+          try {
+            this.$parent[data]();
+          }catch(err){
+            this.$emit(data);
+          }
         }
       },
       searDialogShow(){
         this.searDialogVisible=true;
-
       },
       save(){
         this.searDialogVisible=false;
@@ -119,7 +122,11 @@
 
       },
       change(data) {
-        this.$parent[data]();
+        try{
+          this.$parent[data]();
+        }catch(err){
+          this.$emit(data);
+        }
       }
     },
     mounted: function () {

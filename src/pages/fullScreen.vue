@@ -27,4 +27,8 @@
   .fullscreen .content{width: 480px;}
   .fullscreen{padding: 10px;float: left}
   .content{position:relative}
+
+</style>
+<style>
+  .fullscreen .content .el-dialog__body{height: calc(100% - 41px);}
 </style>

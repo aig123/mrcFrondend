@@ -172,7 +172,11 @@
     props: ['columns','value'],
     methods:{
       uploadFn(data){
-        this.$parent[data]();
+        try{
+          this.$parent[data]();
+        }catch(err){
+          this.$emit(data);
+        }
       },
       dateChange(value){
       }

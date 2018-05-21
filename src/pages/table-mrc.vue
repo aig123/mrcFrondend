@@ -10,7 +10,6 @@
       <mrc-form v-model="formView" ref="mrcForm">
       </mrc-form>
     </mrc-dialog>
-    <el-button @click="toggleSelection([tableData[1], tableData[2]])">切换第二、第三行的选中状态</el-button>
   </div>
 </template>
 <script>

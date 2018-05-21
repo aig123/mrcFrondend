@@ -143,38 +143,58 @@
       };
     },
     props: ['value'],
-//    props: {
+//    props: {s
 //      value:Array,
 //    },
     methods:{
       SpanMethod({ row, column, rowIndex, columnIndex }){
         if(this.tableData.arraySpanMethodFn&&this.tableData.arraySpanMethodFn!="") {
-          return this.$parent[this.tableData.arraySpanMethodFn]({ row, column, rowIndex, columnIndex });
+          try {
+            return this.$parent[this.tableData.arraySpanMethodFn]({row, column, rowIndex, columnIndex});
+          }catch(err){
+            this.$emit(this.tableData.arraySpanMethodFn,{row, column, rowIndex, columnIndex});
+          }
         }
       },
       //Select框变化触发方法
       handleSelectionChange(val) {
         if(this.tableData.selectionChangeFn&&this.tableData.selectionChangeFn!=""){
-          this.$parent[this.tableData.selectionChangeFn](val);
+          try{
+            this.$parent[this.tableData.selectionChangeFn](val);
+          }catch(err){
+            this.$emit(this.tableData.selectionChangeFn,val);
+          }
         }
       },
       //当前页变化触发方法
       handleCurrentChange(val) {
         this.tableData.pagination.pageIndex = val;
         if (this.tableData.pagination.CurrentChangeFn && this.tableData.pagination.CurrentChangeFn != "") {
-          this.$parent[this.tableData.pagination.CurrentChangeFn](val);
+          try {
+            this.$parent[this.tableData.pagination.CurrentChangeFn](val);
+          }catch(err){
+            this.$emit(this.tableData.pagination.CurrentChangeFn,val);
+          }
         }
       },
       //当前页显示条数变化 触发方法
       handleSizeChange(val) {
         this.tableData.pagination.pageSize = val;
         if (this.tableData.pagination.CurrentChangeFn && this.tableData.pagination.CurrentChangeFn != "") {
-          this.$parent[this.tableData.pagination.CurrentChangeFn](val);
+          try {
+            this.$parent[this.tableData.pagination.CurrentChangeFn](val);
+          }catch(err){
+            this.$emit(this.tableData.pagination.CurrentChangeFn,val);
+          }
         }
       },
       //操作按钮触发方法
       operateClick(fn,data,){
-        this.$parent[fn](data);
+        try{
+          this.$parent[fn](data);
+        }catch(err){
+          this.$emit(this[fn],data);
+        }
       },
       filterHandler(value, row, column) {
         const property = column['property'];

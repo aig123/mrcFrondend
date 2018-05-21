@@ -19,13 +19,13 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item label="活动时间范围" >
-        <el-date-pickerf
+        <el-date-picker
           v-model="ruleForm.value6"
           type="daterange"
           range-separator="至"
           start-placeholder="开始日期"
           end-placeholder="结束日期" class="widthFull">
-        </el-date-pickerf>
+        </el-date-picker>
       </el-form-item>
       <el-form-item label="上传附件" prop="name">
         <el-upload

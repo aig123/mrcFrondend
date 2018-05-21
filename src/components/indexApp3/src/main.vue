@@ -366,16 +366,5 @@
     background-color:#fff;
     -webkit-border-radius:0;
   }
-  body{
-    scrollbar-arrow-color: #fff; /*三角箭头的颜色*/
-    scrollbar-face-color: #c1c1c1; /*立体滚动条的颜色（包括箭头部分的背景色）*/
-    scrollbar-3dlight-color: #fff; /*立体滚动条亮边的颜色*/
-    scrollbar-highlight-color: #fff; /*滚动条的高亮颜色（左阴影？）*/
-    scrollbar-shadow-color: #fff; /*立体滚动条阴影的颜色*/
-    scrollbar-darkshadow-color: #fff; /*立体滚动条外阴影的颜色*/
-    scrollbar-track-color: #fff; /*立体滚动条背景颜色*/
-    scrollbar-base-color:#000; /*滚动条的基色*/
-  }
-
 </style>
 <style lang="scss" src="../../scss/app-while.scss"></style>

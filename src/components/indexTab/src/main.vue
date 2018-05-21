@@ -144,12 +144,6 @@
     right:80px;}
 .imgBox{float: left;width: 50px;height: 50px;border-radius: 50%;overflow: hidden;background: #000;margin-right: 6px;}
 .personBox{margin-top: 5px;cursor:pointer;position: relative;z-index: 1}/*兼容IE点击事件*/
-
-
-
-
-
-
   .searchForm .el-input__inner{border-radius:3px;}/*添加圆角*/
   .menu_right{top:0}
   .sys_con .sys_route{left:2px;position: relative;box-sizing:border-box;padding: 0px 10px 10px 5px;height: 100%;width:100%;}
@@ -166,6 +160,4 @@
   .searchForm .searchForm--item:first-child{margin-left:10px;}
   #English{font-size: 8px;letter-spacing: -1px}
   hr{margin-top:16px;border:solid 0.5px #e7ecf1}
-
 </style>
-<!--<style src="./css/my.css" scoped></style>-->

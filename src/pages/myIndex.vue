@@ -156,7 +156,6 @@
     },
     methods: {
       handleDrop(toList, data) {
-        debugger
         if(toList.type==data.type){
           let _toList=Object.assign({}, toList);
           let _data=Object.assign({}, data);

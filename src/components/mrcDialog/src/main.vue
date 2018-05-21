@@ -34,13 +34,21 @@
     methods:{
       beforeClose(){
         if(this.dialogData.beforeCloseFn){
-          this.$parent[this.dialogData.beforeCloseFn]();
+          try{
+            this.$parent[this.dialogData.beforeCloseFn]();
+          }catch(err){
+            this.$emit(this.dialogData.beforeCloseFn);
+          }
         }else {
           this.dialogData.show=false
         }
       },
       save(){
-        this.$parent[this.dialogData.saveFn]();
+        try {
+          this.$parent[this.dialogData.saveFn]();
+        }catch(err){
+          this.$emit(this.dialogData.saveFn);
+        }
       }
     },
     mounted: function () {
