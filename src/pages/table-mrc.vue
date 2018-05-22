@@ -20,7 +20,6 @@
       return {
         multipleSelection: [],
         tableData:{
-          dragSort:true,
           description:"用户列表",
           FullScreen:true,
           pagination: {

@@ -69,7 +69,6 @@
       },
     },//开始
     mounted: function () {
-
       this.getTableData();
     },
   }

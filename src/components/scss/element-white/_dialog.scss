@@ -3,13 +3,11 @@
     overflow: hidden;
     border-radius: 6px;
     background: none;
-
     &.autoHeight {
         .el-dialog__body {
-            max-height: none;
+          max-height: 500px;
         }
     }
-
     .el-dialog__header {
         position: relative;
         padding: $space;
@@ -28,14 +26,12 @@
             }
         }
     }
-
     .el-dialog__body {
         overflow-y: auto;
-       // max-height: 450px;
+        max-height: 500px;
         padding: $space;
         background: #fff;
     }
-
     .el-dialog__footer {
         padding: $space-s;
         border-top: 1px solid $border;

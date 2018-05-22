@@ -6,7 +6,7 @@
 
     &.autoHeight {
         .el-dialog__body {
-            max-height: none;
+          max-height: 500px;
         }
     }
 
@@ -31,7 +31,7 @@
 
     .el-dialog__body {
         overflow-y: auto;
-       // max-height: 450px;
+        max-height: 500px;
         padding: $space;
         background: #fff;
     }

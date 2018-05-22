@@ -20,15 +20,6 @@
             {name: "城市", field: "city",width:"",show:true,fixed:false,sortable:true},
             {name: "备注", field: "comment",width:"150",show:true,fixed:false,sortable:false,showOverflowTooltip:true,align:"left",headerAlign:"center"},
           ],
-          pagination: {
-            switch: true,
-            type: "default",
-            CurrentChangeFn: "getTableData",
-            pageSize: 30,
-            pageIndex: 1,
-            layout: "total, sizes, prev, pager, next, jumper",
-            pageSizes: [10, 20, 40],
-          },
           data: [],
           hideToolbar:true,
         },
@@ -37,15 +28,14 @@
     methods: {//开始
       getTableData() {
         let param = {
-          pageIndex: this.tableData.pagination.pageIndex,
+          pageIndex: 1,
           searchData:{},
           sort:"",//排序字段
           sortasc:"",// asc desc
-          pageSize: this.tableData.pagination.pageSize
+          pageSize: 100
         };
         Api.getTableData(param).then((res) => {
           this.tableData.data = res.data.data.content;
-          this.tableData.pagination.total = res.data.data.totalPages;
         })
       },
     },//开始

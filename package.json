@@ -1,6 +1,6 @@
 {
   "name": "vue-mrc",
-  "version": "1.0.23",
+  "version": "1.0.30",
   "description": "vue-mrc",
   "main": "dist/bundle.js",
   "scripts": {
@@ -25,6 +25,7 @@
     "vue-mrc": "^1.0.10",
     "vue-prismjs": "^1.2.0",
     "vue-router": "^3.0.1",
+    "vue-slicksort": "^0.1.6",
     "vue2-editor": "^2.4.2",
     "vuex": "^3.0.1"
   },

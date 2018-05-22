@@ -174,7 +174,7 @@
       </el-table>
       <!--分页栏-->
       <el-pagination
-        v-if="tableData.pagination.switch"
+        v-if="tableData.pagination&&tableData.pagination.switch"
         background
         :page-sizes="tableData.pagination.pageSizes"
         :layout="tableData.pagination.layout"
@@ -378,7 +378,7 @@
       },
       //调整不同情情况表格高度不同
       TableClass(){
-        if(this.tableData.hideToolbar && !this.tableData.pagination.switch){
+        if(this.tableData.hideToolbar && (!this.tableData.pagination||!this.tableData.pagination.switch)){
           return "mrcTable3"
         }else if(!this.tableData.hideToolbar){
           return "mrcTable1"
