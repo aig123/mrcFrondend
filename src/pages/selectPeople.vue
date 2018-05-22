@@ -18,9 +18,21 @@
         filterable
       ></el-cascader>
     </div>
-
     <div>
       <el-transfer v-model="value1" :data="data"></el-transfer>
+    </div>
+    <div>
+      <el-tag style="margin-left: 10px" v-for="peo in multipleSelectDatas.data" :key="peo.id">{{peo.label}}</el-tag>
+      <mrc-multiple-select v-model="multipleSelectDatas" @getTableData="getTableData">
+        <el-form :inline="true" :model="multipleSelectDatas.formData" class="demo-form-inline" style="margin-top: 0px;margin-bottom: -20px">
+          <el-form-item label="" style="margin-left: 3px">
+            <el-input v-model="multipleSelectDatas.formData.user" placeholder="" size="small"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="" size="small">搜索</el-button>
+          </el-form-item>
+        </el-form>
+      </mrc-multiple-select>
     </div>
   </div>
 </template>
@@ -197,7 +209,268 @@
           }]
         }],
           data: generateData(),
-          value1: [1, 4]
+          value1: [1, 4],
+          selectD: [
+          //
+          {
+            id: 9,
+            label: "组织与流程科"
+          },
+          {
+            id: 10,
+            label: "产品与综合业务开发科"
+          },
+          {
+            id: 5,
+            label: "安全保障部"
+          },
+          {
+            id: 6,
+            label: "人员服务部"
+          }
+        ],
+          treeD:[
+            {
+              id: 1,
+              label: "一汽大众有限责任公司成都分公司",
+              children: [
+                {
+                  id: 4,
+                  label: "管理服务部",
+                  children: [
+                    {
+                      id: 9,
+                      label: "组织与流程科"
+                    },
+                    {
+                      id: 10,
+                      label: "产品与综合业务开发科"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              id: 2,
+              label: "一汽大众有限责任公司佛山分公司",
+              children: [
+                {
+                  id: 5,
+                  label: "安全保障部"
+                },
+                {
+                  id: 6,
+                  label: "人员服务部"
+                }
+              ]
+            }
+          ],
+          tableD:{
+            name: "multipleTable",
+            pagination: {
+              switch: true, //是否显示分页
+              type: "default",
+              CurrentChangeFn: "getTableData",
+              pageSize: 15, //每页显示条目个数
+              pageIndex: 1, //当前页数
+              layout: "total, sizes, prev, pager, next, jumper",
+              pageSizes: [10, 20, 40]
+            }, //是否开启分页
+            Checkbox: true, //是否显示复选框
+            selectionChangeFn: "selectionChange", //Select框变化触发方法
+            title: [
+              {
+                name: "工号",
+                field: "id",
+                width: "120",
+                show: true,
+                showOverflowTooltip: true,
+                align: "center",
+                headerAlign: "left"
+              },
+              {
+                name: "部门名称",
+                field: "label",
+                width: "",
+                show: true,
+                showOverflowTooltip: true,
+                align: "left",
+                headerAlign: "left"
+              },
+              {
+                name: "人员",
+                field: "label",
+                width: "",
+                show: true,
+                showOverflowTooltip: true,
+                align: "left",
+                headerAlign: "left"
+              }
+            ],
+            data: [
+              {
+                id: 9,
+                label: "组织与流程科"
+              },
+              {
+                id: 10,
+                label: "产品与综合业务开发科"
+              },
+              {
+                id: 5,
+                label: "安全保障部"
+              },
+              {
+                id: 6,
+                label: "人员服务部"
+              }
+            ]
+          },
+          people:[],
+          formInline: {
+          user: "",
+          region: ""
+        },
+          multipleSelectDatas:{
+            treeD:{
+              defaultProps: {
+                children: 'children',
+                label: 'label'
+              },
+              nodeKey:"id",
+              data:[
+                {
+                  id: 1,
+                  label: "一汽大众有限责任公司成都分公司",
+                  children: [
+                    {
+                      id: 4,
+                      label: "管理服务部",
+                      children: [
+                        {
+                          id: 9,
+                          label: "组织与流程科"
+                        },
+                        {
+                          id: 10,
+                          label: "产品与综合业务开发科"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  id: 2,
+                  label: "一汽大众有限责任公司佛山分公司",
+                  children: [
+                    {
+                      id: 5,
+                      label: "安全保障部"
+                    },
+                    {
+                      id: 6,
+                      label: "人员服务部"
+                    }
+                  ]
+                }
+              ]
+            },
+            selectD:{
+              keyField:{key:'id',name:'label'},
+              data:[
+                //
+                {
+                  id: 9,
+                  label: "组织与流程科"
+                },
+                {
+                  id: 10,
+                  label: "产品与综合业务开发科"
+                },
+                {
+                  id: 5,
+                  label: "安全保障部"
+                },
+                {
+                  id: 6,
+                  label: "人员服务部"
+                }
+              ]
+            },
+            formData:{
+              title:[
+                {type:'input',title:"关键字",user:"",field:"user",placeholder:"关键字"},
+              ],
+              buttons:{name:"搜索",click:"search"},
+              data:{
+                user: "",
+              }
+            },
+            tableData:{
+              name: "multipleTable",
+              pagination: {
+                switch: true, //是否显示分页
+                type: "default",
+                CurrentChangeFn: "getTableData",
+                pageSize: 15, //每页显示条目个数
+                pageIndex: 1, //当前页数
+                layout: "total, sizes, prev, pager, next, jumper",
+                pageSizes: [10, 20, 40]
+              }, //是否开启分页
+              Checkbox: true, //是否显示复选框
+              selectionChangeFn: "selectionChange", //Select框变化触发方法
+              title: [
+                {
+                  name: "工号",
+                  field: "id",
+                  width: "120",
+                  show: true,
+                  showOverflowTooltip: true,
+                  align: "center",
+                  headerAlign: "left"
+                },
+                {
+                  name: "部门名称",
+                  field: "label",
+                  width: "",
+                  show: true,
+                  showOverflowTooltip: true,
+                  align: "left",
+                  headerAlign: "left"
+                },
+                {
+                  name: "人员",
+                  field: "label",
+                  width: "",
+                  show: true,
+                  showOverflowTooltip: true,
+                  align: "left",
+                  headerAlign: "left"
+                }
+              ],
+              data: [
+                {
+                  id: 9,
+                  label: "组织与流程科"
+                },
+                {
+                  id: 10,
+                  label: "产品与综合业务开发科"
+                },
+                {
+                  id: 5,
+                  label: "安全保障部"
+                },
+                {
+                  id: 6,
+                  label: "人员服务部"
+                }
+              ]
+            },
+            data:[],
+            firstTab:true,
+            secondTab:true,
+          }
       }
     }
   };

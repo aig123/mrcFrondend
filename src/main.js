@@ -13,6 +13,7 @@ import mrcSearchForm from './components/mrcSearchForm';
 import mrcDialog from './components/mrcDialog';
 import mrcFullScreen from './components/mrcFullScreen';
 import mrcIframeTab from './components/mrcIframeTab';
+import mrcMultipleSelect from './components/mrcMultipleSelect';
 import { VueEditor, Quill } from 'vue2-editor';
 import VueDND from 'awe-dnd'   //拖拽
 import { Drag, Drop } from 'vue-drag-drop';
@@ -47,6 +48,7 @@ Vue.component('mrc-search-form', mrcSearchForm)
 Vue.component('mrc-dialog', mrcDialog)
 Vue.component('mrc-full-screen', mrcFullScreen)
 Vue.component('mrc-iframe-tab', mrcIframeTab)
+Vue.component('mrc-multiple-select', mrcMultipleSelect)
 import routerMap from "../src/router/routerMap"
 import mock from "./mock/mock"
 mock.bootstrap()
