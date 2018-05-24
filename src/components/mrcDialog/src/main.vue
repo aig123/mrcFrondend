@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    v-drag
+     v-draggable="draggableValue"
     :title="dialogData.title"
     :visible.sync="dialogData.show"
     :width="dialogData.width"
@@ -10,6 +10,7 @@
     class="diaFull"
     >
     <slot></slot>
+    <div slot="title"   style="cursor: move" :ref="handleId">{{dialogData.title}}</div>
     <!--<slot name="CPU">这儿插你的CPU</slot>-->
     <!--<slot name="GPU">这儿插你的显卡</slot>-->
     <!--<slot name="Memory">这儿插你的内存</slot>-->
@@ -22,13 +23,18 @@
   </el-dialog>
 </template>
 <script>
-
+  import { Draggable } from 'draggable-vue-directive'
   export default {
     name: 'mrc-dialog',
     template:'<div><input type="text" type="text" v-model="dialogData"/></div>',
+    directives: {
+      Draggable,
+    },
     data() {
       return {
-        rules: {}
+        rules: {},
+        handleId: "handle-id",
+        draggableValue: { }
       };
     },
     props: ['columns','value'],
@@ -53,6 +59,7 @@
       }
     },
     mounted: function () {
+      this.draggableValue.handle = this.$refs[this.handleId];
       this.dialogData = this.value;
       if(!this.dialogData.cancelButtonText||this.dialogData.cancelButtonText==""){
         if(!this.dialogData.cancelButtonText){

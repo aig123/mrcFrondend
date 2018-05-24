@@ -14,6 +14,7 @@
     "axios": "^0.17.1",
     "axios-mock-adapter": "^1.14.1",
     "babel-preset-es2015": "^6.24.1",
+    "draggable-vue-directive": "^1.2.0",
     "element-ui": "^2.3.9",
     "mockjs": "^1.0.1-beta3",
     "vddl": "^0.7.1",

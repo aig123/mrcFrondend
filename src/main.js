@@ -48,31 +48,6 @@ Vue.component('mrc-dialog', mrcDialog)
 Vue.component('mrc-full-screen', mrcFullScreen)
 Vue.component('mrc-iframe-tab', mrcIframeTab)
 Vue.component('mrc-multiple-select', mrcMultipleSelect);
-Vue.directive('drag', {
-  // 当被绑定的元素插入到 DOM 中时……
-  bind: function (el) {
-    // 聚焦元素
-    el.onmousedown = function(e){
-      var disx = e.clientX - el.offsetLeft;
-      var disy = e.clientY - el.offsetTop;
-      document.onmousemove = function (e){
-        el.style.left = e.clientX - disx+'px';
-        el.style.top = e.clientY - disx+'px';
-
-        if (disx<= 0) {
-          el.style.left = 0 + "px";
-        }
-        if (disy<= 0) {
-          el.style.top = 0 + "px";
-        }
-      }
-      document.onmouseup = function(){
-        document.onmousemove = document.onmouseup = null;
-        //document.onmousemove = null;
-      }
-    }
-  }
-})
 import routerMap from "../src/router/routerMap"
 import mock from "./mock/mock"
 mock.bootstrap()
