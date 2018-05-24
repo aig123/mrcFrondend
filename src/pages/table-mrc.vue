@@ -54,6 +54,7 @@
           title:[//默认显示的搜索内容
             {type:'input',title:language.age,age:"",field:"age",placeholder:language.age},
             {type:'select',title:language.grade,change:"gradeChange",placeholder:language.grade,datafield:{key:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],grade:"",field:"grade"},
+            {type: 'radio', title: "性别", value: "", field: "resource",key: {label: "name", value: "id"},data: [{id: 1, name: "男"}, {id: 2, name: "女"}]},
           ],
           moreTitle:[//点击更多显示的搜索内容
             {type:'input',title:language.name,name:"",field:"name",placeholder:language.name},
@@ -63,6 +64,7 @@
             {type:'input',title:"test6",test6:"",field:"test6",placeholder:language.name},
             {type:'input',title:"test7",test7:"",field:"test7",placeholder:language.age},
             {type:'select',title:"test8",change:"gradeChange",placeholder:language.grade,datafield:{key:"name",value:"id"},data:[{id:1,name:"一年级"},{id:2,name:"二年级"}],test8:"",field:"test8"},
+            {type: 'radio', title: "性别", value: "", field: "resource",key: {label: "name", value: "id"},data: [{id: 1, name: "男"}, {id: 2, name: "女"}]},
           ],
           data:{//绑定搜索栏数据
             age:"",

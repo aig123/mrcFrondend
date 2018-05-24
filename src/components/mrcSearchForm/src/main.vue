@@ -18,6 +18,9 @@
                           type="datetime"
             placeholder="选择日期时间">
           </el-date-picker>
+          <el-radio-group v-model="formData.data[config.field]" v-if="config.type=='radio'" style="line-height: 30px">
+            <el-radio :label="item.name" :value="item.name" :key="item.id" v-for="item in config.data" style="line-height: 30px"></el-radio>
+          </el-radio-group>
 
         </div>
       </div>
@@ -34,6 +37,9 @@
           <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="formData.data[config.field]"
                           v-if="config.type=='date'" size="small"></el-date-picker>
           <el-date-picker v-model="formData.data[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
+          <el-radio-group v-model="formData.data[config.field]" v-if="config.type=='radio'" style="line-height: 30px">
+            <el-radio :label="item.name" :value="item.name" :key="item.id" v-for="item in config.data" style="line-height: 30px"></el-radio>
+          </el-radio-group>
         </div>
       </div>
       <div class="searchForm--item">
