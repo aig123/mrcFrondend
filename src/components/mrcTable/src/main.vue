@@ -22,6 +22,15 @@
       height="80%" style="width: 99%;margin: 0 auto;"
       :class="''+TableClass+''"
     >
+      <el-table-column
+        label="操作"
+        v-if="(tableData.operate&&tableData.operate.length>0)&&(tableData.operatePositon&&tableData.operatePositon=='front')"
+        width="150">
+        <template slot-scope="scope">
+          <el-button @click="operateClick(data.click,scope.row)" :disabled="!scope.row[data.field]" size="mini" type="text"  v-for="data in tableData.operate" :key="data.name" v-if="data.type=='default'"> {{data.name}}</el-button>
+          <el-button @click="operateClick(data.click,scope.row)"  :disabled="!scope.row[data.field]" type="text" size="mini"   v-for="data in tableData.operate" :key="data.name" v-if="data.type=='danger'">{{data.name}}</el-button>
+        </template>
+      </el-table-column>
       <!--v-bind:class="[(tableData.class&&tableData.class!='') ? tableData.class : 'table_Height']"-->
       <!--check多选框-->
       <el-table-column v-if="tableData.dragSort"
@@ -105,7 +114,7 @@
       <!--操作栏-->
       <el-table-column
         label="操作"
-        v-if="tableData.buttons&&tableData.operate.length>0"
+        v-if="(tableData.operate&&tableData.operate.length>0)&&(!tableData.operatePositon||tableData.operatePositon=='end')"
         width="150">
         <template slot-scope="scope">
           <el-button @click="operateClick(data.click,scope.row)" :disabled="!scope.row[data.field]" size="mini" type="text"  v-for="data in tableData.operate" :key="data.name" v-if="data.type=='default'"> {{data.name}}</el-button>
