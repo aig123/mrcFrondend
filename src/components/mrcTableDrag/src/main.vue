@@ -7,10 +7,10 @@
         <th :width="title.width" v-for="title in tableData.title">{{title.name}}</th>
       </tr>
       </thead>
-      <tbody>
-      <tr v-dragging="{ item: data, list:tableData.data, group: 'data'}" v-for="(data,index) in tableData.data" :key="index">
+      <tbody v-sortable="{ handle: '.handle' }">
+      <tr   v-for="(data,index) in tableData.data" :key="index">
         <td style="text-align: center">
-          <i class="el-icon-menu" style="cursor: move"></i>
+          <i class="el-icon-menu handle" style="cursor: move"></i>
         </td>
         <td v-for="title in tableData.title">{{data[title.field]}}</td>
       </tr>

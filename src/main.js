@@ -15,13 +15,16 @@ import mrcFullScreen from './components/mrcFullScreen';
 import mrcIframeTab from './components/mrcIframeTab';
 import mrcMultipleSelect from './components/mrcMultipleSelect';
 import { VueEditor, Quill } from 'vue2-editor';
-import VueDND from 'awe-dnd'   //拖拽
 import { Drag, Drop } from 'vue-drag-drop';
-import Vddl from 'vddl';
 import FullCalendar from 'vue-full-calendar'
+import Sortable from 'sortablejs'
+Vue.directive('sortable', {
+  inserted: function (el, binding) {
+    new Sortable(el, binding.value || {})
+  }
+})
 import 'fullcalendar/dist/fullcalendar.css'
 Vue.use(FullCalendar)
-Vue.use(Vddl);
 import ECharts from 'vue-echarts'
 Vue.component('chart', ECharts)
 //语言切换
@@ -35,7 +38,6 @@ if (localStorage.getItem('ELEMENT_LANGUAGE') == "cn") {
 }
 Vue.use(VueRouter);
 Vue.use(Vuex);
-Vue.use(VueDND)
 Vue.component('drag', Drag);
 Vue.component('drop', Drop);
 

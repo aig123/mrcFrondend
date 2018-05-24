@@ -58,7 +58,7 @@
       <div class="searchForm--item" style="margin-left: 10px" v-if="formData.moreTitle&&formData.moreTitle.length>0">
         <el-button type="primary" @click="moreSearch()" size="small">{{moreName}}</el-button>
       </div>
-      <div class="show-set">
+      <div class="show-set" v-if="false">
         <span class="el-icon-setting" @click="searDialogShow"></span>
       </div>
     </div>

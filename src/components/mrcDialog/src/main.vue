@@ -90,3 +90,8 @@
 
   };
 </script>
+<style>
+  .el-dialog__wrapper{
+    position: fixed!important;
+  }
+</style>
