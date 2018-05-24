@@ -42,7 +42,7 @@
 <script>
   import language  from "../../language/language";
   export default {
-    name: "hh-index-tab",
+    name: "hh-index-tab1",
     data(){
       return {
         close:false,

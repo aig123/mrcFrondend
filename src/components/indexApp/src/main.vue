@@ -38,7 +38,7 @@
 </template>
 <script>
   export default {
-    name: "hh-index-app",
+    name: "hh-index-app1",
     data(){
       return {
         theTitle: "我的应用",

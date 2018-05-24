@@ -40,7 +40,7 @@
 <script>
   import language  from "../../language/language";
   export default {
-    name: "hh-index-tab",
+    name: "hh-index-tab3",
     data(){
       return {
         close:false,

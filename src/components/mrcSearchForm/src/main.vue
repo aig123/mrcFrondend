@@ -13,8 +13,15 @@
           <el-date-picker class="search-input" type="date" placeholder="选择日期" v-model="formData.data[config.field]"
                           v-if="config.type=='date'" size="small"></el-date-picker>
           <el-date-picker v-model="formData.data[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
+          <el-date-picker class="search-input"  v-if="config.type=='datetime'" size="small"
+                          v-model="formData.data[config.field]"
+                          type="datetime"
+            placeholder="选择日期时间">
+          </el-date-picker>
+
         </div>
       </div>
+
       <div class="searchForm--item" v-if="more" v-for="config in formData.moreTitle" :key="config.field">
         <label class="searchForm--item__label"  :style="'width:'+ labelWidth+'px'" style="text-align: right">{{config.title}}</label><!--ÐÞ¸Ä±êÇ©¿í¶È-->
         <div class="searchForm--item__content">
@@ -28,6 +35,9 @@
                           v-if="config.type=='date'" size="small"></el-date-picker>
           <el-date-picker v-model="formData.data[config.field]" v-if="config.type=='daterange'" :type="config.type" :range-separator="config.rangeseparator" :start-placeholder="config.startPlaceholder" :end-placeholder="config.endPlaceholder" style="width: 100%;margin-top:-2px" size="small"></el-date-picker>
         </div>
+      </div>
+      <div class="searchForm--item">
+        <slot></slot>
       </div>
       <div class="searchForm--button" v-if="formData.buttons&&formData.buttons.dataRight">
         <el-button type="primary" @click="search(button.click)" size="small"
@@ -157,7 +167,7 @@
     margin-left: 30px!important;
   }
   .search-input {
-    width: 180px;
+    width: 190px;
     margin-bottom: 5px;}
   .searchForm--item{margin-bottom: -2px}
 </style>

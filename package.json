@@ -1,6 +1,6 @@
 {
   "name": "vue-mrc",
-  "version": "1.0.30",
+  "version": "1.0.37",
   "description": "vue-mrc",
   "main": "dist/bundle.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "axios": "^0.17.1",
     "axios-mock-adapter": "^1.14.1",
     "babel-preset-es2015": "^6.24.1",
-    "element-ui": "^2.3.4",
+    "element-ui": "^2.3.9",
     "mockjs": "^1.0.1-beta3",
     "vddl": "^0.7.1",
     "vue": "^2.5.2",

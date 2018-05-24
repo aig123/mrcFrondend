@@ -20,7 +20,7 @@
           </div>
         </div>
         <div style="position: absolute;cursor:pointer;right:44px;top:30px">
-          <img src="./assets/Logout.png" alt=""  width="26" height="26">
+          <img src="./assets/logout.png" alt=""  width="26" height="26">
         </div>
         <hr />
       </div>

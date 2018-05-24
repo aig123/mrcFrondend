@@ -1,5 +1,6 @@
 <template>
   <el-dialog
+    v-drag
     :title="dialogData.title"
     :visible.sync="dialogData.show"
     :width="dialogData.width"

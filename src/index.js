@@ -2,6 +2,7 @@ import mrcDialog from '../src/components/mrcDialog/index.js';
 import mrcForm from '../src/components/mrcForm/index.js';
 import mrcSearchForm from '../src/components/mrcSearchForm/index.js';
 import mrcTable from '../src/components/mrcTable/index.js';
+import mrcTableSimple from '../src/components/mrcTableSimple/index.js';
 // import hhImportant from '../src/components/HhImportant/index.js';
 // import hhInputNumber from '../src/components/HhInputNumber/index.js';
 // import hhUpload from '../src/components/HhUpload/index.js';
@@ -31,6 +32,7 @@ const components = [
   indexTab4,
   mrcFullScreen,
   mrcIframeTab,
+  mrcTableSimple
 ];
 const install = function(Vue, opts = {}) {
     components.map(component => {

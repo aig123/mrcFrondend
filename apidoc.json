@@ -1,0 +1,14 @@
+{
+  "name": "api文档",
+  "version": "1.0.0",
+  "description": "通讯录api接口文档",
+  "title": "mrc",
+  "url": "localhost:8080",
+  "sampleUrl": "localhost:8080",
+  "order": [
+    "Error",
+    "Define",
+    "PostTitleAndError",
+    "PostError"
+  ]
+}
