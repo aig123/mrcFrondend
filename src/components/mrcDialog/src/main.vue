@@ -2,9 +2,9 @@
   <el-dialog
      v-draggable="draggableValue"
     :title="dialogData.title"
-    :visible.sync="dialogData.show"
+     :visible.sync="dialogData.show"
     :width="dialogData.width"
-    :close-on-click-modal="dialogData.closeOnClickModal"
+    :close-on-click-modal="dialogData.closeOnClickModal?dialogData.closeOnClickModal:false"
     :before-close="beforeClose"
     :fullscreen="dialogData.fullscreen"
     class="diaFull"
@@ -34,7 +34,9 @@
       return {
         rules: {},
         handleId: "handle-id",
-        draggableValue: { }
+        draggableValue: {
+          resetInitialPos:true,
+        }
       };
     },
     props: ['columns','value'],
@@ -91,7 +93,15 @@
   };
 </script>
 <style>
+  /*transform  数值变换的时间 影响了返回跳动*/
+  /*.el-dialog__wrapper{*/
+    /*position: fixed!important;*/
+  /*}*/
   .el-dialog__wrapper{
-    position: fixed!important;
+    -webkit-transition: all 0s 0s linear;
+    -moz-transition:  all 0s 0s linear;
+    -ms-transition:  all 0s 0s linear;
+    -o-transition:  all 0s 0s linear;
+    transition:  all 0s 0s linear;
   }
 </style>

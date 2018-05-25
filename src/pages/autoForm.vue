@@ -119,7 +119,6 @@
           show:false,//手否显示
           title:language.add,//名称
           width:"40%",//宽度设置
-          closeOnClickModal:true,//是否可以通过点击 modal 关闭 Dialog
           saveFn:"onSubmit",//确定触发的方法
           confirmButtonText:language.save, //确定名称
           cancelButtonText:language.cancel   //取消名称
@@ -128,7 +127,6 @@
           show:false,//手否显示
           title:"显示配置",//名称
           width:"60%",//宽度设置
-          closeOnClickModal:true,//是否可以通过点击 modal 关闭 Dialog
           saveFn:"onSubmit",//确定触发的方法
           confirmButtonText:language.save, //确定名称
           cancelButtonText:language.cancel   //取消名称
@@ -137,7 +135,7 @@
           show:false,//手否显示
           title:"form基础配置",//名称
           width:"40%",//宽度设置
-          closeOnClickModal:true,//是否可以通过点击 modal 关闭 Dialog
+
           saveFn:"formSubmit",//确定触发的方法
           confirmButtonText:language.save, //确定名称
           cancelButtonText:language.cancel   //取消名称

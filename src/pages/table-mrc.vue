@@ -129,7 +129,6 @@
           show:false,//手否显示
           title:language.add,//名称
           width:"40%",//宽度设置
-          closeOnClickModal:true,//是否可以通过点击 modal 关闭 Dialog
           beforeCloseFn:"beforeCloseFn",//关闭前的回调，会暂停 Dialog 的关闭
           saveFn:"save",//确定触发的方法
           confirmButtonText:language.save, //确定名称
@@ -140,7 +139,7 @@
           fullscreen:true,
           title:language.add,//名称
           width:"100%",//宽度设置
-          closeOnClickModal:true,//是否可以通过点击 modal 关闭 Dialog
+
           beforeCloseFn:"beforeCloseFn1",//关闭前的回调，会暂停 Dialog 的关闭
           saveFn:"save1",//确定触发的方法
           confirmButtonText:"确定", //确定名称
