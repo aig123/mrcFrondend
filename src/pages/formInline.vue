@@ -15,6 +15,7 @@
           source: "",
         },
         formData:{
+          labelWidth:100,
           name:"form",
           inline:true,//判断是否表单元素为行内元素
           buttons:[{name:"立即创建",click:"submitForm",type:"primary"},{name:"重置",click:"resetForm",type:""}],

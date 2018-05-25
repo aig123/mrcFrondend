@@ -149,7 +149,6 @@
     .sys_route{
       position: relative;
       box-sizing:border-box;
-      padding: 0px 10px 10px 5px;
       height: 100%;
       width:100%;
     }

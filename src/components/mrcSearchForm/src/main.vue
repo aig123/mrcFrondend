@@ -1,6 +1,7 @@
 <template>
   <section>
-    <div class="searchForm" style="margin-bottom: 8px" ref="searchForm">
+    <div style="padding-top:6px;"><!--解决searchForm上下都有距离-->
+    <div class="searchForm" style="margin-bottom: 6px;" ref="searchForm">
       <div class="searchForm--item" v-if="!more" v-for="config in formData.title" :key="config.field">
         <label class="searchForm--item__label"  :style="'width:'+ labelWidth+'px'" style="text-align: right">{{config.title}}</label>
         <div class="searchForm--item__content">
@@ -77,7 +78,7 @@
            <el-button type="primary" @click="save">确 定</el-button>
       </span>
     </el-dialog>
-
+    </div>
   </section>
 </template>
 <script>

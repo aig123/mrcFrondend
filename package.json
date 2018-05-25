@@ -17,6 +17,7 @@
     "draggable-vue-directive": "^1.2.0",
     "element-ui": "^2.3.9",
     "mockjs": "^1.0.1-beta3",
+    "sortablejs": "^1.7.0",
     "vddl": "^0.7.1",
     "vue": "^2.5.2",
     "vue-drag-drop": "^0.2.4",
